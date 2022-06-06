@@ -1,0 +1,11 @@
+{% extends 'document-web.html.twig' %}
+
+{% set bodyClass = "layout-public " ~ (bodyClass | default('')) %}
+{% set currentRoute = app.request.attributes.get('_route') %}
+
+{% block body %}
+	<div id="PageContent">
+		{% block contents %}{% endblock %}
+	</div>
+{% endblock %}
+

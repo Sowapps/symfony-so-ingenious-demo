@@ -1,0 +1,20 @@
+// All rendering style of package
+
+// Import Custom SCSS
+@import "startbootstrap-sb-admin/src/scss/global.scss";
+
+// Layout
+@import "startbootstrap-sb-admin/src/scss/layout/authentication.scss";
+@import "startbootstrap-sb-admin/src/scss/layout/dashboard-default.scss";
+@import "startbootstrap-sb-admin/src/scss/layout/dashboard-fixed.scss";
+@import "startbootstrap-sb-admin/src/scss/layout/error.scss";
+
+// Navigation
+@import "startbootstrap-sb-admin/src/scss/navigation/nav.scss";
+@import "startbootstrap-sb-admin/src/scss/navigation/topnav.scss";
+@import "startbootstrap-sb-admin/src/scss/navigation/sidenav/sidenav.scss";
+@import "startbootstrap-sb-admin/src/scss/navigation/sidenav/sidenav-dark.scss";
+@import "startbootstrap-sb-admin/src/scss/navigation/sidenav/sidenav-light.scss";
+
+// Plugins
+@import "startbootstrap-sb-admin/src/scss/plugins/simple-datatables.scss";

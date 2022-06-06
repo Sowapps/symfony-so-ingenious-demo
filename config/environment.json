@@ -1,0 +1,47 @@
+{
+	"_readme": [
+		"This file presents the environments values set by Ansible",
+		"This file is @generated automatically"
+	],
+	"environment_id": "FH",
+	"environment_name": "DEV",
+	"environment_level": "dev",
+	"project_name": "so-ingenious-demo",
+	"projects": {
+		"so-ingenious-demo": {
+			"path": "/home/sowapps/www/so-ingenious-demo",
+			"url": "http://so-ingenious.local",
+			"version": "dev"
+		},
+		"holidays-at-nimes-website": {
+			"path": "/home/sowapps/www/holidays-at-nimes-website",
+			"url": "http://holidays-at-nimes.local",
+			"version": "dev"
+		},
+		"learning-skids": {
+			"path": "/home/sowapps/www/learning-skids",
+			"url": "http://learning-skids.local",
+			"version": "dev"
+		},
+		"orpheus-website": {
+			"path": "/home/sowapps/www/orpheus-website",
+			"url": "http://orpheus.local",
+			"version": "dev"
+		},
+		"orpheus-doc": {
+			"path": "/home/sowapps/www/orpheus-doc",
+			"url": "http://doc.orpheus.local",
+			"version": "dev"
+		},
+		"sowapps-website": {
+			"path": "/home/sowapps/www/sowapps-website",
+			"url": "http://sowapps.local",
+			"version": "dev"
+		},
+		"the-project-manager": {
+			"path": "/home/sowapps/www/the-project-manager",
+			"url": "http://theprojectmanager.local",
+			"version": "dev"
+		}
+	}
+}

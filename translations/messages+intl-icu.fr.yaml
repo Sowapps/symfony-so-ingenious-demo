@@ -1,0 +1,126 @@
+app:
+    label: "SoIngenious"
+
+action:
+    abort: "Annuler"
+    accept: "Valider"
+    add: "Ajouter"
+    administrate: "Administrer"
+    answer: "Répondre"
+    approve: "Approuver"
+    archive: "Archiver"
+    back: "Retour"
+    book: "Réserver"
+    browse: "Parcourir"
+    cancel: "Annuler"
+    change: "Modifier"
+    chat: "Discuter"
+    check: "Vérifier"
+    confirm: "Confirmer"
+    close: "Fermer"
+    coffeeTime: "C'est l'heure du café..."
+    create: "Créer"
+    discover: "Découvrir"
+    delete: "Supprimer"
+    download: "Télécharger"
+    edit: "Éditer"
+    import: "Importer"
+    join: "Rejoindre"
+    login: "Se connecter"
+    logout: "Se déconnecter"
+    next: "Suivant"
+    ok: "OK"
+    preview: "Aperçu"
+    publish: "Publier"
+    remove: "Retirer"
+    enable: "Activer"
+    disable: "Désactiver"
+    register: "S'inscrire"
+    reject: "Refuser"
+    resume: "Continuer"
+    save: "Sauvegarder"
+    search: "Rechercher"
+    see: "Voir"
+    send: "Envoyer"
+    sending: "Envoi en cours..."
+    transfer: "Transférer"
+    upload: "Envoyer"
+    unpublish: "Dé-publier"
+    update: "Mettre à jour"
+
+clipboard:
+    copied: "Copié"
+actions: "Actions"
+
+date:
+    format:
+        short_datetime: "d/m/Y H\\hi"
+        short_date: "d/m/Y"
+        year_date: "d/m"
+        input_date: "dd/MM/yyyy"
+        input_datetime: "dd/MM/yyyy HH:mm"
+        placeholder_date: "JJ/MM/AAAA"
+        long_datetime: "H\\hi \\l\\e d F Y"
+        long_date: "d F Y"
+        longer_date: "l d F Y"
+        long_time: "H\\hi"
+        long_time_pct: "%Hh%I"
+        long_day: "l j"
+        long_month: "F Y"
+        text_datetime: "\\l\\e d F Y \\à H\\hi"
+        appointment_datetime: "l d F \\à H\\hi"
+    day:
+        monday: "Lundi"
+        tuesday: "Mardi"
+        wednesday: "Mercredi"
+        thursday: "Jeudi"
+        friday: "Vendredi"
+        saturday: "Samedi"
+        sunday: "Dimanche"
+    dayShort:
+        monday: "Lun"
+        tuesday: "Mar"
+        wednesday: "Mer"
+        thursday: "Jeu"
+        friday: "Ven"
+        saturday: "Sam"
+        sunday: "Dim"
+    month:
+        january: "Janvier"
+        february: "Février"
+        march: "Mars"
+        april: "Avril"
+        may: "Mai"
+        june: "Juin"
+        july: "Juillet"
+        august: "Août"
+        september: "Septembre"
+        october: "Octobre"
+        november: "Novembre"
+        december: "Décembre"
+    at_time: "à {time}"
+
+unit:
+    km:
+        short: "{0} km"
+        until: "Jusqu'à {0} km"
+    price:
+        short: "{0} {1}"
+    minute:
+        short: "{0} min"
+    percent:
+        short: "{0, number} %" # https://symfony.com/doc/current/translation/message_format.html#numbers
+
+entity:
+    getById:
+        notFound: "La valeur « {id} » n'est pas valide"
+    field:
+        name: "Nom"
+        date: "Date"
+
+page:
+    home:
+        label: "Accueil"
+        title: "Accueil"
+        description: "Page d'accueil"
+

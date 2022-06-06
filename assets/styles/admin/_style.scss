@@ -1,0 +1,17 @@
+
+body.mode-debug {
+  #layoutAuthentication {
+    // Let space for sf toolbar
+    min-height: calc(100vh - 36px);
+  }
+}
+
+#layoutAuthentication {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+  #layoutAuthentication_footer .bg-light {
+    --bs-bg-opacity: 0.85;
+  }
+}

@@ -1,0 +1,47 @@
+{#
+@var string bodyController
+#}
+
+{# {% set currentLanguage = language.languageByLocale(app.request.locale) %} #}
+<!doctype html>
+{# <html lang="{{ currentLanguage.primaryCode }}"> #}
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<title>
+		{%- block title -%}
+			{%- if pageTitle is defined -%}
+				{{- ( 'app.label' | trans ) ~ ' : ' ~ pageTitle -}}
+			{%- else -%}
+				{{- documentTitle | default('app.label' | trans) -}}
+			{%- endif -%}
+		{%- endblock -%}
+	</title>
+	{% block metas %}
+		{%- if documentDescription is defined -%}
+			<meta name="description" content="{{ documentDescription }}">
+		{%- endif -%}
+	{% endblock metas %}
+	
+	<link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+	
+	{% block stylesheets -%}
+		{#- All stylesheets must be include in yarn & app.js    -#}
+		{{- encore_entry_link_tags('app') -}}
+	{%- endblock %}
+</head>
+{% block document_body -%}
+	<body class="{{ bodyClass | default }}"{%- if bodyController is defined %} data-controller="{{ bodyController }}"{% endif %}>
+	
+	{% block body %}{% endblock %}
+	
+	{% block javascripts %}
+		{{ encore_entry_script_tags('app') }}
+		
+		<div id="ExternalLibraryWrapper"></div>
+	{% endblock -%}
+	</body>
+{%- endblock %}
+</html>

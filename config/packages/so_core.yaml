@@ -1,0 +1,13 @@
+so_core:
+    user:
+        class: \App\Entity\User
+        activation:
+            expire_hours: 48
+        recover:
+            expire_hours: 4
+    admin:
+        auth:
+            background:
+                - 'bundles/socore/img/login-backgrounds/harley-davidson-bs1eqd6zSiU-unsplash.jpg'
+                - 'bundles/socore/img/login-backgrounds/mark-harpur-K2s_YE031CA-unsplash.jpg'
+                - 'bundles/socore/img/login-backgrounds/pietro-de-grandi-T7K4aEPoGGk-unsplash.jpg'
