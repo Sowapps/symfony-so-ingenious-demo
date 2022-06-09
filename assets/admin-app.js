@@ -5,15 +5,8 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 
-// Dependencies
-
-import '@popperjs/core';
-
-// Bootstrap - https://getbootstrap.com/docs/5.1/getting-started/webpack/
-
-
 // App SCSS
-import './styles/app-admin.scss';
+import './styles/admin-app.scss';
 
 // Stimulus application
 import './bootstrap';

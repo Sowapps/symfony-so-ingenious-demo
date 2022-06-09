@@ -5,6 +5,18 @@ so_core:
             expire_hours: 48
         recover:
             expire_hours: 4
+    email:
+        from:
+            name: "SoIngenious"
+            email: "no-reply@sowapps.com"
+        contact:
+            name: "Contact Sowapps"
+            email: "contact@sowapps.com"
+        online_view:
+            expire_hours: 48
+    file:
+        store_path: "%kernel.project_dir%/var/store/files"
+        public_path: "%kernel.project_dir%/public"
     admin:
         auth:
             background:

@@ -1,0 +1,30 @@
+language:
+    class: Sowapps\SoCoreBundle\Entity\Language
+    items:
+        -   _ref: "language_french"
+            key: "french"
+            locale: "fr"
+            primaryCode: "fr"
+            regionCode: "FR"
+            enabled: true
+        -   _ref: "language_english"
+            key: "english"
+            locale: "en"
+            primaryCode: "en"
+            regionCode: "US"
+            enabled: true
+
+user:
+    class: App\Entity\User
+    items:
+        -   _ref: "user_default"
+            name: "Sowapps"
+            email: "contact@sowapps.com"
+            password: "password(test)"
+            activationDate: 2022-06-06T15:59:43.1Z
+            roles:
+                - 'ROLE_USER'
+                - 'ROLE_DEVELOPER'
+            timezone: "Europe/Paris"
+            language: "#language_french"
+

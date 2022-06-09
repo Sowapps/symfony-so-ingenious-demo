@@ -53,6 +53,7 @@ $sfCommands = [
 	'demo:establishment:generate',
 	'cache:clear',
 	'doctrine:cache:clear-query',
+	'assets:install',
 	'make:entity',
 	'make:migration',
 	'doctrine:migrations:migrate',

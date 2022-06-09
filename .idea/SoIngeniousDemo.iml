@@ -106,6 +106,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/sowapps/so-ingenious-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sowapps/so-core-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfonycasts/verify-email-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/data-fixtures" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

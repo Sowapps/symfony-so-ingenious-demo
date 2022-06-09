@@ -1,8 +1,18 @@
+$sf-toolbar-height: 36px;
 
 body.mode-debug {
+  // Login page
   #layoutAuthentication {
     // Let space for sf toolbar
-    min-height: calc(100vh - 36px);
+    min-height: calc(100vh - #{$sf-toolbar-height});
+  }
+  
+  // Admin page - left menu
+  &.sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav,
+  &.sb-nav-fixed #layoutSidenav #layoutSidenav_content {
+    // Let space for sf toolbar
+    //height: calc(100vh - #{$sf-toolbar-height});
+    padding-bottom: #{$sf-toolbar-height};
   }
 }
 
@@ -13,5 +23,21 @@ body.mode-debug {
   
   #layoutAuthentication_footer .bg-light {
     --bs-bg-opacity: 0.85;
+  }
+}
+
+.menu-profile-image img {
+  width: 100%;
+  max-height: 100px;
+  object-fit: contain;
+}
+
+.menu-profile-info {
+  text-align: center;
+  
+  small {
+    display: block;
+    font-weight: 700;
+    font-size: 0.75em;
   }
 }

@@ -28,6 +28,18 @@ security:
                 login_path: admin_login
                 check_path: admin_login
                 enable_csrf: true
+                default_target_path: admin_home
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 172800 # 2 days
+                path: /
+                always_remember_me: true
+            logout:
+                # Intercept logout when getting to "path" route
+                path: security_logout
+                # After logged out, redirect user to the "target" route
+                target: home
+
 
     # https://symfony.com/doc/current/security.html#hierarchical-roles
     role_hierarchy:
