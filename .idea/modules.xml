@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../so-ingenious-bundle/.idea/SoIngeniousBundle.iml" filepath="$PROJECT_DIR$/../so-ingenious-bundle/.idea/SoIngeniousBundle.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/SoIngeniousDemo.iml" filepath="$PROJECT_DIR$/.idea/SoIngeniousDemo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../so-core-bundle/.idea/symfony-so-core-bundle.iml" filepath="$PROJECT_DIR$/../so-core-bundle/.idea/symfony-so-core-bundle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../so-core-bundle/.idea/so-core-bundle.iml" filepath="$PROJECT_DIR$/../so-core-bundle/.idea/so-core-bundle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../so-ingenious-bundle/.idea/so-ingenious-bundle.iml" filepath="$PROJECT_DIR$/../so-ingenious-bundle/.idea/so-ingenious-bundle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/so-ingenious-demo.iml" filepath="$PROJECT_DIR$/.idea/so-ingenious-demo.iml" />
     </modules>
   </component>
 </project>

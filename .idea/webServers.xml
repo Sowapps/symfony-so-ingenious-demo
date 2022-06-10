@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="bcddc86d-036f-4a59-b465-9eb9b448e96b" name="Local Sowapps Web" url="http://so-ingenious.local">
-        <fileTransfer rootFolder="/home/sowapps/www/" accessType="SFTP" host="sowapps.local" port="22" sshConfigId="0f240060-740b-4592-a94f-ce987e382211" sshConfig="Sowapps @ Sowapps Local" keyPair="true">
+      <webServer id="9ef6c8c9-e2ca-4963-84ef-355b9316abc7" name="Local SoIngenious" url="http://so-ingenious.local/">
+        <fileTransfer rootFolder="/home/sowapps/www" accessType="SFTP" host="sowapps.local" port="22" sshConfigId="0f240060-740b-4592-a94f-ce987e382211" sshConfig="Root @ Sowapps Local" keyPair="true">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

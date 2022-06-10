@@ -6,6 +6,7 @@
 
 $gitCommands = [
 	'update-index --chmod=+x FILE',
+	'rm --cached FILE',
 ];
 
 echo "\nGit common commands\n\n";

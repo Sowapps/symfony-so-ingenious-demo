@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="Local Sowapps Web" preserveTimestamps="false" deleteMissingItems="true" createEmptyFolders="true" traceLevel="BRIEF" confirmBeforeUploading="false" autoUploadExternalChanges="true">
-    <option name="confirmBeforeUploading" value="false" />
+  <component name="PublishConfigData" autoUpload="Always" serverName="Local SoIngenious" overwriteAll="false" deleteMissingItems="true" createEmptyFolders="true" autoUploadExternalChanges="true">
     <serverData>
-      <paths name="Local Sowapps Web">
+      <paths name="BGA Server">
         <serverdata>
           <mappings>
-            <mapping deploy="/so-ingenious-demo/" local="$PROJECT_DIR$" web="/" />
-            <mapping deploy="/so-ingenious-demo/public/" local="$PROJECT_DIR$/public/" web="/" />
-            <mapping deploy="/so-ingenious-bundle/" local="$PROJECT_DIR$/../so-ingenious-bundle/" web="/" />
-            <mapping deploy="/so-core-bundle/" local="$PROJECT_DIR$/../so-core-bundle/" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Local Look&amp;Lib">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Local SoIngenious">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/so-ingenious-demo" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/so-core-bundle" local="$PROJECT_DIR$/../so-core-bundle" web="/" />
+            <mapping deploy="/so-ingenious-bundle" local="$PROJECT_DIR$/../so-ingenious-bundle" web="/" />
           </mappings>
         </serverdata>
       </paths>
