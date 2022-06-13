@@ -2,6 +2,7 @@ doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
         types:
+            enum_email_purpose: Sowapps\SoCoreBundle\DBAL\EnumEmailPurposeType
             enum_file_purpose: Sowapps\SoCoreBundle\DBAL\EnumFilePurposeType
             enum_file_source: Sowapps\SoCoreBundle\DBAL\EnumFileSourceType
     orm:

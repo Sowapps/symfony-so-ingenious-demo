@@ -5,44 +5,67 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b70bf8c2-9967-4425-bff4-6e7ec301da34" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/migrations/Version20220610102608.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../so-core-bundle/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../so-core-bundle/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../so-core-bundle/.idea/scopes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../so-core-bundle/.idea/symfony-so-core-bundle.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../so-core-bundle/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../so-core-bundle/src/Core/DBAL/AbstractEnumArrayType.php" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/src/Core/DBAL/AbstractEnumArrayType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../so-core-bundle/src/Core/DBAL/AbstractEnumType.php" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/src/Core/DBAL/AbstractEnumType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../so-core-bundle/src/DBAL/EnumFilePurposeType.php" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/src/DBAL/EnumFilePurposeType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../so-core-bundle/src/DBAL/EnumFileSourceType.php" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/src/DBAL/EnumFileSourceType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/src/Controller/Admin/AdminUserController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/src/Core/Entity/EntityReference.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/src/Core/Entity/TimeBoundable.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/src/Core/Entity/TimeRange.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/src/Core/Form/AbstractUserForm.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/src/Core/Form/Creator/Form.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/src/Core/Form/Creator/FormCreator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/src/DBAL/EnumEmailPurposeType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/src/Entity/EmailMessage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/src/Entity/EmailSubscription.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/src/Form/User/UserAdminForm.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/src/Form/User/UserAdminPasswordType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/src/Form/User/UserType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/src/Repository/EmailMessageRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/src/Repository/EmailSubscriptionRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/src/Service/CalendarHelper.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/src/Service/EmailService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/src/Service/MailingService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/templates/admin/page/user-edit.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/templates/admin/page/user-list.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/templates/component/alert.error.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/templates/component/alert.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/templates/component/alert.success.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/templates/component/dialog.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/templates/component/panel.admin.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../so-core-bundle/templates/component/panel.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/controllers/abstract.controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/controllers/admin/table_controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/controllers/component/form_controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/controllers/input/timezone_controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/vendor/orpheus/js/orpheus-confirm-dialog.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/vendor/orpheus/js/orpheus.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/vendor/orpheus/scss/_select2.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exception/DisabledAccountException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exception/ForbiddenOperationException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exception/InvalidStatusException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exception/ParseException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exception/UnactivatedAccountException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exception/UserException.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../so-core-bundle/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/config/routes.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../so-core-bundle/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../so-core-bundle/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../so-core-bundle/src/Core/Controller/AbstractController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/src/Core/Controller/AbstractController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../so-core-bundle/src/Core/Environment/Environment.php" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/src/Core/Environment/Environment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../so-core-bundle/src/Core/Environment/EnvironmentProject.php" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/src/Core/Environment/EnvironmentProject.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../so-core-bundle/src/Core/Form/AbstractForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/src/Core/Form/AbstractForm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../so-core-bundle/src/Entity/AbstractEntity.php" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/src/Entity/AbstractEntity.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../so-core-bundle/src/Form/User/UserRegisterForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/src/Form/User/UserRegisterForm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../so-core-bundle/src/Repository/AbstractUserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/src/Repository/AbstractUserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../so-core-bundle/src/Service/AbstractEntityService.php" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/src/Service/AbstractEntityService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../so-core-bundle/src/Service/FileService.php" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/src/Service/FileService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../so-core-bundle/src/Service/LanguageService.php" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/src/Service/LanguageService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../so-core-bundle/src/Twig/TwigExtension.php" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/src/Twig/TwigExtension.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../so-core-bundle/templates/admin/section/menu-sidebar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/templates/admin/section/menu-sidebar.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../so-ingenious-bundle/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../so-ingenious-bundle/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../so-ingenious-bundle/.idea/SoIngeniousBundle.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../so-ingenious-bundle/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../so-ingenious-bundle/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../so-ingenious-bundle/.idea/scopes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../so-ingenious-bundle/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.local" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/SoIngeniousDemo.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/scopes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/symfony2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webServers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/console" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../so-core-bundle/templates/widget/menu-item.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/templates/component/menu-item.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../so-core-bundle/templates/widget/menu.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/templates/component/menu.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../so-core-bundle/translations/admin+intl-icu.fr.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/translations/admin+intl-icu.fr.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../so-core-bundle/translations/messages+intl-icu.fr.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../so-core-bundle/translations/messages+intl-icu.fr.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/so-ingenious-demo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/so-ingenious-demo.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/packages/doctrine.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/doctrine.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20220605004511.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/help.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/help.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,9 +79,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../so-core-bundle" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="PhpDebugGeneral" listening_started="true" />
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/phpstan/phpdoc-parser" />
@@ -171,6 +203,7 @@
   <component name="ProjectId" id="2ANLWqBT3bNz5n2lybF9HSOGhFf" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="false" id="Update" />
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -180,13 +213,25 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../so-ingenious-bundle" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../so-core-bundle/templates/component" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Workspaces\git\so-core-bundle\templates\component" />
+      <recent name="D:\Workspaces\git\so-ingenious-demo\src" />
+      <recent name="D:\Workspaces\git\so-ingenious-demo\assets" />
+      <recent name="D:\Workspaces\git\so-ingenious-demo\assets\controllers" />
+      <recent name="D:\Workspaces\git\so-ingenious-demo\assets\controllers\component" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Workspaces\git\so-core-bundle\src\Core\Form\Creator" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -197,11 +242,30 @@
       <option name="presentableId" value="Default" />
       <updated>1654845130667</updated>
       <workItem from="1654845131937" duration="139000" />
-      <workItem from="1654849180794" duration="5534000" />
+      <workItem from="1654849180794" duration="17783000" />
+      <workItem from="1654929826065" duration="175000" />
+      <workItem from="1654930024644" duration="6586000" />
     </task>
+    <task id="LOCAL-00001" summary="First working admin menu">
+      <created>1654866660819</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1654866660819</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="First working admin menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="First working admin menu" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>
