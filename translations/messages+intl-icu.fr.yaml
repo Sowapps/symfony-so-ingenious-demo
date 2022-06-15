@@ -10,6 +10,7 @@ action:
     approve: "Approuver"
     archive: "Archiver"
     back: "Retour"
+    backHome: "Retour à l'accueil"
     book: "Réserver"
     browse: "Parcourir"
     cancel: "Annuler"

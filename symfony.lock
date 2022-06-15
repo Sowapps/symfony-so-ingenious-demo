@@ -17,6 +17,9 @@
     "doctrine/common": {
         "version": "3.3.0"
     },
+    "doctrine/data-fixtures": {
+        "version": "1.5.3"
+    },
     "doctrine/dbal": {
         "version": "3.3.6"
     },
@@ -144,6 +147,9 @@
         "version": "dev-main"
     },
     "sowapps/so-ingenious-bundle": {
+        "version": "dev-main"
+    },
+    "sowapps/so-log-bundle": {
         "version": "dev-main"
     },
     "symfony/apache-pack": {

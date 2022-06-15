@@ -23,6 +23,7 @@ Encore
 	.addEntry('app', './assets/app.js')
 	.addEntry('admin-dependencies', './assets/admin-dependencies.js')
 	.addEntry('admin-app', './assets/admin-app.js')
+	.addStyleEntry('email', './assets/styles/email.scss')
 	
 	// enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
 	.enableStimulusBridge('./assets/controllers.json')

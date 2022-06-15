@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Symfony2PluginSettings">
+    <option name="pluginEnabled" value="true" />
+    <option name="twigNamespaces">
+      <list>
+        <twig_namespace enabled="false" namespace="SoCore" namespaceType="ADD_PATH" path="/home/sowapps/www/so-core-bundle/templates" />
+        <twig_namespace custom="true" namespace="SoCore" namespaceType="ADD_PATH" path="H:/Workspaces/git/so-core-bundle/templates" />
+        <twig_namespace custom="true" namespace="SoLog" namespaceType="ADD_PATH" path="H:/Workspaces/git/so-log-bundle/templates" />
+      </list>
+    </option>
+    <option name="methodParameterSettings">
+      <list>
+        <method_parameter_settings CallTo="\Sowapps\SoCoreBundle\Service\EmailService" contributorName="parameter" IndexParameter="3" MethodName="createFromTemplate" ReferenceProviderName="template" />
+      </list>
+    </option>
+  </component>
+</project>

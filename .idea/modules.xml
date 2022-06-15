@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/../so-core-bundle/.idea/so-core-bundle.iml" filepath="$PROJECT_DIR$/../so-core-bundle/.idea/so-core-bundle.iml" />
       <module fileurl="file://$PROJECT_DIR$/../so-ingenious-bundle/.idea/so-ingenious-bundle.iml" filepath="$PROJECT_DIR$/../so-ingenious-bundle/.idea/so-ingenious-bundle.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/so-ingenious-demo.iml" filepath="$PROJECT_DIR$/.idea/so-ingenious-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../so-log-bundle/.idea/so-log-bundle.iml" filepath="$PROJECT_DIR$/../so-log-bundle/.idea/so-log-bundle.iml" />
     </modules>
   </component>
 </project>

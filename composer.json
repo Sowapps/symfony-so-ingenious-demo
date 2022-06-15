@@ -10,6 +10,10 @@
 		},
 		{
 			"type": "path",
+			"url": "../so-log-bundle"
+		},
+		{
+			"type": "path",
 			"url": "../so-ingenious-bundle"
 		}
 	],
@@ -27,6 +31,7 @@
 		"sensio/framework-extra-bundle": "^6.1",
 		"sowapps/so-core-bundle": "*",
 		"sowapps/so-ingenious-bundle": "*",
+		"sowapps/so-log-bundle": "*",
 		"symfony/apache-pack": "^1.0",
 		"symfony/asset": "6.1.*",
 		"symfony/console": "6.1.*",
@@ -58,7 +63,9 @@
 		"symfony/webpack-encore-bundle": "^1.12",
 		"symfony/yaml": "6.1.*",
 		"symfonycasts/verify-email-bundle": "^1.10",
+		"twig/cssinliner-extra": "^3.4",
 		"twig/extra-bundle": "^2.12|^3.0",
+		"twig/string-extra": "^3.4",
 		"twig/twig": "^2.12|^3.0"
 	},
 	"config": {

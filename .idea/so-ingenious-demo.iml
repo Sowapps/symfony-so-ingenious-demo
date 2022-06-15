@@ -116,5 +116,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="so-core-bundle" />
     <orderEntry type="module" module-name="so-ingenious-bundle" />
+    <orderEntry type="module" module-name="so-log-bundle" />
   </component>
 </module>

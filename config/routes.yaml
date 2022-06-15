@@ -1,6 +1,9 @@
 so_core:
     resource: '@SoCoreBundle/config/routes.yaml'
 
+so_log:
+    resource: '@SoLogBundle/config/routes.yaml'
+
 home:
     path: /
     controller: App\Controller\HomeController::home

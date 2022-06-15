@@ -1,0 +1,8 @@
+{% extends "@!SoCore/admin/section/menu-sidebar.html.twig" %}
+{% import "@SoCore/component/menu.html.twig" as menu %}
+
+{%- block menu_main -%}
+	{{ parent() }}
+	
+	{{ menu.item('page.admin_log_view.label' | trans([], 'admin'), path('admin_log_view'), 'fa-solid fa-bug') }}
+{%- endblock -%}
