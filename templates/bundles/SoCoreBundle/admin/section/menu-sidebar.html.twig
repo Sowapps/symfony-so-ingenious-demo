@@ -4,5 +4,6 @@
 {%- block menu_main -%}
 	{{ parent() }}
 	
+	{{ menu.item('page.admin_language_list.label' | trans([], 'admin'), path('admin_language_list'), 'fa-solid fa-language') }}
 	{{ menu.item('page.admin_log_view.label' | trans([], 'admin'), path('admin_log_view'), 'fa-solid fa-bug') }}
 {%- endblock -%}

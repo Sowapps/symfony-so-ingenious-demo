@@ -14,7 +14,5 @@ import '@popperjs/core';
 // Bootstrap is imported implicitly
 import 'startbootstrap-sb-admin/src/js/scripts.js';
 
-import '@sowapps/so-core/vendor/orpheus/js/orpheus.js';
-
 // App dependencies SCSS
 import './styles/admin-dependencies.scss';

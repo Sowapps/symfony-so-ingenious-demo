@@ -7,14 +7,14 @@ $font-awesome: 'Font Awesome 6 Free';
 
 //$block-border-radius: .5rem;
 
-// Defined in Color Admin
-//$grid-breakpoints: (
-//    xs: 0,
-//    sm: 576px,
-//    md: 768px,
-//    lg: 992px,
-//    xl: 1200px,
-//    xxl: 1400px,
-//    hg: 1900px, // Custom : Huge
-//    xh: 2500px // Custom : Extra Huge
-//);
+// Bootstrap
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px,
+    hg: 1900px, // Custom : Huge
+    xh: 2500px // Custom : Extra Huge
+);
