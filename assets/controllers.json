@@ -1,43 +1,14 @@
 {
-	"controllers": {
-		"@sowapps/so-core": {
-			"confirm": {
-				"enabled": true,
-				"fetch": "eager"
-			},
-			"confirm-dialog": {
-				"enabled": true,
-				"fetch": "eager"
-			},
-			"dialog": {
-				"enabled": true,
-				"fetch": "eager"
-			},
-			"form": {
-				"enabled": true,
-				"fetch": "eager"
-			},
-			"language-dialog": {
-				"enabled": true,
-				"fetch": "lazy"
-			},
-			"language-list": {
-				"enabled": true,
-				"fetch": "lazy"
-			},
-			"log": {
-				"enabled": true,
-				"fetch": "lazy"
-			},
-			"table": {
-				"enabled": true,
-				"fetch": "eager"
-			},
-			"timezone": {
-				"enabled": true,
-				"fetch": "lazy"
-			}
-		}
-	},
-	"entrypoints": []
+    "controllers": {
+        "@symfony/ux-dropzone": {
+            "dropzone": {
+                "enabled": true,
+                "fetch": "eager",
+                "autoimport": {
+                    "@symfony/ux-dropzone/src/style.css": true
+                }
+            }
+        }
+    },
+    "entrypoints": []
 }

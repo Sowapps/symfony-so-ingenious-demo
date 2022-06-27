@@ -2,9 +2,10 @@ doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
         types:
-            enum_email_purpose: Sowapps\SoCoreBundle\DBAL\EnumEmailPurposeType
-            enum_file_purpose: Sowapps\SoCoreBundle\DBAL\EnumFilePurposeType
-            enum_file_source: Sowapps\SoCoreBundle\DBAL\EnumFileSourceType
+            enum_email_purpose: Sowapps\SoCore\DBAL\EnumEmailPurposeType
+            enum_file_purpose: Sowapps\SoCore\DBAL\EnumFilePurposeType
+            enum_file_source: Sowapps\SoCore\DBAL\EnumFileSourceType
+            enum_file_storage: Sowapps\SoCore\DBAL\EnumFileStorageType
         mapping_types:
             enum: string
     orm:
@@ -18,18 +19,18 @@ doctrine:
                 prefix: 'App\Entity'
                 alias: App
         resolve_target_entities:
-            Sowapps\SoCoreBundle\Entity\AbstractUser: App\Entity\User
+            Sowapps\SoCore\Entity\AbstractUser: App\Entity\User
         dql:
             string_functions:
                 # Match against should have the path to the MatchAgainst class created in the previous step
                 MATCH: \DoctrineExtensions\Query\Mysql\MatchAgainst
             numeric_functions:
                 # For more about spatial functions, see https://github.com/creof/doctrine2-spatial/blob/4e3d8154a23cbb7216f32b38244dce615db6c28b/INSTALL.md
-                st_distance_sphere: Sowapps\SoCoreBundle\Doctrine\StDistanceSphere
-                ln: Sowapps\SoCoreBundle\Doctrine\LN
-                greatest: Sowapps\SoCoreBundle\Doctrine\Greatest
-                least: Sowapps\SoCoreBundle\Doctrine\Least
-                ifnull: Sowapps\SoCoreBundle\Doctrine\IfNull # Use \DoctrineExtensions\Query\Mysql\IfNull
+                st_distance_sphere: Sowapps\SoCore\Doctrine\StDistanceSphere
+                ln: Sowapps\SoCore\Doctrine\LN
+                greatest: Sowapps\SoCore\Doctrine\Greatest
+                least: Sowapps\SoCore\Doctrine\Least
+                ifnull: Sowapps\SoCore\Doctrine\IfNull # Use \DoctrineExtensions\Query\Mysql\IfNull
 
 when@test:
     doctrine:

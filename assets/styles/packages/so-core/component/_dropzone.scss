@@ -1,0 +1,55 @@
+
+.drop-zone {
+  border: 0.25rem dashed $gray-300;
+  border-radius: 0.5rem;
+  
+  * {
+    pointer-events: none;
+  }
+
+  .drop-alert-waiting {
+    display: block;
+  }
+
+  .drop-alert-over {
+    display: none;
+    color: $color-primary;
+  }
+
+  .drop-alert-error {
+    display: none;
+    color: $danger;
+
+    span {
+      font-weight: bold;
+    }
+  }
+
+  &.dragging {
+    border-color: $color-primary;
+
+    .drop-alert-waiting {
+      display: none;
+    }
+
+    .drop-alert-over {
+      display: block;
+    }
+  }
+
+  &.state-error {
+    border-color: $danger;
+
+    .drop-alert-waiting {
+      display: none;
+    }
+
+    .drop-alert-over {
+      display: none;
+    }
+
+    .drop-alert-error {
+      display: block;
+    }
+  }
+}

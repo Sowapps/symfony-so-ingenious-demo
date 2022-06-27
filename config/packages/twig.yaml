@@ -1,10 +1,10 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
-    form_themes: [ '@SoCore/theme/bootstrap_5.html.twig' ]
+    form_themes: [ '@SoCore/theme/bootstrap_5.html.twig', '@SoCore/theme/so_core.html.twig' ]
     globals:
-        fileService: '@Sowapps\SoCoreBundle\Service\FileService'
-        language: '@Sowapps\SoCoreBundle\Service\LanguageService'
-        userService: '@Sowapps\SoCoreBundle\Service\AbstractUserService'
+        fileService: '@Sowapps\SoCore\Service\FileService'
+        language: '@Sowapps\SoCore\Service\LanguageService'
+        userService: '@Sowapps\SoCore\Service\AbstractUserService'
 
 when@test:
     twig:

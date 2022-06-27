@@ -1,0 +1,25 @@
+
+// @see so_file_widget
+.form-widget.widget-file {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dialog-media-picker {
+  .media-picker-nav-body {
+    height: 1px;
+    min-height: 400px;
+    max-height: 100%;
+    
+    .tab-pane, .media-picker, .drop-zone, .upload-sending {
+      height: 100%;
+    }
+  }
+}
+
+.nav-vertical-tabs {
+  .nav-link {
+    color: $dark;
+  }
+}

@@ -143,13 +143,13 @@
             "config/packages/sensio_framework_extra.yaml"
         ]
     },
-    "sowapps/so-core-bundle": {
+    "sowapps/so-core": {
         "version": "dev-main"
     },
-    "sowapps/so-ingenious-bundle": {
+    "sowapps/so-ingenious": {
         "version": "dev-main"
     },
-    "sowapps/so-log-bundle": {
+    "sowapps/so-log": {
         "version": "dev-main"
     },
     "symfony/apache-pack": {
@@ -459,6 +459,9 @@
             "templates/base.html.twig"
         ]
     },
+    "symfony/ux-dropzone": {
+        "version": "v2.2.0"
+    },
     "symfony/validator": {
         "version": "6.1",
         "recipe": {
@@ -485,8 +488,8 @@
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
-            "version": "5.3",
-            "ref": "24bbc3d84ef2f427f82104f766014e799eefcc3e"
+            "version": "6.1",
+            "ref": "e42b3f0177df239add25373083a564e5ead4e13a"
         },
         "files": [
             "config/packages/web_profiler.yaml",
@@ -511,7 +514,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "1.10",
-            "ref": "642c9239e1c76e037f5b65446d09eba836ea147f"
+            "ref": "91f4d29f5ebbd2fcccc71ca55a17d14a17b308e8"
         },
         "files": [
             "assets/app.js",
