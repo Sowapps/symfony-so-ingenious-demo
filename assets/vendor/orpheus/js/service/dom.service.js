@@ -265,7 +265,7 @@ class DomService {
 		// Direct in DOM Element
 		$item.renderingTemplate = {template: template, options: options};
 		this.renderTemplateElement($item, data, options.prefix);
-		console.log('$item', $item);
+		// console.log('$item', $item);
 		// return options.immediate ? $item : $.when($item);
 		return $item;
 	}

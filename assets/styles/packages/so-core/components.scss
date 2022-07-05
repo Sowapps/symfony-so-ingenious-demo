@@ -1,2 +1,9 @@
 @import "component/dropzone";
+@import "component/file-list";
 @import "component/picker/file-upload";
+
+.icon-image {
+  text-align: center;
+  width: 100%;
+  font-size: 128px;
+}

@@ -4,7 +4,7 @@ import { stringService } from "../../../vendor/orpheus/js/service/string.service
 
 export default class MediaPickerUploadController extends MediaPickerController {
 	
-	static targets = ['dropZone', 'dropError', 'uploadZone', 'test'];
+	static targets = ['dropZone', 'dropError', 'uploadZone'];
 	static values = {messages: Object, uploadUrl: String};
 	#file = null;
 	#allowedTypes = ['image/png', 'image/jpeg'];
@@ -42,18 +42,20 @@ export default class MediaPickerUploadController extends MediaPickerController {
 		const form = new FormData();
 		form.append('file', this.#file);
 		try {
-			const json = await fetch(this.url(), {method: "POST", body: form})
+			const file = await fetch(this.url(), {method: "POST", body: form})
 				.then(response => {
 					if( !response.ok ) {
 						throw response.json();
 					}
 					return response.json();
 				});
-			console.log('Success upload, fetched ', json);
-			this.startDrop();
-		} catch(error) {
-			console.warn('Caught error', error, typeof error);
+			console.log('Success upload, fetched ', file);
+			this.dispatchEvent(this.element, 'so.media-picker.file.new', {controller: this, file: file}, {bubbles: true});
+		} catch( error ) {
+			console.warn('Upload error', error, typeof error);
 			console.debug(error);
+		} finally {
+			this.startDrop();
 		}
 	}
 	

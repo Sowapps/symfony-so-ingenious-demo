@@ -14,8 +14,7 @@ export default class extends AbstractController {
 	
 	openDialog() {
 		console.log('Component input-file openDialog');
-		this.dispatchEvent(window, 'so.media-library.request', {purpose: this.purposeValue});
-		// this.dispatchEvent(this.dialogCreateTarget, 'so.language.request');
+		this.dispatchEvent(window, 'so.media-library.request', {purpose: this.purposeValue, picker: 'library'});
 	}
 	
 }

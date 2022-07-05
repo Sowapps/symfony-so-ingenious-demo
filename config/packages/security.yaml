@@ -25,10 +25,10 @@ security:
 
             form_login:
                 # "login" is the name of the route created previously
-                login_path: admin_login
-                check_path: admin_login
+                login_path: so_core_admin_login
+                check_path: so_core_admin_login
                 enable_csrf: true
-                default_target_path: admin_home
+                default_target_path: so_core_admin_home
             remember_me:
                 secret: '%kernel.secret%'
                 lifetime: 172800 # 2 days
@@ -36,7 +36,7 @@ security:
                 always_remember_me: true
             logout:
                 # Intercept logout when getting to "path" route
-                path: security_logout
+                path: so_core_security_logout
                 # After logged out, redirect user to the "target" route
                 target: home
 

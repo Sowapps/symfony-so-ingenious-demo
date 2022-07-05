@@ -1,0 +1,45 @@
+
+.row-view {
+  
+  & > .view-list {
+    
+    .item-file {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+      
+      .item-select,
+      .item-actions {
+        flex: 0 0 auto;
+      }
+      
+      .item-name {
+        // Fill space
+        // But also the first to shrink if space is missing
+        flex: 1 1 auto;
+        // Show ellipsis on small screens, text is shrinking
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      
+      &.selectable {
+        cursor: pointer;
+      }
+      
+      &.selected .item-actions {
+        display: none;
+      }
+    }
+    
+  }
+  
+  & > .view-thumbnail {
+  
+  }
+  
+}
+
+.thumbnail-view {
+}

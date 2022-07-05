@@ -38,10 +38,9 @@ export default class extends AbstractController {
 		this.menuTarget.append(pickerConfig.menuItem);
 		const $tabItem = pickerConfig.menuItem.querySelector('.nav-link');
 		pickerConfig.tab = new Tab($tabItem);
-		// console.log('pickerConfig', pickerConfig);
 		this.#pickers[pickerKey] = pickerConfig;
-		$tabItem.addEventListener('show.bs.tab', pickerConfig.controller.start());
-		$tabItem.addEventListener('hidden.bs.tab', pickerConfig.controller.end());
+		$tabItem.addEventListener('show.bs.tab', () => pickerConfig.controller.start());
+		$tabItem.addEventListener('hidden.bs.tab', () => pickerConfig.controller.end());
 	}
 	
 	request(event) {
@@ -49,8 +48,8 @@ export default class extends AbstractController {
 		console.log('Media Library Dialog - Request', this.element, event, data);
 		this.#config = data;
 		// Fill dialog
-		const mediaPickers = ['upload', 'library'];
-		let openPicker = null;
+		// const mediaPickers = ['upload', 'library'];
+		let openPicker = this.#config.picker || null;
 		// Reset / Hide all
 		this.element
 			.querySelectorAll('.nav-item.item-media-picker')
@@ -58,8 +57,9 @@ export default class extends AbstractController {
 		let foundOpenPicker = false;
 		let firstPicker = null;
 		// Show selected pickers
-		mediaPickers.forEach(pickerKey => {
-			const pickerConfig = this.#pickers[pickerKey];
+		Object.entries(this.#pickers).forEach(([pickerKey, pickerConfig]) => {
+			// const pickerConfig = this.#pickers[pickerKey];
+			// console.log('Configure pickers with pickerConfig', pickerConfig);
 			if( !pickerConfig ) {
 				console.warn(`Unknown media picker with key "${pickerKey}"`);
 				return;
