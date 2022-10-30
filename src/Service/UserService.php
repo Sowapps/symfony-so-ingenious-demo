@@ -7,7 +7,7 @@ namespace App\Service;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
-use Sowapps\SoCoreBundle\Service\AbstractUserService;
+use Sowapps\SoCore\Service\AbstractUserService;
 
 class UserService extends AbstractUserService {
 	

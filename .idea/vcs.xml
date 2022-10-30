@@ -9,7 +9,8 @@
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../so-ingenious-bundle" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../so-log-bundle" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../so-core" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../so-ingenious" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../so-log" vcs="Git" />
   </component>
 </project>

@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Sowapps\SoCoreBundle\Repository\AbstractUserRepository;
+use Sowapps\SoCore\Repository\AbstractUserRepository;
 
 /**
  * @extends ServiceEntityRepository<User>

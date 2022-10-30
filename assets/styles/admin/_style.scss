@@ -41,3 +41,12 @@ body.mode-debug {
     font-size: 0.75em;
   }
 }
+
+.nav-fill > .nav-link, .nav-fill .nav-item {
+  max-width: 100%;
+  
+  .nav-link {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

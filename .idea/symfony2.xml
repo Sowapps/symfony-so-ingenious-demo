@@ -4,9 +4,9 @@
     <option name="pluginEnabled" value="true" />
     <option name="twigNamespaces">
       <list>
-        <twig_namespace enabled="false" namespace="SoCore" namespaceType="ADD_PATH" path="/home/sowapps/www/so-core-bundle/templates" />
-        <twig_namespace custom="true" namespace="SoCore" namespaceType="ADD_PATH" path="H:/Workspaces/git/so-core-bundle/templates" />
-        <twig_namespace custom="true" namespace="SoLog" namespaceType="ADD_PATH" path="H:/Workspaces/git/so-log-bundle/templates" />
+        <twig_namespace enabled="false" namespace="SoCore" namespaceType="ADD_PATH" path="/home/sowapps/www/so-core/templates" />
+        <twig_namespace custom="true" namespace="SoCore" namespaceType="ADD_PATH" path="H:/Workspaces/git/so-core/templates" />
+        <twig_namespace custom="true" namespace="SoLog" namespaceType="ADD_PATH" path="H:/Workspaces/git/so-log/templates" />
       </list>
     </option>
     <option name="methodParameterSettings">

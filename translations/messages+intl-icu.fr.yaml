@@ -42,6 +42,7 @@ action:
     save: "Sauvegarder"
     search: "Rechercher"
     see: "Voir"
+    select: "Sélectionner"
     send: "Envoyer"
     sending: "Envoi en cours..."
     transfer: "Transférer"

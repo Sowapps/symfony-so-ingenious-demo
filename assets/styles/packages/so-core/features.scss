@@ -1,0 +1,9 @@
+@import "features/state";
+
+// In some cases, flex item won't fill the space of their parent, this fix it
+.absolute-fill {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+

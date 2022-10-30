@@ -49,7 +49,7 @@ Encore
 	.enableVersioning(Encore.isProduction())
 	
 	.configureWatchOptions(function (watchOptions) {
-		watchOptions.ignored = /node_modules([\\]+|\/)+(?!sowapps)/;
+		watchOptions.ignored = /node_modules[\\/]+(?!sowapps)/;
 	})
 	
 	.configureBabel((config) => {

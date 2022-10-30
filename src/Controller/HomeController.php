@@ -5,7 +5,7 @@
 
 namespace App\Controller;
 
-use Sowapps\SoCoreBundle\Core\Controller\AbstractController;
+use Sowapps\SoCore\Core\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 class HomeController extends AbstractController {

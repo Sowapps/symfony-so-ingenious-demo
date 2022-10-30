@@ -1,0 +1,65 @@
+
+.list-view {
+  
+  & > .view-row {
+    .item-file {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+      
+      .item-select,
+      .item-actions {
+        flex: 0 0 auto;
+      }
+      
+      .item-name {
+        // Fill space
+        // But also the first to shrink if space is missing
+        flex: 1 1 auto;
+        // Show ellipsis on small screens, text is shrinking
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 0.25rem 0; // Vertical padding of action buttons
+      }
+      
+      &.selectable {
+        cursor: pointer;
+      }
+      
+      &:not(.item-header) .item-actions {
+        display: none;
+      }
+    }
+    
+    .list-group-item:hover > .item-file {
+      .item-actions {
+        display: block;
+      }
+      
+      &.selected .item-actions {
+        display: none;
+      }
+    }
+  }
+  
+  & > .view-thumbnail {
+    .item-file {
+      border: 4px solid transparent;
+      border-radius: 0.5rem;
+    
+      &.selected {
+        border-color: $primary;
+      }
+    
+      .icon-image {
+        font-size: 96px;
+      }
+    }
+  }
+  
+}
+
+.thumbnail-view {
+}

@@ -9,7 +9,8 @@
 import './styles/admin-app.scss';
 
 // Local dependencies
-import '@sowapps/so-core/vendor/orpheus/js/orpheus.js';
-
+// import '@sowapps/so-core/vendor/orpheus/js/orpheus.js';
 // Stimulus application
 import './bootstrap';
+import './vendor/orpheus/js/service/routing.service.js';
+import './vendor/orpheus/js/service/translation.service.js';

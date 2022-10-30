@@ -7,3 +7,8 @@ so_log:
 home:
     path: /
     controller: App\Controller\HomeController::home
+
+test_form:
+    path: /test/form.html
+    methods: GET|POST
+    controller: App\Test\TestController::form

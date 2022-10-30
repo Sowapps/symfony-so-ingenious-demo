@@ -4,6 +4,6 @@
 {%- block menu_main -%}
 	{{ parent() }}
 	
-	{{ menu.item('page.admin_language_list.label' | trans([], 'admin'), path('admin_language_list'), 'fa-solid fa-language') }}
-	{{ menu.item('page.admin_log_view.label' | trans([], 'admin'), path('admin_log_view'), 'fa-solid fa-bug') }}
+	{{ menu.item('page.so_core_admin_language_list.label' | trans([], 'admin'), path('so_core_admin_language_list'), 'fa-solid fa-language') }}
+	{{ menu.item('page.so_core_admin_log_view.label' | trans([], 'admin'), path('so_core_admin_log_view'), 'fa-solid fa-bug') }}
 {%- endblock -%}

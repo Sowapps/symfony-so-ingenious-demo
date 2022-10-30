@@ -6,10 +6,10 @@
       <paths name="Local SoIngenious">
         <serverdata>
           <mappings>
-            <mapping deploy="/so-ingenious-bundle/" local="$PROJECT_DIR$/../so-ingenious-bundle" web="/" />
-            <mapping deploy="/so-ingenious-demo/" local="$PROJECT_DIR$" web="/" />
-            <mapping deploy="/so-core-bundle/" local="$PROJECT_DIR$/../so-core-bundle" web="/" />
-            <mapping deploy="/so-log-bundle/" local="$PROJECT_DIR$/../so-log-bundle" web="/" />
+            <mapping deploy="/so-ingenious" local="$PROJECT_DIR$/../so-ingenious" web="/" />
+            <mapping deploy="/so-ingenious-demo" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/so-core" local="$PROJECT_DIR$/../so-core" web="/" />
+            <mapping deploy="/so-log" local="$PROJECT_DIR$/../so-log" web="/" />
           </mappings>
         </serverdata>
       </paths>

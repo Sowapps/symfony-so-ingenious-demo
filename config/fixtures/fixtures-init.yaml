@@ -1,5 +1,5 @@
 language:
-    class: Sowapps\SoCoreBundle\Entity\Language
+    class: Sowapps\SoCore\Entity\Language
     items:
         -   _ref: "language_french"
             key: "french"
