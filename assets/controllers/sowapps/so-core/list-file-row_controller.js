@@ -1,6 +1,7 @@
 import FileListController from "./list-file_controller.js";
 import { domService } from "../../../vendor/orpheus/js/service/dom.service.js";
 import { fileService } from "../../../vendor/orpheus/js/service/file.service.js";
+import FileManager from "../../../service/file.manager.js";
 
 export default class FileRowListController extends FileListController {
 	
@@ -8,21 +9,42 @@ export default class FileRowListController extends FileListController {
 	
 	initialize() {
 		super.initialize();
+		this.fileManager = new FileManager();
 		console.log('FileRowListController.Init', this.previewTarget, this.listTarget);
 	}
 	
-	refreshSelectedItem(item) {
-		super.refreshSelectedItem(item);
-		console.log('refreshSelectedItem - is row', item.element.parentNode, item.item.selected, item);
-		this.render();
+	removeSelectedItem() {
+		const selection = this.getSelection();
+		if( !selection.length ) {
+			console.warn('Tried to remove selection item but selection is empty');
+			return;
+		}
+		const fileItem = selection[0];
+		const file = fileItem.file;
+		console.log('removeSelectedItem - fileItem', fileItem);
+		this.fileManager.requestRemoveFile(file);
+		// Manager is handling error by itself and success is emitted by event so.file.deleted
+	}
+	
+	buildItemData(item) {
+		item.icon = fileService.getFileAsIcon(item.file);
 	}
 	
 	buildItem(item) {
 		let $item = super.buildItem(item);
-		if( item.selected ) {
-			domService.toggleClass($item, 'active', item.selected);
-		}
+		// console.log('FileRowListController got item render event', item, $item);
+		$item.querySelector('.item-file').addEventListener('so.item.render', () => this.refreshItem(item, $item));
 		return $item;
+	}
+	
+	// buildItem(item) {// Update using item event
+	// 	let $item = super.buildItem(item);
+	// 	this.refreshItem($item, item);
+	// 	return $item;
+	// }
+	
+	refreshItem(item, $item) {
+		domService.toggleClass($item, 'active', item.selected);
 	}
 	
 	render() {

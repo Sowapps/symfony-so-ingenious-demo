@@ -4,6 +4,7 @@ export class MediaPickerController extends AbstractController {
 	
 	initialize() {
 		this.config = null;
+		// console.log('Declare picker to dialog ', this);
 		this.dispatchEvent(this.element, 'so.media-picker.register-picker', {controller: this}, {bubbles: true});
 	}
 	
@@ -13,6 +14,10 @@ export class MediaPickerController extends AbstractController {
 	
 	getPurpose() {
 		return this.config.purpose;
+	}
+	
+	getSelectionMax() {
+		return this.config.selectMax;
 	}
 	
 	getKey() {

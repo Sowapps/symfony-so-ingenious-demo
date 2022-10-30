@@ -7,8 +7,8 @@ export default class MediaPickerUploadController extends MediaPickerController {
 	static targets = ['dropZone', 'dropError', 'uploadZone'];
 	static values = {messages: Object, uploadUrl: String};
 	#file = null;
-	#allowedTypes = ['image/png', 'image/jpeg'];
-	// #allowedTypes = [];
+	// #allowedTypes = ['image/png', 'image/jpeg'];
+	#allowedTypes = [];
 	
 	initialize() {
 		super.initialize();
@@ -42,7 +42,7 @@ export default class MediaPickerUploadController extends MediaPickerController {
 		const form = new FormData();
 		form.append('file', this.#file);
 		try {
-			const file = await fetch(this.url(), {method: "POST", body: form})
+			const file = await fetch(this.url(), {method: 'POST', body: form})
 				.then(response => {
 					if( !response.ok ) {
 						throw response.json();

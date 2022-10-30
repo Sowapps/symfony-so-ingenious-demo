@@ -12,6 +12,37 @@ class DomService {
 		},
 	}
 	
+	buildCustomEvent(event, detail = null, options = {}) {
+		if( detail ) {
+			options.detail = detail;
+		}
+		return new CustomEvent(event, options);
+	}
+	
+	dispatchEvent(element, event, detail = null, options = {}) {
+		if( element ) {
+			if( element instanceof NodeList ) {
+				// Loop on all children
+				element.forEach((itemElement) => this.dispatchEvent(itemElement, event, detail));
+				return;
+			}
+			if( element._element ) {
+				// Auto handle BS Modals
+				element = element._element;
+				// } else if( isJquery(element) ) {
+				// 	// Auto handle jQuery Elements
+				// 	element = element[0];
+			}
+		}
+		
+		try {
+			// console.log('Dispatch event', event, 'with', detail, 'to', element, AbstractController.buildCustomEvent(event, detail, options));
+			element.dispatchEvent(this.buildCustomEvent(event, detail, options));
+		} catch( error ) {
+			console.error('Method dispatchEvent is not available in element', element, 'source error :', error);
+		}
+	}
+	
 	assignValue($element, value) {
 		const elementTag = $element.tagName;
 		let changed = false;

@@ -3,35 +3,24 @@ import { Controller } from '@hotwired/stimulus';
 import { Modal } from "bootstrap";
 import { Deferred } from "./event/Deferred.js";
 import { isString } from "../../vendor/orpheus/js/orpheus.js";
+import { domService } from "../../vendor/orpheus/js/service/dom.service.js";
 
 export class AbstractController extends Controller {
 	
+	/**
+	 * @param {Array} selectors
+	 */
+	extractComponents(selectors) {
+		return Object.fromEntries(Object.entries(selectors).map(([key, selector]) =>
+			([key, [...this.element.querySelectorAll(selector)].map(element => ({element: element, className: element.className}))])
+		));
+	}
+	
+	/**
+	 * @deprecated Use eventService.dispatchEvent with same parameters
+	 */
 	dispatchEvent(element, event, detail = null, options = {}) {
-		if( element ) {
-			if( element instanceof NodeList ) {
-				// Loop on all children
-				element.forEach((itemElement) => this.dispatchEvent(itemElement, event, detail));
-				return;
-			}
-			if( element._element ) {
-				// Auto handle BS Modals
-				element = element._element;
-				// } else if( isJquery(element) ) {
-				// 	// Auto handle jQuery Elements
-				// 	element = element[0];
-			}
-		}
-		
-		if( detail ) {
-			options.detail = detail;
-		}
-		
-		try {
-			// console.log('Dispatch event', event, 'with', detail, 'to', element);
-			element.dispatchEvent(new CustomEvent(event, options));
-		} catch( error ) {
-			console.error('Method dispatchEvent is not available in element', element, 'source error :', error);
-		}
+		domService.dispatchEvent(element, event, detail, options)
 	}
 	
 	#deferredEvent(type) {
@@ -39,10 +28,10 @@ export class AbstractController extends Controller {
 			this._events = {};
 		}
 		if( !this._events[type] ) {
-			console.log('New deferred event', type);
+			// console.log('New deferred event', type);
 			this._events[type] = new Deferred(type);
-		} else {
-			console.log('Existing deferred event', type);
+			// } else {
+			// 	console.log('Existing deferred event', type);
 		}
 		return this._events[type];
 	}
@@ -50,7 +39,7 @@ export class AbstractController extends Controller {
 	on(event) {
 		const deferred = this.#deferredEvent(event);
 		this.element.addEventListener(event, deferred.getListener());
-		console.log('Add event deferred', deferred.type, deferred.getListener());
+		// console.log('Add event deferred', deferred.type, deferred.getListener());
 		return deferred.promise();
 	}
 	
@@ -60,7 +49,7 @@ export class AbstractController extends Controller {
 	 */
 	off(event) {
 		const deferred = isString(event) ? this.#deferredEvent(event) : event.getRootDeferred();
-		console.log('Remove event deferred', deferred.type, deferred.getListener());
+		// console.log('Remove event deferred', deferred.type, deferred.getListener());
 		this.element.removeEventListener(deferred.type, deferred.getListener());
 		
 		return true;

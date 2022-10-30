@@ -48,7 +48,7 @@ class FileService {
 	getFileAsImage(file) {
 		const [type, format] = file.mimeType.split('/');
 		if( type === 'image' ) {
-		
+			return `<img src="${file.viewUrl}" alt="${file.label}" class="img-thumbnail">`;
 		}
 		return `<i class="${this.getFileImageClass(file)} icon-image"></i>`;
 	}

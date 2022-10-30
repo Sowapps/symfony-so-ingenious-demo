@@ -72,7 +72,7 @@ export class Deferred {
 	getListener() {
 		if( !this.listener ) {
 			this.listener = event => {
-				console.log('Received event', event, 'with details', event.detail);
+				// console.log('Received event', event, 'with details', event.detail);
 				this.resolve(event.detail, event);
 			};
 		}

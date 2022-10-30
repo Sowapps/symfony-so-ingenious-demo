@@ -33,7 +33,7 @@ export default class Form extends AbstractController {
 					this.dispatchEvent($form, 'disable');
 				}, 100);
 			}
-			$form.querySelector(':invalid').each((index, element) => {
+			$form.querySelectorAll(':invalid').each((index, element) => {
 				if( element.dataset.invalidate ) {
 					const $other = document.querySelector(element.dataset.invalidate);
 					if( $other ) {
@@ -96,7 +96,7 @@ export default class Form extends AbstractController {
 	
 	disableSubmit() {
 		this.submitButtonTargets.forEach(button => {
-			button.disabled = true;
+			// button.disabled = true;
 		});
 	}
 	

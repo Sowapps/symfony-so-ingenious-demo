@@ -1,15 +1,16 @@
 import { AbstractController } from "../abstract.controller.js";
 import { domService } from "../../../vendor/orpheus/js/service/dom.service.js";
 
-console.log('FileItem included');
 export default class extends AbstractController {
 	
 	initialize() {
-		console.log('FileItem initialize', this.element.item);
+		// console.log('FileItem initialize', this.element.item);
 		this.item = this.element.item;
 		this.selectable = !!this.element.dataset.selectable;
-		this.selected = this.item.selected;
 		this.render();
+		
+		this.on('so.item.render')
+			.then(() => this.render());
 	}
 	
 	// open(event) {
@@ -22,6 +23,9 @@ export default class extends AbstractController {
 		event.preventDefault();
 		event.stopPropagation();
 		console.log('FileItem.remove', event);
+		
+		console.log('remove - fileItem', fileItem);
+		this.fileManager.requestRemoveFile(fileItem.file);
 	}
 	
 	// refreshSelect(event) {
@@ -30,31 +34,34 @@ export default class extends AbstractController {
 	// }
 	
 	toggleSelect() {
-		console.log('item-file - toggleSelect', this.selected, this.element);
-		this.setSelected(!this.selected);
+		console.log('item-file - toggleSelect', this.isSelected(), this.element);
+		this.setSelected(!this.isSelected());
+	}
+	
+	isSelected() {
+		return this.item.selected;
 	}
 	
 	setSelected(value) {
-		if( this.selected === value ) {
+		if( this.isSelected() === value ) {
 			// Ignore same value
 			return;
 		}
-		this.selected = value;
-		this.item.selected = value;
-		this.dispatchEvent(this.element, 'so.file.select', {item: this.item, element: this.element}, {bubbles: true});
-		this.render();
+		this.dispatchEvent(this.element, 'so.file.select', {item: this.item, element: this.element, value: value}, {bubbles: true});
+		// this.item.selected = value;
+		// this.render();
 		
 		return this;
 	}
 	
 	render() {
-		console.log('FileItem - render', this.element, 'this.selectable ?', this.selectable, 'this.selecting ?', this.selecting, 'this.selected ?', this.selected);
+		// console.log('FileItem - render', this.element, 'this.selectable ?', this.selectable, 'this.selecting ?', this.selecting, 'this.selected ?', this.isSelected());
 		if( this.selectable ) {
 			if( !this.selecting ) {
 				this.selecting = true;
 				this.on('click')
 					.then((count, event) => {
-						console.log('event', event);//
+						console.log('event', event);
 						this.toggleSelect();
 					});
 			}
@@ -62,8 +69,9 @@ export default class extends AbstractController {
 			this.off('click');
 			this.selecting = null;
 		}
+		// console.log('Render item', this.item, 'this.isSelected()', this.isSelected());
 		domService.toggleClass(this.element, 'selectable', this.selectable);
-		domService.toggleClass(this.element, 'selected', this.selected);
+		domService.toggleClass(this.element, 'selected', this.isSelected());
 	}
 	
 }

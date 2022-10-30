@@ -8,18 +8,36 @@
 
 .dialog-media-picker {
   .media-picker-nav-body {
-    height: 1px;
+    //height: 1px;// min-height becomes max-height and element will not grow
     min-height: 400px;
     max-height: 100%;
-    
-    .tab-pane, .media-picker, .drop-zone, .upload-sending {
-      height: 100%;
-    }
+    overflow-y: auto;
+    overflow-x: clip;
+    position: relative;
   }
 }
 
 .nav-vertical-tabs {
   .nav-link {
     color: $dark;
+  }
+}
+
+.form-widget.widget-image {
+  &.has-value {
+    .btn-preview {
+      padding: 0.25rem;
+      //background-color: #fff;
+      border: 1px solid #dee2e6;
+      border-radius: 0.25rem;
+      max-width: 100%;
+      height: auto;
+    }
+  }
+  
+  &.has-no-value {
+    .btn-preview {
+      background: #eeeeee;
+    }
   }
 }

@@ -1,8 +1,7 @@
 
-.row-view {
+.list-view {
   
-  & > .view-list {
-    
+  & > .view-row {
     .item-file {
       display: flex;
       flex-direction: row;
@@ -22,21 +21,42 @@
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
+        padding: 0.25rem 0; // Vertical padding of action buttons
       }
       
       &.selectable {
         cursor: pointer;
       }
       
-      &.selected .item-actions {
+      &:not(.item-header) .item-actions {
         display: none;
       }
     }
     
+    .list-group-item:hover > .item-file {
+      .item-actions {
+        display: block;
+      }
+      
+      &.selected .item-actions {
+        display: none;
+      }
+    }
   }
   
   & > .view-thumbnail {
-  
+    .item-file {
+      border: 4px solid transparent;
+      border-radius: 0.5rem;
+    
+      &.selected {
+        border-color: $primary;
+      }
+    
+      .icon-image {
+        font-size: 96px;
+      }
+    }
   }
   
 }

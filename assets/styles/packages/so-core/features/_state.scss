@@ -1,0 +1,34 @@
+
+.show-disabled {
+  display: none;
+}
+
+.state-disabled, :disabled {
+  .show-not-disabled {
+    display: none;
+  }
+  
+  .show-disabled {
+    display: inline-block;
+  }
+}
+
+.selectable {
+  &:not(.selected) .show-selected {
+    display: none;
+  }
+  
+  &.selected .show-not-selected {
+    display: none;
+  }
+}
+
+.watch-hover {
+  &:not(:hover) .show-hover {
+    display: none;
+  }
+  
+  &:hover .show-not-hover {
+    display: none;
+  }
+}
