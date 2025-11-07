@@ -116,10 +116,6 @@ export class DeferredPromise {
 	}
 	
 	then(doneCallback, failCallback) {
-		if( this.deferred.child ) {
-			throw new Error('You could only chain call to "then", never re-use same deferred promise');
-		}
-		
 		const child = this.deferred.castChild();
 		child.attachCallbacks(doneCallback, failCallback);
 		return child.promise();
