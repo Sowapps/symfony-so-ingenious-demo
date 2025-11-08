@@ -1,4 +1,16 @@
 {
+    "dama/doctrine-test-bundle": {
+        "version": "8.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "8.3",
+            "ref": "dfc51177476fb39d014ed89944cde53dc3326d23"
+        },
+        "files": [
+            "./config/packages/dama_doctrine_test_bundle.yaml"
+        ]
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {
@@ -185,6 +197,21 @@
     "symfony/asset": {
         "version": "v6.1.0"
     },
+    "symfony/asset-mapper": {
+        "version": "7.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "6.4",
+            "ref": "5ad1308aa756d58f999ffbe1540d1189f5d7d14a"
+        },
+        "files": [
+            "./assets/app.js",
+            "./assets/styles/app.css",
+            "./config/packages/asset_mapper.yaml",
+            "./importmap.php"
+        ]
+    },
     "symfony/cache": {
         "version": "v6.1.0"
     },
@@ -301,6 +328,18 @@
     },
     "symfony/intl": {
         "version": "v6.1.0"
+    },
+    "symfony/lock": {
+        "version": "7.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.2",
+            "ref": "8e937ff2b4735d110af1770f242c1107fdab4c8e"
+        },
+        "files": [
+            "./config/packages/lock.yaml"
+        ]
     },
     "symfony/mailer": {
         "version": "7.3",
@@ -448,6 +487,21 @@
     "symfony/service-contracts": {
         "version": "v3.1.0"
     },
+    "symfony/stimulus-bundle": {
+        "version": "2.31",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.24",
+            "ref": "3357f2fa6627b93658d8e13baa416b2a94a50c5f"
+        },
+        "files": [
+            "./assets/controllers.json",
+            "./assets/controllers/csrf_protection_controller.js",
+            "./assets/controllers/hello_controller.js",
+            "./assets/stimulus_bootstrap.js"
+        ]
+    },
     "symfony/stopwatch": {
         "version": "v6.1.0"
     },
@@ -486,8 +540,17 @@
             "templates/base.html.twig"
         ]
     },
-    "symfony/ux-dropzone": {
-        "version": "v2.2.0"
+    "symfony/ux-turbo": {
+        "version": "2.31",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.20",
+            "ref": "287f7c6eb6e9b65e422d34c00795b360a787380b"
+        },
+        "files": [
+            "./config/packages/ux_turbo.yaml"
+        ]
     },
     "symfony/validator": {
         "version": "7.3",
@@ -538,6 +601,19 @@
     },
     "symfony/yaml": {
         "version": "v6.1.0"
+    },
+    "symfonycasts/sass-bundle": {
+        "version": "0.8",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "0.5",
+            "ref": "c891eb9a33f522440ec7dfc0dae3f63ce3a9ee87"
+        },
+        "files": [
+            "./config/packages/symfonycasts_sass.yaml",
+            "./assets/styles/app.scss"
+        ]
     },
     "symfonycasts/verify-email-bundle": {
         "version": "v1.10.0"

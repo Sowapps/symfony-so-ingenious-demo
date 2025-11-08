@@ -1,0 +1,36 @@
+name: so-ingenious-demo
+services:
+    database:
+        container_name: database
+        image: mariadb:11.4
+        restart: always
+        environment: # See https://mariadb.com/docs/server/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/automated-mariadb-deployment-and-administration/docker-and-mariadb/mariadb-server-docker-official-image-environment-variables
+            MARIADB_ROOT_PASSWORD: root
+            # We don't create any app user to use root, so we can create databases by our-self (compatibility with integration tests)
+        ports:
+            - "3306:3306"
+        volumes:
+            - so-ingenious-demo_db:/var/lib/mysql
+
+    mailer:
+        container_name: mailer
+        image: axllent/mailpit
+        ports:
+            - "1025:1025"
+            - "8025:8025"
+        environment:
+            MP_SMTP_AUTH_ACCEPT_ANY: 1
+            MP_SMTP_AUTH_ALLOW_INSECURE: 1
+
+    adminer:
+        container_name: adminer
+        image: adminer
+        restart: always
+        ports:
+            - "8080:8080"
+        depends_on:
+            - database
+
+volumes:
+    so-ingenious-demo_db:
+

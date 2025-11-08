@@ -1,0 +1,11 @@
+/*
+Style specific for Symfony tools
+ */
+
+// Web profiler
+.sf-toolbar {
+    display: none; // Fix Symfony toolbar mis-displaying while loading (Then web toolbar profile add display:block and overrides it)
+
+    position: fixed; // Fix impact of sf toolbar height on page
+    z-index: 99999; // Fix some BS elements over toolbar
+}
