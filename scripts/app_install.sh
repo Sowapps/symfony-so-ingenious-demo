@@ -84,6 +84,9 @@ composer install $mode
 if [[ $dev_mode -eq 1 ]]; then
     echo "Installing Symfony CA for TLS support..."
     symfony server:ca:install
+
+    echo "Creating database..."
+    php bin/console doctrine:database:create
 fi
 
 echo "Migrating database to latest version..."
