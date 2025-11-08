@@ -6,15 +6,15 @@
 	"repositories": [
 		{
 			"type": "path",
-			"url": "../so-core"
+			"url": "../symfony-so-core-bundle"
 		},
 		{
 			"type": "path",
-			"url": "../so-log"
+			"url": "../symfony-so-log-bundle"
 		},
 		{
 			"type": "path",
-			"url": "../so-ingenious"
+			"url": "../symfony-so-ingenious-bundle"
 		}
 	],
 	"require": {
@@ -22,47 +22,43 @@
 		"ext-ctype": "*",
 		"ext-iconv": "*",
 		"ext-intl": "*",
-		"doctrine/annotations": "^1.0",
-		"doctrine/doctrine-bundle": "^2.6",
+		"doctrine/doctrine-bundle": "^2.12",
 		"doctrine/doctrine-migrations-bundle": "^3.2",
-		"doctrine/orm": "^2.12",
+		"doctrine/orm": "^3.0",
 		"phpdocumentor/reflection-docblock": "^5.3",
 		"phpstan/phpdoc-parser": "^1.5",
-		"sensio/framework-extra-bundle": "^6.1",
 		"sowapps/so-core": "*",
 		"sowapps/so-ingenious": "*",
 		"sowapps/so-log": "*",
 		"symfony/apache-pack": "^1.0",
-		"symfony/asset": "6.1.*",
-		"symfony/console": "6.1.*",
-		"symfony/doctrine-messenger": "6.1.*",
-		"symfony/dotenv": "6.1.*",
-		"symfony/expression-language": "6.1.*",
+		"symfony/asset": "^6.4",
+		"symfony/console": "^6.4",
+		"symfony/doctrine-messenger": "^6.4",
+		"symfony/dotenv": "^6.4",
+		"symfony/expression-language": "^6.4",
 		"symfony/flex": "^2",
-		"symfony/form": "6.1.*",
-		"symfony/framework-bundle": "6.1.*",
-		"symfony/http-client": "6.1.*",
-		"symfony/intl": "6.1.*",
-		"symfony/mailer": "6.1.*",
-		"symfony/mime": "6.1.*",
+		"symfony/form": "^6.4",
+		"symfony/framework-bundle": "^6.4",
+		"symfony/http-client": "^6.4",
+		"symfony/intl": "^6.4",
+		"symfony/mailer": "^6.4",
+		"symfony/mime": "^6.4",
 		"symfony/monolog-bundle": "^3.0",
-		"symfony/notifier": "6.1.*",
-		"symfony/process": "6.1.*",
-		"symfony/property-access": "6.1.*",
-		"symfony/property-info": "6.1.*",
-		"symfony/proxy-manager-bridge": "6.1.*",
-		"symfony/runtime": "6.1.*",
-		"symfony/security-bundle": "6.1.*",
-		"symfony/serializer": "6.1.*",
-		"symfony/string": "6.1.*",
-		"symfony/translation": "6.1.*",
-		"symfony/twig-bundle": "6.1.*",
+		"symfony/notifier": "^6.4",
+		"symfony/process": "^6.4",
+		"symfony/property-access": "^6.4",
+		"symfony/property-info": "^6.4",
+		"symfony/proxy-manager-bridge": "^6.4",
+		"symfony/runtime": "^6.4",
+		"symfony/security-bundle": "^6.4",
+		"symfony/serializer": "^6.4",
+		"symfony/string": "^6.4",
+		"symfony/translation": "^6.4",
+		"symfony/twig-bundle": "^6.4",
 		"symfony/ux-dropzone": "^2.2",
-		"symfony/validator": "6.1.*",
-		"symfony/web-link": "6.1.*",
-		"symfony/webapp-meta": "^1.0",
-		"symfony/webpack-encore-bundle": "^1.12",
-		"symfony/yaml": "6.1.*",
+		"symfony/validator": "^6.4",
+		"symfony/webpack-encore-bundle": "^2.0",
+		"symfony/yaml": "^6.4",
 		"symfonycasts/verify-email-bundle": "^1.10",
 		"twig/cssinliner-extra": "^3.4",
 		"twig/extra-bundle": "^2.12|^3.0",
@@ -118,21 +114,25 @@
 	"extra": {
 		"symfony": {
 			"allow-contrib": true,
-			"require": "6.1.*",
+			"require": "^6.4",
 			"docker": true
 		}
 	},
 	"require-dev": {
-		"symfony/debug-bundle": "6.1.*",
+		"doctrine/doctrine-fixtures-bundle": "^4.3",
+		"phpunit/phpunit": "^12.4",
+		"rector/rector": "^2.2",
+		"symfony/debug-bundle": "^6.4",
 		"symfony/maker-bundle": "^1.0",
-		"symfony/stopwatch": "6.1.*",
-		"symfony/web-profiler-bundle": "6.1.*"
+		"symfony/phpunit-bridge": "^7.3",
+		"symfony/stopwatch": "^6.4",
+		"symfony/web-profiler-bundle": "^6.4"
 	},
 	"authors": [
 		{
 			"name": "Florent HAZARD",
 			"email": "contact@sowapps.com",
-			"homepage": "http://sowapps.com",
+			"homepage": "https://sowapps.com",
 			"role": "Developer"
 		}
 	]
