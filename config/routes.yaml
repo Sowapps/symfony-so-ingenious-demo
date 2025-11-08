@@ -4,11 +4,8 @@ so_core:
 so_log:
     resource: '@SoLogBundle/config/routes.yaml'
 
-home:
-    path: /
-    controller: App\Controller\HomeController::home
-
-test_form:
-    path: /test/form.html
-    methods: GET|POST
-    controller: App\Test\TestController::form
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
