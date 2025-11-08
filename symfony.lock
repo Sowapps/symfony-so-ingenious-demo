@@ -92,12 +92,6 @@
     "egulias/email-validator": {
         "version": "3.2"
     },
-    "friendsofphp/proxy-manager-lts": {
-        "version": "v1.0.12"
-    },
-    "laminas/laminas-code": {
-        "version": "4.5.1"
-    },
     "monolog/monolog": {
         "version": "3.0.0"
     },
@@ -406,9 +400,6 @@
         "version": "v6.1.0"
     },
     "symfony/property-info": {
-        "version": "v6.1.0"
-    },
-    "symfony/proxy-manager-bridge": {
         "version": "v6.1.0"
     },
     "symfony/routing": {
