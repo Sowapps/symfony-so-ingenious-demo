@@ -14,5 +14,5 @@ import '@popperjs/core';
 // Bootstrap is imported implicitly
 import 'startbootstrap-sb-admin/src/js/scripts.js';
 
-// App dependencies SCSS
-import './styles/admin-dependencies.scss';
+// // App dependencies SCSS
+// import './styles/admin-dependencies.scss';

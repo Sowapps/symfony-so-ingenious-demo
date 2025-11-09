@@ -5,6 +5,17 @@
 Php version is limited by production server (Ubuntu 20.04).  
 The production server should be upgraded to use a more recent version of Php.
 
+## Fixtures
+
+Some features are required to initialize the app with basic data, this is why the package `doctrine/doctrine-fixtures-bundle` is not dev only.  
+For initialization fixtures : `config/fixtures/fixtures-init.yaml`  
+For demo sample fixtures : `config/fixtures/fixtures-sample.yaml`  
+
+Import with
+```php
+bin/console doctrine:fixtures:load
+```
+
 ## Local dev environment
 
 Set .php-version to define PHP version served by Symfony server.  

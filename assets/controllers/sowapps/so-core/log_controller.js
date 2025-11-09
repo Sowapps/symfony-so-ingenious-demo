@@ -1,13 +1,13 @@
-import { AbstractController } from "../abstract.controller.js";
+import { AbstractController } from "../../../core/controller/abstract.controller.js";
 
 export default class extends AbstractController {
 	static targets = ['body'];
 	// static values = {labels: Object};
 	// static values = {url: String, order: Array};
-	
+
 	initialize() {
 		console.log('Log view for element', this.element, 'and body', this.bodyTarget);
 		this.$body = this.bodyTarget;
 	}
-	
+
 }

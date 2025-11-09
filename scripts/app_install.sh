@@ -92,6 +92,10 @@ fi
 echo "Migrating database to latest version..."
 php bin/console $dbMigrateOptions doctrine:migrations:migrate
 
+echo "Installing initialization fixtures..."
+php bin/console doctrine:fixtures:load
+# Can not let it non-interactive as it could reset the database and this script must be idempotent
+
 echo "Installing asset dependencies with AssetMapper..."
 php bin/console importmap:install
 

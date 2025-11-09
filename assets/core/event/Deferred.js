@@ -1,29 +1,29 @@
-import { stringService } from "../../services/string.service.js";
-import { Is } from "../../helpers/is.helper.js";
+import {stringService} from "../../service/string.service.js";
+import {Is} from "../../helpers/is.helper.js";
 
 export class Deferred {
 	/**
 	 * @type {DeferredPromise}
 	 */
 	#promise;
-	
-	constructor(type, container = null) {
+
+    constructor(type, container = null) {
 		this.type = type;
 		this.container = container;
 		this.doneCallback = null;
 		this.failCallback = null;
 		// For now, we want to lose previous values
 		// this.pendingValue = null;
-		
-		// Bidirectional
+
+        // Bidirectional
 		this.children = [];
 		this.parent = null;
 		// Unique ID
 		this.id = stringService.generateId();
 		this.#promise = new DeferredPromise(this);
 	}
-	
-	/**
+
+    /**
 	 * @param {Array<DeferredPromise>} promises
 	 * @return Deferred
 	 */
@@ -35,13 +35,13 @@ export class Deferred {
 		));
 		return deferred;
 	}
-	
-	attachCallbacks(doneCallback, failCallback) {
+
+    attachCallbacks(doneCallback, failCallback) {
 		this.doneCallback = doneCallback;
 		this.failCallback = failCallback;
 	}
-	
-	async reject(value) {
+
+    async reject(value) {
 		if( this.failCallback ) {
 			value = await this.failCallback.apply(null, [value]);
 		}
@@ -50,26 +50,26 @@ export class Deferred {
 				await child.reject(value);
 			}
 		}
-		
-		return this;
+
+        return this;
 	}
-	
-	promise() {
+
+    promise() {
 		return this.#promise;
 	}
-	
-	getRootDeferred() {
+
+    getRootDeferred() {
 		return this.parent ? this.parent.getRootDeferred() : this;
 	}
-	
-	castChild() {
+
+    castChild() {
 		const child = new Deferred(this.type);
 		child.parent = this;
 		this.children.push(child);
 		return child;
 	}
-	
-	getListener() {
+
+    getListener() {
 		if( !this.listener ) {
 			this.listener = async event => {
 				await this.resolve(event.detail, event);
@@ -77,8 +77,8 @@ export class Deferred {
 		}
 		return this.listener;
 	}
-	
-	async resolve(...values) {
+
+    async resolve(...values) {
 		// Root deferred never has callback, children are wearing it
 		// Each promise then, each callback assignment is creating a new deferred child
 		if( this.doneCallback ) {
@@ -92,11 +92,11 @@ export class Deferred {
 				await child.resolve(...values);
 			}
 		}
-		
-		return this;
+
+        return this;
 	}
-	
-	async triggerLastOne() {
+
+    async triggerLastOne() {
 		if( this.container && !Is.domElement(this.container) ) {
 			await this.container.triggerLastEventToDeferred(this);
 		}
@@ -111,22 +111,22 @@ export class DeferredPromise {
 	constructor(deferred) {
 		this.deferred = deferred;
 	}
-	
-	type() {
+
+    type() {
 		return this.deferred.type;
 	}
-	
-	getRootDeferred() {
+
+    getRootDeferred() {
 		return this.deferred.getRootDeferred();
 	}
-	
-	then(doneCallback, failCallback = null) {
+
+    then(doneCallback, failCallback = null) {
 		const child = this.deferred.castChild();
 		child.attachCallbacks(doneCallback, failCallback);
 		return child.promise();
 	}
-	
-	triggerLastOne() {
+
+    triggerLastOne() {
 		this.getRootDeferred().triggerLastOne();
 	}
 }
