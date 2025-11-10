@@ -1,11 +1,11 @@
-import { AbstractController } from "../abstract.controller.js";
-import { domService } from "../../../vendor/orpheus/js/service/dom.service.js";
+import { AbstractController } from "../../../core/controller/abstract.controller.js";
+import {domService} from "../../../service/dom.service.js";
 
 export default class Form extends AbstractController {
-	
+
 	static targets = ['submitButton'];
 	static values = {delegate: Boolean, liveCheck: Boolean, name: String};
-	
+
 	initialize() {
 		const $form = this.element;
 		this.idInput = $form.querySelector('.object-id');
@@ -23,7 +23,7 @@ export default class Form extends AbstractController {
 				$form.trigger('form.valid');
 				return false;
 			}
-			
+
 			$form.classList.add('was-validated');
 			if( valid ) {
 				// Now submitting
@@ -41,7 +41,7 @@ export default class Form extends AbstractController {
 					}
 				}
 			});
-			
+
 			return valid;
 		});
 		$form.addEventListener('app.form.reset', () => this.reset());
@@ -60,7 +60,7 @@ export default class Form extends AbstractController {
 			});
 		}
 	}
-	
+
 	fill(data) {
 		if( !data ) {
 			return;
@@ -80,33 +80,33 @@ export default class Form extends AbstractController {
 				domService.assignValue($element, value);
 			});
 		});
-		
+
 		return this;
 	}
-	
+
 	getName() {
 		return this.nameValue;
 	}
-	
+
 	enableSubmit() {
 		this.submitButtonTargets.forEach(button => {
 			button.disabled = false;
 		});
 	}
-	
+
 	disableSubmit() {
 		this.submitButtonTargets.forEach(button => {
 			// button.disabled = true;
 		});
 	}
-	
+
 	reset() {
 		if( this.element.nodeName === 'FORM' ) {
 			this.element.reset();
 		}
 		return this;
 	}
-	
+
 	checkValidity() {
 		this.dispatchEvent(this.element.querySelectorAll('.require-validation'), 'app.form.validate');
 		return this.element.checkValidity();

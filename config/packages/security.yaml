@@ -52,7 +52,8 @@ security:
     access_control:
         - { path: ^/developer/, roles: ROLE_DEVELOPER }
         - { path: ^/admin/, roles: ROLE_CONTRIBUTOR }
-#     - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/api/me(/|$), roles: ROLE_USER }
+        - { path: ^/user(/|$), roles: ROLE_USER }
 
 when@test:
     security:

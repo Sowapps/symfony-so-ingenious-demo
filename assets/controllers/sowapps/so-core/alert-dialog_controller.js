@@ -1,11 +1,11 @@
-import { AbstractController } from "../abstract.controller.js";
-import { domService } from "../../../vendor/orpheus/js/service/dom.service.js";
+import { AbstractController } from "../../../core/controller/abstract.controller.js";
+import {domService} from "../../../service/dom.service.js";
 
 export default class AlertDialogController extends AbstractController {
-	
+
 	static TYPE_ERROR = "error";
 	static targets = ['confirm'];
-	
+
 	static error(title, message, data) {
 		if( !message ) {
 			message = title;
@@ -16,7 +16,7 @@ export default class AlertDialogController extends AbstractController {
 		}
 		this.invoke(this.TYPE_ERROR, title, message, data);
 	}
-	
+
 	static invoke(type, title, message, data) {
 		const eventData = {
 			type: type,
@@ -30,7 +30,7 @@ export default class AlertDialogController extends AbstractController {
 			domService.dispatchEvent(window, 'so.alert.request', eventData);
 		});
 	}
-	
+
 	initialize() {
 		// Cohabit with Dialog controller
 		console.log('SoCore ALERT Dialog', this.element, this.confirmTarget);
@@ -50,7 +50,7 @@ export default class AlertDialogController extends AbstractController {
 		]);
 		console.log('this.components', this.components);
 	}
-	
+
 	request(event) {
 		const data = event.detail;
 		// Apply style
@@ -69,12 +69,12 @@ export default class AlertDialogController extends AbstractController {
 		// Open dialog
 		domService.dispatchEvent(this.element, 'app.dialog.open');
 	}
-	
+
 	close() {
 		// Close dialog
 		domService.dispatchEvent(this.element, 'app.dialog.close');
 	}
-	
+
 	confirm(event) {
 		if( event ) {
 			event.preventDefault();
@@ -83,5 +83,5 @@ export default class AlertDialogController extends AbstractController {
 		console.log('ConfirmDialog - Confirm');
 		this.close();
 	}
-	
+
 }
