@@ -4,17 +4,17 @@
 import { Trait } from "../trait/Trait.js";
 import { Deferred, DeferredPromise } from "./Deferred.js";
 import { EventBag } from "./EventBag.js";
-import { Is } from "../../helpers/is.helper.js";
+import { Is } from "../../helper/is.helper.js";
 
 
 export class EventListenerTrait extends Trait {
-	
+
 	initializeEventListenerTrait() {
 		if( !this.eventBag ) {
 			this.eventBag = new EventBag();
 		}
 	}
-	
+
 	/**
 	 * @param {String} event
 	 * @param {Object|any|null} data
@@ -24,12 +24,12 @@ export class EventListenerTrait extends Trait {
 		const events = this.eventBag.get(event);
 		const resolveEvent = {event, data, target: this, lastResult: null};
 		this.lastEvent = resolveEvent;
-		
+
 		for( const deferred of events ) {
 			await this.applyEventToDeferred(resolveEvent, deferred);
 		}
 	}
-	
+
 	/**
 	 * @param {Deferred} deferred
 	 * @return {Promise<void>}
@@ -39,11 +39,11 @@ export class EventListenerTrait extends Trait {
 			await this.applyEventToDeferred(this.lastEvent, deferred);
 		}
 	}
-	
+
 	async applyEventToDeferred(resolveEvent, deferred) {
 		resolveEvent.lastResult ||= await deferred.resolve(resolveEvent);
 	}
-	
+
 	/**
 	 * @param event
 	 * @return {DeferredPromise}
@@ -54,7 +54,7 @@ export class EventListenerTrait extends Trait {
 		this.eventBag.add(deferred);
 		return deferred.promise();
 	}
-	
+
 	/**
 	 * @param {string|DeferredPromise} promiseOrEvent
 	 */
@@ -66,5 +66,5 @@ export class EventListenerTrait extends Trait {
 			this.eventBag.remove(promiseOrEvent);
 		}
 	}
-	
+
 }

@@ -1,5 +1,5 @@
 import {stringService} from "../../service/string.service.js";
-import {Is} from "../../helpers/is.helper.js";
+import {Is} from "../../helper/is.helper.js";
 
 export class Deferred {
 	/**

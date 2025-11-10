@@ -1,18 +1,18 @@
 /**
  * @author Florent HAZARD <f.hazard@sowapps.com>
  */
-import { Is } from "../../helpers/is.helper.js";
+import { Is } from "../../helper/is.helper.js";
 
 export class Portrait {
-	
+
 	constructor(classPrototype) {
 		this.classPrototype = Is.function(classPrototype) ? classPrototype.prototype : classPrototype;
 	}
-	
+
 	static for(className) {
 		return new Portrait(className);
 	}
-	
+
 	/**
 	 * Use trait
 	 * Unavailable features : private properties, private methods
@@ -28,8 +28,8 @@ export class Portrait {
 			}
 			Object.defineProperty(this.classPrototype, property, propertyDescriptor);
 		}
-		
+
 		return this;
 	}
-	
+
 }

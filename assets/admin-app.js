@@ -8,6 +8,6 @@
 // Local dependencies
 // import '@sowapps/so-core/vendor/orpheus/js/orpheus.js';
 // Stimulus application
-import "@fortawesome/fontawesome-free/css/all.css";
-import "bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "@fortawesome/fontawesome-free/css/all.css";
+// import "bootstrap";
+// import "bootstrap/dist/css/bootstrap.min.css";

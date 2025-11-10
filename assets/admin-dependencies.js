@@ -7,12 +7,12 @@
 
 // Dependencies
 
-import '@popperjs/core';
+// import '@popperjs/core';
 
 // Bootstrap - https://getbootstrap.com/docs/5.1/getting-started/webpack/
 // import 'bootstrap/dist/js/bootstrap.js';
 // Bootstrap is imported implicitly
-import 'startbootstrap-sb-admin/src/js/scripts.js';
+// import 'startbootstrap-sb-admin/src/js/scripts.js';
 
 // // App dependencies SCSS
 // import './styles/admin-dependencies.scss';

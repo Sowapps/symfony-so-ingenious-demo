@@ -3,7 +3,7 @@ import { Controller } from '@hotwired/stimulus';
 import { Modal } from "bootstrap";
 import {Deferred} from "../event/Deferred.js";
 import {domService} from "../../service/dom.service.js";
-import {Is} from "../../helpers/is.helper.js";
+import {Is} from "../../helper/is.helper.js";
 
 export class AbstractController extends Controller {
 

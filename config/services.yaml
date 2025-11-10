@@ -4,6 +4,10 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    # Ever, ever declare the data type to use an environment variable
+    # Env var types : https://symfony.com/doc/current/configuration/env_var_processors.html
+    security.admin.accessKey: '%env(string:ADMIN_ACCESS_KEY)%'
+    app.version: '%env(string:APP_VERSION)%'
 
 services:
     # default configuration for services in *this* file
@@ -15,6 +19,17 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Sowapps/'
+    Sowapps\:
+        resource: '../src/Sowapps/'
+        exclude:
+            - '../src/Sowapps/DependencyInjection/'
+            - '../src/Sowapps/Entity/'
+            - '../src/Sowapps/Core/'
+            - '../src/Sowapps/Dbal/'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

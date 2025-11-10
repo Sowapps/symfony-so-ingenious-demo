@@ -4,7 +4,7 @@
  * @author Florent HAZARD <f.hazard@sowapps.com>
  */
 
-import { Is } from "../helpers/is.helper.js";
+import { Is } from "../helper/is.helper.js";
 
 class ParseValueException extends Error {
 }
@@ -13,12 +13,12 @@ class ParseValueException extends Error {
  * Only to replace variables in a string
  */
 export class StringTemplate {
-	
+
 	constructor(filters, filterer) {
 		this.filters = filters;
 		this.filterer = filterer;
 	}
-	
+
 	/**
 	 * @param {string} template
 	 * @param {Object} data
@@ -27,7 +27,7 @@ export class StringTemplate {
 	render(template, data) {
 		data = data || {};
 		// Resolve values in attributes
-		
+
 		// Deprecated for TWIG compatibility, double brackets
 		template = template.replace(/\{\{ ?([^\}]+) ?\}\}/ig, (all, variable) => {
 			try {
@@ -36,7 +36,7 @@ export class StringTemplate {
 				return all;
 			}
 		});
-		
+
 		// Yes we want this one, simple brackets
 		template = template.replace(/\{ ?([^\}]+) ?\}/ig, (all, variable) => {
 			try {
@@ -45,7 +45,7 @@ export class StringTemplate {
 				return all;
 			}
 		});
-		
+
 		// For url compatibility, url encoded brackets
 		template = template.replace(/\%7B\%20([^\%]+)\%20\%7D/ig, (all, variable) => {
 			try {
@@ -54,14 +54,14 @@ export class StringTemplate {
 				return all;
 			}
 		});
-		
+
 		return template;
 	}
-	
+
 	formatDefault(value) {
 		return value === null ? "" : value;
 	}
-	
+
 	parseValue(value, data) {
 		const result = value.match(/\s?([^\|]+\S)(?=\s*\||\s*$)/g)
 			// Chain filter using the result of the previous one (first property is a filter and the data is the first value)
@@ -71,7 +71,7 @@ export class StringTemplate {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * @param {any} value
 	 * @param {string} filter
@@ -95,21 +95,21 @@ export class StringTemplate {
 			}
 			return filterCallback.call(this.filters, value, ...args);
 		}
-		
+
 		if( this.isScalarString(name) ) {
 			// Scalar string value. Example: 'foo' or "bar"
 			return name.slice(1, name.length - 1);
 		}
-		
+
 		if( this.isScalarInteger(name) ) {
 			// Scalar integer value. Example: 999
 			return name * 1;
 		}
-		
+
 		// As property or raw value
 		return this.resolveProperty(name, value);
 	}
-	
+
 	resolveProperty(propertyChain, data) {
 		// Undefined must be handled by "default()" filter
 		return propertyChain.trim().split(".")
@@ -126,7 +126,7 @@ export class StringTemplate {
 				return value;
 			}, data);
 	}
-	
+
 	/**
 	 * @param {string} value
 	 * @return {boolean}
@@ -136,7 +136,7 @@ export class StringTemplate {
 		const lastChar = value.slice(-1);
 		return firstChar === lastChar && firstChar === "\"" || firstChar === "'";
 	}
-	
+
 	/**
 	 * @param {string} value
 	 * @return {boolean}
@@ -144,5 +144,5 @@ export class StringTemplate {
 	isScalarInteger(value) {
 		return Is.stringInteger(value);
 	}
-	
+
 }

@@ -1,11 +1,11 @@
-import { Is } from "../helpers/is.helper.js";
-import { Process } from "../helpers/process.helper.js";
+import { Is } from "../helper/is.helper.js";
+import { Process } from "../helper/process.helper.js";
 import { StringTemplate } from "../core/StringTemplate.js";
 import { Deferred } from "../core/event/Deferred.js";
 import { stringService } from "./string.service.js";
 
 class DomService {
-	
+
 	/**
 	 * Update README-Saw.md relying on this list
 	 * @see /README-Saw.md for documentation
@@ -52,7 +52,7 @@ class DomService {
 			return location.host;
 		},
 	};
-	
+
 	/**
 	 * Add possibility to select element itself
 	 *
@@ -63,7 +63,7 @@ class DomService {
 	queryMeOrChild(element, selector) {
 		return element.matches(selector) ? element : element.querySelector(selector);
 	}
-	
+
 	/**
 	 * Add possibility to select element itself
 	 *
@@ -74,7 +74,7 @@ class DomService {
 	queryMeOrParent(element, selector) {
 		return element.matches(selector) ? element : element.closest(selector);
 	}
-	
+
 	on(selector, eventName, container = document) {
 		if( Is.domElement(selector) ) {
 			container = selector;
@@ -91,10 +91,10 @@ class DomService {
 				await deferred.resolve(event);
 			}
 		});
-		
+
 		return deferred.promise();
 	}
-	
+
 	/**
 	 * @param {DeferredPromise} promise
 	 * @return {DeferredPromise}
@@ -103,31 +103,31 @@ class DomService {
 		const deferred = promise.getRootDeferred();
 		deferred.container.removeEventListener(deferred.type, deferred.listener);
 	}
-	
+
 	getLocation(uri) {
 		const link = document.createElement("a");
 		link.href = uri;
 		return link;
 	}
-	
+
 	disableForm(form) {
 		[...form.elements].forEach(element => {
 			element.dataset.__previouslyDisabled = element.disabled;
 			element.disabled = true;
 		});
 	}
-	
+
 	enableForm(form) {
 		[...form.elements].forEach(element => {
 			element.disabled = element.dataset.__previouslyDisabled === "true";
 			delete element.dataset.__previouslyDisabled;
 		});
 	}
-	
+
 	getFormData($form) {
 		return new FormData($form);
 	};
-	
+
 	getFormObject($form) {
 		const formData = this.getFormData($form);
 		const object = {};
@@ -168,11 +168,11 @@ class DomService {
 		});
 		return object;
 	};
-	
+
 	#escapeInputName(name) {
 		return name.replace(/([\[\]])/g, "\\$1");
 	}
-	
+
 	#assignObjectByKeyChain(object, keys, value) {
 		if( !keys.length ) {
 			// Key is leaf
@@ -194,7 +194,7 @@ class DomService {
 		}
 		return object;
 	}
-	
+
 	// #assignObjectByKeyChain(object, keys, value) {
 	// 	let key = keys.shift();
 	// 	if( !keys.length ) {
@@ -218,7 +218,7 @@ class DomService {
 	// 	object[key] = value;
 	// 	return object;
 	// }
-	
+
 	/**
 	 * Parse a form name chain to an array
 	 *
@@ -228,14 +228,14 @@ class DomService {
 	parseFormNameChain(name) {
 		return [...name.matchAll(/^([^\[]+)|\[([^\[\]]*)\]/g)].map(group => group[1] || group[2]);
 	}
-	
+
 	endFadeOut(...elements) {
 		elements.forEach(element => {
 			element.classList.remove("fade-out");
 			element.hidden = true;
 		});
 	}
-	
+
 	async fadeOut(element, delay, remove) {
 		await Process.wait(delay);
 		element.classList.add("fade-out");
@@ -246,28 +246,28 @@ class DomService {
 			this.endFadeOut(element);
 		}
 	}
-	
+
 	detach($element) {
 		if( !$element.parentElement ) {
 			return false;
 		}
 		return $element.parentElement.removeChild($element);
 	}
-	
+
 	castElementTemplate(fragment) {
 		const template = document.createElement("template");
 		template.innerHTML = fragment.trim();// Any whitespace will convert it to text
 		return template.content;
 	}
-	
+
 	castElement(fragment) {
 		return this.castElementTemplate(fragment).firstChild;
 	}
-	
+
 	castElementNodes(fragment) {
 		return [...this.castElementTemplate(fragment).children];
 	}
-	
+
 	createElement(tag, className, attributes) {
 		const $element = document.createElement(tag);
 		if( className ) {
@@ -280,7 +280,7 @@ class DomService {
 		}
 		return $element;
 	}
-	
+
 	getViewportSize() {
 		// https://stackoverflow.com/questions/1248081/how-to-get-the-browser-viewport-dimensions
 		return {
@@ -288,7 +288,7 @@ class DomService {
 			height: Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0),
 		};
 	}
-	
+
 	parseArguments(list) {
 		// Remove the first level of quoting
 		const length = list.length;
@@ -327,7 +327,7 @@ class DomService {
 		}
 		return tokens;
 	}
-	
+
 	resolveCondition(condition, data) {
 		let conditionParts = this.parseArguments(this.#formatTemplateString(condition, data));
 		const invert = conditionParts[0] === "not";
@@ -349,7 +349,7 @@ class DomService {
 		}
 		return invert ^ Number(!!rawCondition);
 	}
-	
+
 	#formatTemplateString(string, data) {
 		data = data || {};
 		// Clean contents
@@ -360,13 +360,13 @@ class DomService {
 			subTemplateId++;
 			const key = `__sub_template_${subTemplateId}__`;
 			data[key] = matched;
-			
+
 			return `{${key}}`;
 		});
-		
+
 		return this.renderString(template, data);
 	}
-	
+
 	renderString(template, data) {
 		if( !template ) {
 			// Message does not exist
@@ -375,11 +375,11 @@ class DomService {
 		const stringTemplate = new StringTemplate(this.filters, this);
 		return stringTemplate.render(template, data);
 	}
-	
+
 	getElement($element) {
 		return Is.string($element) ? document.querySelector($element) : $element;
 	}
-	
+
 	fillForm($container, data, pattern = null) {
 		if( !data || typeof data !== "object" ) {
 			throw "Parameter data must be an object";
@@ -393,7 +393,7 @@ class DomService {
 				});
 		});
 	};
-	
+
 	assignValue($element, value) {
 		if( !($element instanceof Element) ) {
 			throw "Parameter $element must be an Element (DOM)";
@@ -441,12 +441,12 @@ class DomService {
 			// Simple html element
 			$element.innerText = value || $element.dataset.emptyText;
 		}
-		
+
 		if( changed ) {
 			$element.dispatchEvent(new Event("change"));
 		}
 	}
-	
+
 	getSiblings($element, filter = null) {
 		const filterFunction = typeof filter === "function" ? filter : null;
 		const filterSelector = typeof filter === "string" ? filter : null;
@@ -455,7 +455,7 @@ class DomService {
 			$child !== $element && (!filterFunction || filterFunction($child)) && (!filterSelector || $child.matches(filterSelector)),
 		);
 	}
-	
+
 	renderTemplateElement($template, data, prefix) {
 		// Resolve conditional displays
 		$template.querySelectorAll("[data-if]").forEach($element => {
@@ -483,7 +483,7 @@ class DomService {
 				$template.querySelectorAll(`[data-attr-${property}]`).forEach($element =>
 					$element[property] = !!$element.dataset["attr" + stringService.capitalize(property)]);
 			});
-		
+
 		// Fix image loading preventing
 		$template.querySelectorAll("[data-src]").forEach($element => {
 			$element.src = $element.dataset.src;
@@ -499,11 +499,11 @@ class DomService {
 			this.fillForm($template, data, this.getPrefixPattern(prefix));
 		}
 	}
-	
+
 	getPrefixPattern(prefix) {
 		return prefix + "[%s]";
 	}
-	
+
 	async loadTemplate(key, $target) {
 		const response = await fetch("/api/template/" + key);
 		if( !response.ok ) {
@@ -511,14 +511,14 @@ class DomService {
 		}
 		// const $target = document.querySelector(target);
 		$target.innerHTML = await response.text();
-		
+
 		return $target;
 	}
-	
+
 	global() {
 		return $(window);
 	}
-	
+
 	extractTemplate(template) {
 		let isHtml = true;
 		if( Is.jquery(template) ) {
@@ -546,7 +546,7 @@ class DomService {
 		}
 		return {template: template, isHtml: isHtml};
 	}
-	
+
 	/**
 	 * @param template
 	 * @param data
@@ -580,27 +580,27 @@ class DomService {
 		// Direct in DOM Element
 		// $item.renderingTemplate = {template: templateString, options: options};
 		elements.forEach(element => this.renderTemplateElement(element, data, options.prefix));
-		
+
 		return elements;
 	}
-	
+
 	renderTemplateAsString(template, data) {
 		let {template: templateString} = this.extractTemplate(template);
 		return this.#formatTemplateString(templateString, data);
 	}
-	
+
 	isCheckbox($element) {
 		return $element.tagName.toLowerCase() === "input" && $element.getAttribute("type") === "checkbox";
 	}
-	
+
 	isInput($element) {
 		return ["input", "select", "textarea"].includes($element.tagName.toLowerCase());
 	}
-	
+
 	getInputs($element) {
 		return $element.querySelectorAll("input,select,textarea");
 	}
-	
+
 	/**
 	 * @param {Element|string} $element
 	 * @param {string|Array<string>} classList
@@ -615,16 +615,16 @@ class DomService {
 			$element.classList.toggle(cssClass, toggle);
 		}
 	}
-	
+
 	toggle(elements, show) {
 		this.allElements(elements)
 			.forEach(element => element.hidden = !show);
 	}
-	
+
 	showElement($element) {
 		$element.hidden = false;
 	}
-	
+
 	oneElement(element, nullable) {
 		if( element ) {
 			if( Is.string(element) ) {
@@ -638,10 +638,10 @@ class DomService {
 		if( !element ) {
 			return nullable ? new NullElement() : null;
 		}
-		
+
 		return element;
 	}
-	
+
 	allElements(elements) {
 		if( elements ) {
 			if( Is.string(elements) ) {
@@ -659,17 +659,17 @@ class DomService {
 				elements = [elements];
 			}
 		}
-		
+
 		return elements || [];
 	}
-	
+
 	buildCustomEvent(event, detail = null, options = {}) {
 		if( detail ) {
 			options.detail = detail;
 		}
 		return new CustomEvent(event, options);
 	}
-	
+
 	dispatchEvent(element, event, detail = null, options = {}) {
 		if( element ) {
 			if( Is.iterable(element) && !Is.array(element) ) {
@@ -692,25 +692,25 @@ class DomService {
 		}
 		element.dispatchEvent(this.buildCustomEvent(event, detail, options));
 	}
-	
+
 	resetForm($form) {
 		$form.classList.remove("was-validated");
 		$form.reset();
 	}
-	
+
 }
 
 /**
  * Fake DOM element doing nothing when querying a non-existing element and allowing it to be null, it's still allowing chaining
  */
 class NullElement {
-	
+
 	addEventListener() {
 	}
-	
+
 	dispatchEvent() {
 	}
-	
+
 }
 
 export const domService = new DomService();
