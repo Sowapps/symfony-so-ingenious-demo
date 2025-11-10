@@ -1,0 +1,12 @@
+// Customize vendors
+
+// Font awesome
+
+// Stacking top right for network error icon
+.fa-pos-top-right::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  line-height: normal;
+}
+

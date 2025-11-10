@@ -1,11 +1,11 @@
-import { AbstractController } from "../abstract.controller.js";
-import { domService } from "../../../vendor/orpheus/js/service/dom.service.js";
-import { dialogService } from "../../../vendor/orpheus/js/service/dialog.service.js";
+import { AbstractController } from "../../../core/controller/abstract.controller.js";
+import {domService} from "../../../service/dom.service.js";
+import { dialogService } from "../../../service/web/dialog.service.js";
 
 export default class ConfirmDialogController extends AbstractController {
-	
+
 	static targets = ['cancel', 'confirm'];
-	
+
 	static invoke(title, message, data) {
 		const eventData = {
 			title: title,
@@ -20,7 +20,7 @@ export default class ConfirmDialogController extends AbstractController {
 			domService.dispatchEvent(window, 'so.confirm.request', eventData);
 		});
 	}
-	
+
 	initialize() {
 		// Cohabit with Dialog controller
 		console.log('Confirm SoCore Dialog', this.element, this.confirmTarget);
@@ -31,7 +31,7 @@ export default class ConfirmDialogController extends AbstractController {
 			});
 		this.confirmation = null;
 	}
-	
+
 	request(event) {
 		const data = event.detail;
 		// const submit = !data.event;
@@ -53,12 +53,12 @@ export default class ConfirmDialogController extends AbstractController {
 		// Open dialog
 		domService.dispatchEvent(this.element, 'app.dialog.open');
 	}
-	
+
 	close(next) {
 		// Close dialog
 		domService.dispatchEvent(this.element, 'app.dialog.close', {next: next});
 	}
-	
+
 	confirm(event) {
 		if( event ) {
 			event.preventDefault();
@@ -73,7 +73,7 @@ export default class ConfirmDialogController extends AbstractController {
 			this.confirmation.resolve();
 		}
 	}
-	
+
 	cancel(event) {
 		if( event ) {
 			event.preventDefault();
@@ -85,5 +85,5 @@ export default class ConfirmDialogController extends AbstractController {
 			this.confirmation.reject();
 		}
 	}
-	
+
 }

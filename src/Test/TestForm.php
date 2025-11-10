@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class TestForm extends AbstractForm {
 	
-	public function buildForm(FormBuilderInterface $builder, array $options) {
+	public function buildForm(FormBuilderInterface $builder, array $options): void {
 		dump('TestForm', $options, $builder->getData());
 		$builder->add('user', UserType::class, [
 			'models' => [UserType::MODEL_PICTURE => true],

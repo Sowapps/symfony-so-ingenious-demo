@@ -1,4 +1,5 @@
 twig:
+    file_name_pattern: '*.twig'
     default_path: '%kernel.project_dir%/templates'
     form_themes: [ '@SoCore/theme/bootstrap_5.html.twig', '@SoCore/theme/so_core.html.twig' ]
     globals:

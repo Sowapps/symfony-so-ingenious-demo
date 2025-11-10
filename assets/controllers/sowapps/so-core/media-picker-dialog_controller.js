@@ -1,27 +1,27 @@
-import { AbstractController } from "../abstract.controller.js";
-import { domService } from "../../../vendor/orpheus/js/service/dom.service.js";
-import { stringService } from "../../../vendor/orpheus/js/service/string.service.js";
+import { AbstractController } from "../../../core/controller/abstract.controller.js";
+import {domService} from "../../../service/dom.service.js";
+import {stringService} from "../../../service/string.service.js";
 import { Tab } from 'bootstrap';
 import MediaPickerLibraryController from "./picker-library_controller.js";
 
 export default class extends AbstractController {
-	
+
 	static targets = ['menu', 'menuItemTemplate', 'confirm'];
-	
+
 	#pickers;
 	#config;
-	
+
 	initialize() {
 		// console.log('Component media-picker-dialog starting');
 		this.#pickers = {};
 		this.selectedFiles = [];
 		this.#config = null;
-		
+
 		this.element.addEventListener('so.media-picker.register-picker', event => {
 			// console.log("Caught event so.media-picker.register-picker", event);
 			this.registerPicker(event.detail.controller);
 		});
-		
+
 		this.element.addEventListener('so.media-picker.file.new', async event => {
 			const data = event.detail;
 			console.log("Caught event so.media-picker.file.new", data);
@@ -38,32 +38,32 @@ export default class extends AbstractController {
 					picker.controller.select(data.file);
 				});
 		});
-		
+
 		this.on('so.media-picker.library.changed').then(selection => {
 			console.log("so.media-picker.library.changed - selection", selection);
 			this.selectedFiles = selection.items;
 			this.render();
 		});
-		
+
 		this.render();
 	}
-	
+
 	render() {
 		const hasSelection = !!this.selectedFiles.length;
 		this.confirmTargets.forEach($confirm => {
 			$confirm.disabled = !hasSelection;
 		});
 	}
-	
+
 	close() {
 		// Close dialog
 		this.dispatchEvent(this.element, 'app.dialog.close');
 	}
-	
+
 	cancel() {
 		this.close();
 	}
-	
+
 	confirm() {
 		// const selection = this.selectedFiles;
 		console.log('confirm - selection', this.selectedFiles);
@@ -79,7 +79,7 @@ export default class extends AbstractController {
 		}
 		this.close();
 	}
-	
+
 	/**
 	 * @param {MediaPickerController} picker Picker controller inheriting MediaPickerController
 	 */
@@ -101,7 +101,7 @@ export default class extends AbstractController {
 		$tabItem.addEventListener('show.bs.tab', () => pickerConfig.controller.start());
 		$tabItem.addEventListener('hidden.bs.tab', () => pickerConfig.controller.end());
 	}
-	
+
 	request(event) {
 		const data = event.detail;
 		const selectedFile = data.selected;
@@ -152,11 +152,11 @@ export default class extends AbstractController {
 			this.selectedFiles = [selectedFile];// Invalid format but we just require to fill it
 		}
 		this.#pickers[openPicker].tab.show();
-		
+
 		// Open dialog
 		this.dispatchEvent(this.element, 'app.dialog.open');
-		
+
 		this.render();
 	}
-	
+
 }

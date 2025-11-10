@@ -1,12 +1,12 @@
-import { AbstractController } from "../abstract.controller.js";
+import { AbstractController } from "../../../core/controller/abstract.controller.js";
 import { Modal } from 'bootstrap';
-import { dialogService } from "../../../vendor/orpheus/js/service/dialog.service.js";
+import { dialogService } from "../../../service/web/dialog.service.js";
 
 export default class DialogController extends AbstractController {
-	
+
 	static values = {initOpen: Boolean, closeToPrevious: {type: Boolean, default: true}};
 	static actives = [];
-	
+
 	initialize() {
 		this.modal = Modal.getOrCreateInstance(this.element);
 		if( this.hasInitOpenValue && this.initOpenValue ) {
@@ -27,7 +27,7 @@ export default class DialogController extends AbstractController {
 				}
 			});
 	}
-	
+
 	close(closeForNextDialog = false) {
 		console.log('Close dialog', closeForNextDialog);
 		if( typeof closeForNextDialog === 'object' ) {
@@ -38,7 +38,7 @@ export default class DialogController extends AbstractController {
 		this.closeForNextDialog = closeForNextDialog;
 		this.modal.hide();
 	}
-	
+
 	open(event) {
 		let data = null, prefix = null, pattern = null;
 		if( event && event.detail ) {

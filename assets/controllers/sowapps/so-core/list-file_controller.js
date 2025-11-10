@@ -1,10 +1,10 @@
-import { AbstractController } from "../abstract.controller.js";
-import { domService } from "../../../vendor/orpheus/js/service/dom.service.js";
+import { AbstractController } from "../../../core/controller/abstract.controller.js";
+import {domService} from "../../../service/dom.service.js";
 
 export default class FileListController extends AbstractController {
-	
+
 	static targets = ['itemTemplate', 'list'];
-	
+
 	initialize() {
 		this.$items = {};
 		this.items = [];
@@ -12,11 +12,11 @@ export default class FileListController extends AbstractController {
 		this.type = this.element.dataset.type;
 		this.$list = this.hasListTarget ? this.listTarget : this.element;
 		this.selectionMax = null;
-		
+
 		if( !this.type ) {
 			throw new Error('Missing type (data-type) for FileListController');
 		}
-		
+
 		// Permanent events
 		this.on('so.file.select')
 			.then(selection => {
@@ -30,18 +30,18 @@ export default class FileListController extends AbstractController {
 					this.notifySelectionChanges();
 				}
 			});
-		
+
 		window.addEventListener('so.file.deleted', event => {
 			console.log("Caught event so.file.deleted", event.detail.file);
 			this.remove(event.detail.file);
 			this.render();
 		});
 	}
-	
+
 	setSelectionMax(max) {
 		this.selectionMax = max;
 	}
-	
+
 	addToSelection(item) {
 		console.log('addToSelection - item', item);
 		if( item.selected ) {
@@ -61,7 +61,7 @@ export default class FileListController extends AbstractController {
 		item.selected = true;
 		return true;
 	}
-	
+
 	removeFromSelection(item) {
 		console.log('removeFromSelection - item', item);
 		if( !item.selected ) {
@@ -71,17 +71,17 @@ export default class FileListController extends AbstractController {
 		item.selected = false;
 		return true;
 	}
-	
+
 	notifySelectionChanges() {
 		this.render();
 		domService.dispatchEvent(this.element, 'so.list.selection.change', {list: this, items: this.getSelection().map(item => item.file)}, {bubbles: true});
 	}
-	
+
 	getSelection() {
 		return this.items
 			.filter(item => item.selected);
 	}
-	
+
 	remove(file) {
 		let beforeCount = this.items.length;
 		// Remove item by filtering it
@@ -92,7 +92,7 @@ export default class FileListController extends AbstractController {
 		delete this.$items[file.id];
 		this.changedList = true;
 	}
-	
+
 	add(item) {
 		// console.log('list add item', item);
 		if( !item.file ) {
@@ -104,14 +104,14 @@ export default class FileListController extends AbstractController {
 		// No auto refresh, you have to call render
 		return this;
 	}
-	
+
 	clear() {
 		this.items = [];
 		this.changedList = true;
 		// No auto refresh, you have to call render
 		return this;
 	}
-	
+
 	render() {
 		// console.log('FileListController.render - this.itemTemplateTarget', this.itemTemplateTarget);
 		if( this.changedList ) {
@@ -127,10 +127,10 @@ export default class FileListController extends AbstractController {
 			.map(item => this.$items[item.file.id].querySelector('.item-file'))
 			.forEach($item => this.dispatchEvent($item, 'so.item.render'));
 	}
-	
+
 	buildItemData(item) {
 	}
-	
+
 	buildItem(item) {
 		console.log('buildItem', item, this.$items[item.file.id]);
 		// Each list has its own file item
@@ -155,5 +155,5 @@ export default class FileListController extends AbstractController {
 		// console.log('buildItem - built', $item);
 		return $item;
 	}
-	
+
 }

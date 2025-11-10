@@ -5,12 +5,9 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 
-// App SCSS
-import './styles/admin-app.scss';
-
 // Local dependencies
 // import '@sowapps/so-core/vendor/orpheus/js/orpheus.js';
 // Stimulus application
-import './bootstrap';
-import './vendor/orpheus/js/service/routing.service.js';
-import './vendor/orpheus/js/service/translation.service.js';
+// import "@fortawesome/fontawesome-free/css/all.css";
+// import "bootstrap";
+// import "bootstrap/dist/css/bootstrap.min.css";

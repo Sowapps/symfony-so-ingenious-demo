@@ -1,17 +1,17 @@
 import { MediaPickerController } from "../media-picker.controller.js";
-import { domService } from "../../../vendor/orpheus/js/service/dom.service.js";
+import {domService} from "../../../service/dom.service.js";
 
 export default class MediaPickerLibraryController extends MediaPickerController {
-	
+
 	static targets = ['row', 'rowButton', 'rowView', 'thumbnailButton', 'thumbnailView'];
 	static values = {listUrl: String};
-	
+
 	static STATE_NONE = 'none';
 	static STATE_LOADING = 'loading';
 	static STATE_LOADED = 'loaded';
 	static EVENT_REFRESHED = 'so.media-picker.library.refreshed';
 	static EVENT_CHANGED = 'so.media-picker.library.changed';
-	
+
 	initialize() {
 		super.initialize();
 		console.log('MediaPickerLibraryController.initialize', this.listUrlValue);
@@ -24,18 +24,18 @@ export default class MediaPickerLibraryController extends MediaPickerController 
 		this.state = MediaPickerLibraryController.STATE_NONE;
 		this.view = this.views.row;
 		this.pendingSelection = [];
-		
+
 		this.on('so.list.selection.change')
 			.then(selection => {
 				console.log('Library - selection changes', selection);
 				// The item list is the same, item are already marked as selected
 				// But we are notified it happened
-				
+
 				// Format for library dialog output
 				domService.dispatchEvent(this.element, 'so.media-picker.library.changed', {picker: this, items: [...selection.items]}, {bubbles: true});
 			});
 	}
-	
+
 	start() {
 		// Start on show
 		console.log('MediaPickerLibraryController.start', this.getPurpose(), this.state);
@@ -43,7 +43,7 @@ export default class MediaPickerLibraryController extends MediaPickerController 
 			this.refreshItems();
 		}
 	}
-	
+
 	async refreshItems() {
 		console.log('Library.refreshItems');
 		if( this.state === MediaPickerLibraryController.STATE_LOADING ) {
@@ -51,7 +51,7 @@ export default class MediaPickerLibraryController extends MediaPickerController 
 			return;
 		}
 		this.state = MediaPickerLibraryController.STATE_LOADING;
-		
+
 		const fileList = await fetch(this.listUrlValue)
 			.then(response => {
 				if( !response.ok ) {
@@ -69,18 +69,18 @@ export default class MediaPickerLibraryController extends MediaPickerController 
 			return [file.id, item];
 		}));
 		console.log('Items ', this.items, 'dispatchEvent EVENT_REFRESHED');
-		
+
 		this.state = MediaPickerLibraryController.STATE_LOADED;
-		
+
 		if( this.pendingSelection.length ) {
 			this.setSelection(this.pendingSelection);
 		}
-		
+
 		this.dispatchEvent(this.element, MediaPickerLibraryController.EVENT_REFRESHED);
-		
+
 		this.refreshView();
 	}
-	
+
 	changeView(name) {
 		if( name instanceof Event ) {
 			name = name.params.view;
@@ -95,11 +95,11 @@ export default class MediaPickerLibraryController extends MediaPickerController 
 		this.view = this.views[name];
 		this.refreshView();
 	}
-	
+
 	select(file) {
 		this.setSelection([file.id]);
 	}
-	
+
 	setSelection(fileIds) {
 		console.log('setSelection - fileIds', fileIds, Object.keys(this.items));
 		if( this.state !== MediaPickerLibraryController.STATE_LOADED ) {
@@ -117,7 +117,7 @@ export default class MediaPickerLibraryController extends MediaPickerController 
 			fileItem.selected = selected;
 		});
 	}
-	
+
 	createFileItem(file) {
 		return {
 			file: file,
@@ -142,11 +142,11 @@ export default class MediaPickerLibraryController extends MediaPickerController 
 		// });
 		// return fileItem;
 	}
-	
+
 	getSortedItems() {
 		return Object.values(this.items);
 	}
-	
+
 	/**
 	 * @param view
 	 * @returns {FileListController}
@@ -154,7 +154,7 @@ export default class MediaPickerLibraryController extends MediaPickerController 
 	getViewListController(view) {
 		return this.getController(view.list, view.controller);
 	}
-	
+
 	refreshView() {
 		const items = this.getSortedItems();
 		const view = this.view;
@@ -177,6 +177,6 @@ export default class MediaPickerLibraryController extends MediaPickerController 
 		});
 		viewController.render();
 	}
-	
-	
+
+
 }

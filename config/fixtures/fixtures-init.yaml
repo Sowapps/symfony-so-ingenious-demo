@@ -1,3 +1,7 @@
+## References
+## Declare with _ref: "refName"
+## Use with $refName:refClass
+
 language:
     class: Sowapps\SoCore\Entity\Language
     items:
@@ -26,5 +30,5 @@ user:
                 - 'ROLE_USER'
                 - 'ROLE_DEVELOPER'
             timezone: "Europe/Paris"
-            language: "#language_french"
+            language: $language_french:Sowapps\SoCore\Entity\Language
 

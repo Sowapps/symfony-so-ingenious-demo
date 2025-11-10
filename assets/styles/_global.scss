@@ -1,0 +1,131 @@
+// Global to the whole app,for any entrypoint
+
+html, body, .main-controller {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.height-no-header {
+  height: calc(100% - 56px);
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity .5s;
+}
+
+// Fold panel by sliding it
+.foldable-wrapper {
+  position: relative;
+  width: 100%;
+  
+  .foldable {
+    width: 100%;
+    position: absolute;
+    opacity: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: opacity .5s ease, transform .5s ease;
+    
+    &.fold-left {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    
+    &.fold-right {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+  }
+}
+
+[data-bs-theme].theme-background {
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+}
+
+// Color nav menu as navbar text
+.nav.nav-menu {
+  --bs-nav-link-color: rgba(var(--bs-emphasis-color-rgb), 0.65);
+  --bs-nav-link-active-color: rgba(var(--bs-emphasis-color-rgb), 1);
+  --bs-nav-link-hover-color: rgba(var(--bs-emphasis-color-rgb), 0.8);
+  --bs-nav-link-disabled-color: rgba(var(--bs-emphasis-color-rgb), 0.3);
+  
+  .nav-link.active, .nav-link.show {
+    color: var(--bs-nav-link-active-color);
+  }
+}
+
+// State enabled/disabled
+body .on-disabled {
+  display: none;
+}
+
+.state-disabled {
+  .on-enabled {
+    display: none;
+  }
+  
+  .on-disabled {
+    display: block;
+  }
+}
+
+// State loading
+body .on-loading {
+  display: none;
+}
+
+.state-loading {
+  .on-not-loading {
+    display: none;
+  }
+  
+  .on-loading {
+    display: initial;
+  }
+}
+
+// State on/off (most generic)
+body .on-on {
+  display: none;
+}
+
+.state-on {
+  .on-off {
+    display: none;
+  }
+  
+  .on-on {
+    display: block;
+  }
+}
+
+// Cursors
+.cursor-pointer {
+  cursor: pointer;
+}
+
+// Sizing tools
+.w-0 {
+  width: 0;
+}
+
+.nw-80px {
+  min-width: 80px;
+}
+
+// Allow larger toasts for errors for large screens
+.toast.toast-error {
+  --bs-toast-spacing: .5rem;
+  --bs-toast-max-width: 500px;
+}
+
+// Disable transition in some animations
+// Use to reset progress bar
+.no-transition {
+  transition: none !important;
+}
+
