@@ -5,6 +5,8 @@
 Php version is limited by production server (Ubuntu 20.04).  
 The production server should be upgraded to use a more recent version of Php.
 
+Current PHP version is 8.2 (> 8.2.0)
+
 ## Fixtures
 
 Some features are required to initialize the app with basic data, this is why the package `doctrine/doctrine-fixtures-bundle` is not dev only.  
@@ -15,6 +17,10 @@ Import with
 ```php
 bin/console doctrine:fixtures:load
 ```
+
+## Development
+
+This project is partially based on SLG (So Lil' Game)
 
 ## Local dev environment
 
