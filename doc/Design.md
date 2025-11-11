@@ -38,6 +38,13 @@ Relations between fragments must be symbolized in database, or we could not find
 LocalizedUnit is a generic entity that get in relation a localized entity through all languages.  
 Example: The same pages in FR and in EN share the same LocalizedUnit  
 
+### Fragment List
+
+In a fragment, you could use a fragment list (e.g. gallery).  
+For now, this is not implemented but it could require to add a position field in FragmentChild
+
+
+
 ### Snippets
 
 A snippet fragment is a reusable fragment with properties, it must be embedded in another fragment.  
@@ -61,8 +68,11 @@ FragmentChild :
 
 
 Page :
-- fragmentId
-- languageId
+- path
+- title
+- fragment
+- language
+- localizedUnit
 
 
 Language: `\Sowapps\SoCore\Entity\Language`
@@ -70,4 +80,4 @@ Language: `\Sowapps\SoCore\Entity\Language`
 
 LocalizedUnit:
 - ID (the main purpose is the shared ID)
-- type (enum: page, fragment)
+[- type (enum: page, fragment)] (Page only for now)
