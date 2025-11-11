@@ -2,30 +2,18 @@
 @var string bodyController
 #}
 
-{# {% set currentLanguage = language.languageByLocale(app.request.locale) %} #}
+ {% set currentLanguage = language.languageByLocale(app.request.locale) %}
 <!doctype html>
-{# <html lang="{{ currentLanguage.primaryCode }}"> #}
-<html lang="en">
+<html lang="{{ currentLanguage.primaryCode }}">
+{#<html lang="en">#}
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
-	<title>
-		{%- block title -%}
-			{%- if pageTitle is defined -%}
-				{{- ( 'app.label' | trans ) ~ ' : ' ~ pageTitle -}}
-			{%- else -%}
-				{{- documentTitle | default('app.label' | trans) -}}
-			{%- endif -%}
-		{%- endblock -%}
-	</title>
-	{% block metas %}
-		{%- if documentDescription is defined -%}
-			<meta name="description" content="{{ documentDescription }}">
-		{%- endif -%}
-	{% endblock metas %}
-
+    <title>{% block title %}{{ 'page.home.title' | trans({app: 'app.label' | trans}) }}{% endblock %}</title>
 	<link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+    <meta name="app-version" content="{{ context.app.version }}">
 
     {% block stylesheets -%}
         <link rel="stylesheet" href="{{ asset('styles/app.scss') }}">

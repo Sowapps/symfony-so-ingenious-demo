@@ -2,9 +2,9 @@ so_core:
     user:
         class: \App\Entity\User
         activation:
-            expire_hours: 48
+            expire: "48 hours"
         recover:
-            expire_hours: 4
+            expire: "4 hours"
     email:
         from:
             name: "SoIngenious"
@@ -13,7 +13,7 @@ so_core:
             name: "Contact Sowapps"
             email: "contact@sowapps.com"
         online_view:
-            expire_hours: 48
+            expire: "48 hours"
     file:
         store_path: "%kernel.project_dir%/var/store/files"
         public_path: "%kernel.project_dir%/public"
