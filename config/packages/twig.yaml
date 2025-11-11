@@ -6,6 +6,10 @@ twig:
         fileService: '@Sowapps\SoCore\Service\FileService'
         language: '@Sowapps\SoCore\Service\LanguageService'
         userService: '@Sowapps\SoCore\Service\AbstractUserService'
+        security: '@App\Service\SecurityService'
+        context:
+            app:
+                version: '%app.version%'
 
 when@test:
     twig:
