@@ -8,6 +8,7 @@ parameters:
     # Env var types : https://symfony.com/doc/current/configuration/env_var_processors.html
     security.admin.accessKey: '%env(string:ADMIN_ACCESS_KEY)%'
     app.version: '%env(string:APP_VERSION)%'
+    so_ingenious.template.path: '%twig.default_path%/fragment'
 
 services:
     # default configuration for services in *this* file

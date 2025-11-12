@@ -2,7 +2,7 @@
 @var string bodyController
 #}
 
- {% set currentLanguage = language.languageByLocale(app.request.locale) %}
+{% set currentLanguage = language.languageByLocale(app.request.locale) %}
 <!doctype html>
 <html lang="{{ currentLanguage.primaryCode }}">
 {#<html lang="en">#}

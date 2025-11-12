@@ -1,0 +1,16 @@
+{#
+Fragment template for page template
+
+@var \App\Sowapps\SoIngenious\Template template
+@var \App\Entity\Fragment fragment
+#}
+{% extends 'document-web.html.twig' %}
+
+{% block title %}{{ 'app.pageTitle' | trans({page: fragment.properties.title}) }}{% endblock %}
+
+{% block body %}
+    <div class="fragment fragment-page template-{{ template.name }}">
+        {% block contents %}
+        {% endblock %}
+    </div>
+{% endblock %}
