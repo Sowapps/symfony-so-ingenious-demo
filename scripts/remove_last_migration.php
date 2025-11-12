@@ -15,20 +15,21 @@ function getInputOptions($options): array {
 	foreach( $options as $longOption => $optionConfig ) {
 		$values[$longOption] = isset($values[$longOption]) ? ($values[$longOption] ?: true) : false;
 	}
-	
+
 	return $values;
 }
 
 class Command {
-	
-	private string $phpBin = '/usr/bin/php7.4';
-	
-	public function run($command) {
+
+	private string $phpBin = 'php';
+//	private string $phpBin = '/usr/bin/php7.4';
+
+	public function run($command): bool {
 		passthru(sprintf('%s bin/console %s --ansi', $this->phpBin, $command), $result);
-		
+
 		return !$result;
 	}
-	
+
 }
 
 $sfCommand = new Command();
