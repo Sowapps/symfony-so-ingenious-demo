@@ -11,7 +11,9 @@ A fragment could be reusable and used as template of another fragment, so with p
 - Base Template (or free contents)
 - N fragments
 - Assigned a locale
+- version
 
+Fragment version is very important to warn about breaking changes, like incompatible properties between database and template
 
 TemplateFragment is a Fragment using a template with defined contents, multiple properties.  
 Example: Testimonial fragment with URL to user picture, a username and the text.  

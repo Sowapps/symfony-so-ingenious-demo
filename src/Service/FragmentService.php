@@ -34,7 +34,10 @@ class FragmentService {
         return new Template(
             $fileInfo,
             $name,
-            $templateMeta['label']
+            $templateMeta['label'],
+            $templateMeta['description'],
+            $templateMeta['kind'],
+            $templateMeta['version']
         );
     }
 
@@ -68,12 +71,8 @@ class FragmentService {
                 continue;
             }
 
-            $templateMeta = $this->extractTemplateMeta($fileInfo);
-            $list[] = new Template(
-                $fileInfo,
-                ($prefix ? $prefix . '/' : '') . $fileInfo->getBasename(self::TEMPLATE_SUFFIX),
-                $templateMeta['label']
-            );
+            $name = ($prefix ? $prefix . '/' : '') . $fileInfo->getBasename(self::TEMPLATE_SUFFIX);
+            $list[] = $this->getTemplate($name);
         }
 
         return $list;

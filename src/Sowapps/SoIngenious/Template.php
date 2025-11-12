@@ -14,7 +14,10 @@ readonly class Template {
     public function __construct(
         SplFileInfo    $file,
         private string $name,
-        private string $label
+        private string $label,
+        private string $description,
+        private string $kind,
+        private int $version
     ) {
         // We had to copy it or SplFileInfo is not usable outside this class
         $this->file = new SplFileInfo($file->getRealPath());
@@ -30,6 +33,18 @@ readonly class Template {
 
     public function getLabel(): string {
         return $this->label;
+    }
+
+    public function getDescription(): string {
+        return $this->description;
+    }
+
+    public function getKind(): string {
+        return $this->kind;
+    }
+
+    public function getVersion(): int {
+        return $this->version;
     }
 
 }
