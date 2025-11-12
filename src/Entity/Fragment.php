@@ -12,6 +12,9 @@ use Sowapps\SoCore\Entity\Language;
 
 #[ORM\Entity(repositoryClass: FragmentRepository::class)]
 class Fragment extends AbstractEntity {
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?Language $language = null;
@@ -49,6 +52,16 @@ class Fragment extends AbstractEntity {
 
         $this->children = new ArrayCollection();
         $this->parents = new ArrayCollection();
+    }
+
+    public function getName(): ?string {
+        return $this->name;
+    }
+
+    public function setName(?string $name): static {
+        $this->name = $name;
+
+        return $this;
     }
 
     public function getLanguage(): ?Language {

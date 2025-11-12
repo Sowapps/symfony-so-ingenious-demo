@@ -3,6 +3,8 @@ kind: fragment
 label: "Raw"
 description: "Raw template for rich text"
 version: 1
+properties:
+    text: rich_text
 -- -#}
 {#
 @var \App\Sowapps\SoIngenious\Template template
@@ -11,5 +13,6 @@ version: 1
 {% extends 'frontend/fragment.html.twig' %}
 
 {% block contents %}
-    {{ fragment.html }}
+    {{ fragment.properties.content }}
+    {# TODO Implement rich text filter to transform markdown into #}
 {% endblock %}

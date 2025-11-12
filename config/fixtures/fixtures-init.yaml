@@ -32,3 +32,45 @@ user:
             timezone: "Europe/Paris"
             language: $language_french:Sowapps\SoCore\Entity\Language
 
+localizedUnit:
+    class: App\Entity\LocalizedUnit
+    items:
+        -   _ref: "localized_unit_home"
+
+fragment:
+    class: App\Entity\Fragment
+    items:
+        -   _ref: "fragment_home"
+            name: "Home FR"
+            properties:
+                content:
+                    format: markdown
+                    text: |
+                        # Accueil
+
+                        Bienvenue sur la page d'accueil
+            snippet: false
+            templateName: "page/raw"
+            language: $language_french:Sowapps\SoCore\Entity\Language
+        -   _ref: "fragment_test"
+            name: "Test FR"
+            properties:
+                content:
+                    format: markdown
+                    text: |
+                        ## Test section
+
+                        Composant de test
+            snippet: false
+            templateName: "raw"
+            language: $language_french:Sowapps\SoCore\Entity\Language
+
+page:
+    class: App\Entity\Page
+    items:
+        -   _ref: "page_home"
+            title: "Accueil"
+            path: "/"
+            fragment: $fragment_home:App\Entity\Fragment
+            localizedUnit: $localized_unit_home:App\Entity\LocalizedUnit
+            language: $language_french:Sowapps\SoCore\Entity\Language

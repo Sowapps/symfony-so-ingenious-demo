@@ -1766,7 +1766,7 @@
       <Predicate>json_valid(`properties`)</Predicate>
     </check>
     <column id="647" parent="567" name="id">
-      <AutoIncrement>1</AutoIncrement>
+      <AutoIncrement>2</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>int(11)|0s</StoredType>
