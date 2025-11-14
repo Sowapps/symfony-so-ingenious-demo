@@ -8,7 +8,6 @@ namespace App\Service;
 use App\Entity\Fragment;
 use App\Sowapps\SoIngenious\Template;
 use DirectoryIterator;
-use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
 use SplFileInfo;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -25,14 +24,24 @@ class FragmentService {
     private readonly SplFileInfo $templateFolder;
 
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
-        private readonly Twig                   $twig,
+        private readonly EntityService $entityService,
+        private readonly Twig          $twig,
         #[Autowire(param: 'so_ingenious.template.path')]
-        string                                  $templatePath,
+        string                         $templatePath,
         #[Autowire(param: 'twig.default_path')]
-        private readonly string                 $twigTemplatePath,
+        private readonly string        $twigTemplatePath,
     ) {
         $this->templateFolder = new SplFileInfo($templatePath);
+    }
+
+    public function getFragmentRendering(Fragment $fragment): string {
+        if( !$fragment->getHtml() ) {
+            $fragment->setHtml($this->renderFragment($fragment));
+            $this->entityService->update($fragment);
+            $this->entityService->flush();
+        }
+
+        return $fragment->getHtml();
     }
 
     public function renderFragment(Fragment $fragment): string {
@@ -47,7 +56,7 @@ class FragmentService {
             if( isset($values[$name]) ) {
                 throw new RuntimeException(sprintf('Value "%s" is already defined.', $name));
             }
-            $values[$name] = $this->entityManager->getRepository($reference['class'])->find($reference['id']);
+            $values[$name] = $this->entityService->getRepository($reference['class'])->find($reference['id']);
         }
 
         // Convert absolute path to relative path to Twig templates folder

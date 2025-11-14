@@ -10,3 +10,8 @@ controllers:
         namespace: App\Controller
     type: attribute
     prefix: '/{_locale}'
+
+fragmentPages:
+    resource: App\Service\FragmentPageRoutingService::loadRoutes
+    type: service
+    prefix: '/{_locale}'
