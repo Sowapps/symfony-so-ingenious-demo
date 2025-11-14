@@ -26,7 +26,7 @@ class TemplateListCommand extends Command {
 
         $templates = $this->fragmentService->listTemplates();
         foreach($templates as $template) {
-            $io->writeln(sprintf('Template "%s" (%s) : %s', $template->getLabel(), $template->getName(), $template->getFile()->getRealPath()));
+            $io->writeln(sprintf('Template "%s" (%s) : %s', $template->getLabel(), $template->getName(), $template->getPath()));
         }
 
         return Command::SUCCESS;

@@ -23,6 +23,10 @@ readonly class Template {
         $this->file = new SplFileInfo($file->getRealPath());
     }
 
+    public function getPath(): string {
+        return $this->getFile()->getRealPath();
+    }
+
     public function getFile(): SplFileInfo {
         return $this->file;
     }

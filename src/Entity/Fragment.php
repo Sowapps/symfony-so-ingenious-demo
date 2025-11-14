@@ -54,6 +54,11 @@ class Fragment extends AbstractEntity {
         $this->parents = new ArrayCollection();
     }
 
+    public function setRelated($name, AbstractEntity $entity): void {
+        $this->properties['_related'] ??= [];
+        $this->properties['_related'][$name] = $entity->getEntityReference();
+    }
+
     public function getName(): ?string {
         return $this->name;
     }

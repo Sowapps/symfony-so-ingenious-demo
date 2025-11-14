@@ -3,11 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\PageRepository;
+use Doctrine\ORM\Event\PostPersistEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Sowapps\SoCore\Entity\AbstractEntity;
 use Sowapps\SoCore\Entity\Language;
 
 #[ORM\Entity(repositoryClass: PageRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Page extends AbstractEntity
 {
     #[ORM\Column(length: 255)]
@@ -27,6 +29,13 @@ class Page extends AbstractEntity
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?LocalizedUnit $localizedUnit = null;
+
+    #[ORM\PostPersist]
+    public function onPostPersist(PostPersistEventArgs $args): void {
+        // Add page to the related list of the fragment
+        $this->fragment->setRelated('page', $this);
+        $args->getObjectManager()->flush();
+    }
 
     public function getTitle(): ?string
     {

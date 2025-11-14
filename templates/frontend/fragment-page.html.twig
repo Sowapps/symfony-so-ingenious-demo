@@ -6,11 +6,10 @@ Fragment template for page template
 #}
 {% extends 'document-web.html.twig' %}
 
-{% block title %}{{ 'app.pageTitle' | trans({page: fragment.properties.title}) }}{% endblock %}
+{% block title %}{{ 'app.pageTitle' | trans({page: page.title}) }}{% endblock %}
 
 {% block body %}
     <div class="fragment fragment-page template-{{ template.name }}">
-        {% block contents %}
-        {% endblock %}
+        {%- block contents %}{% endblock -%}
     </div>
 {% endblock %}

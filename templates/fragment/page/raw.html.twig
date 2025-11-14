@@ -10,9 +10,8 @@ properties:
 @var \App\Sowapps\SoIngenious\Template template
 @var \App\Entity\Fragment fragment
 #}
-{% extends 'frontend/fragment.html.twig' %}
+{% extends 'frontend/fragment-page.html.twig' %}
 
-{% block contents %}
-    {{ fragment.properties.content }}
-    {# TODO Implement rich text filter to transform markdown into #}
-{% endblock %}
+{%- block contents -%}
+    {{- fragment.properties.content | richText -}}
+{%- endblock -%}
