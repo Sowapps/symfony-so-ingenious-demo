@@ -12,6 +12,8 @@ use RuntimeException;
 use SplFileInfo;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Yaml\Yaml;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Twig\Environment as Twig;
 
 /**
@@ -24,8 +26,10 @@ class FragmentService {
     private readonly SplFileInfo $templateFolder;
 
     public function __construct(
-        private readonly EntityService $entityService,
-        private readonly Twig          $twig,
+        #[Autowire(service: 'app.fragment')]
+        private readonly TagAwareCacheInterface $cache,
+        private readonly Twig                   $twig,
+        private readonly EntityService          $entityService,
         #[Autowire(param: 'so_ingenious.template.path')]
         string                         $templatePath,
         #[Autowire(param: 'twig.default_path')]
@@ -35,13 +39,29 @@ class FragmentService {
     }
 
     public function getFragmentRendering(Fragment $fragment): string {
-        if( !$fragment->getHtml() ) {
-            $fragment->setHtml($this->renderFragment($fragment));
-            $this->entityService->update($fragment);
-            $this->entityService->flush();
-        }
+        $key = $this->getFragmentCacheKey($fragment);
+        return $this->cache->get($key, function (ItemInterface $item) use ($fragment) {
+            $item->tag(['fragment', 'fragment_' . $fragment->getId(), 'language_' . $fragment->getLanguage()->getId()]);
+            $item->expiresAfter(86400);
+            return $this->renderFragment($fragment);
+        });
 
-        return $fragment->getHtml();
+        //        if( !$fragment->getHtml() ) {
+        //            $fragment->setHtml($this->renderFragment($fragment));
+        //            $this->entityService->update($fragment);
+        //            $this->entityService->flush();
+        //        }
+        //
+        //        return $fragment->getHtml();
+    }
+
+    protected function getFragmentCacheKey(Fragment $fragment): string {
+        return sprintf('fragment:%d', $fragment->getId());
+    }
+
+    public function clearCache(Fragment $fragment): void {
+        $key = $this->getFragmentCacheKey($fragment);
+        $this->cache->delete($key);
     }
 
     public function renderFragment(Fragment $fragment): string {
