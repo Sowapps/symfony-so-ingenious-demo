@@ -13,6 +13,5 @@ properties:
 {% extends 'frontend/fragment.html.twig' %}
 
 {% block contents %}
-    {{ fragment.properties.content | richText }}
-    {# TODO Implement rich text filter to transform markdown into #}
+    {{- fragment.properties.content | richText | raw -}}
 {% endblock %}

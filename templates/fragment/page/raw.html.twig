@@ -13,5 +13,5 @@ properties:
 {% extends 'frontend/fragment-page.html.twig' %}
 
 {%- block contents -%}
-    {{- fragment.properties.content | richText -}}
+    {{- fragment.properties.content | richText | raw -}}
 {%- endblock -%}
