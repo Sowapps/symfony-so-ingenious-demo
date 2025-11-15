@@ -35,7 +35,7 @@ readonly class FragmentPageRoutingService implements RouteLoaderInterface {
                 'id'          => $page->getId(),
             ]);
 
-            $routes->add('fp-' . $page->getId(), $route);
+            $routes->add('fragment-page-' . $page->getId(), $route);
         }
 
         return $routes;
