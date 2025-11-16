@@ -12,7 +12,6 @@ use RuntimeException;
 use SplFileInfo;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Yaml\Yaml;
-use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Twig\Environment as Twig;
 
@@ -39,12 +38,14 @@ class FragmentService {
     }
 
     public function getFragmentRendering(Fragment $fragment): string {
-        $key = $this->getFragmentCacheKey($fragment);
-        return $this->cache->get($key, function (ItemInterface $item) use ($fragment) {
-            $item->tag(['fragment', 'fragment_' . $fragment->getId(), 'language_' . $fragment->getLanguage()->getId()]);
-            $item->expiresAfter(86400);
-            return $this->renderFragment($fragment);
-        });
+        return $this->renderFragment($fragment);// Disable cache
+
+        //        $key = $this->getFragmentCacheKey($fragment);
+        //        return $this->cache->get($key, function (ItemInterface $item) use ($fragment) {
+        //            $item->tag(['fragment', 'fragment_' . $fragment->getId(), 'language_' . $fragment->getLanguage()->getId()]);
+        //            $item->expiresAfter(86400);
+        //            return $this->renderFragment($fragment);
+        //        });
 
         //        if( !$fragment->getHtml() ) {
         //            $fragment->setHtml($this->renderFragment($fragment));

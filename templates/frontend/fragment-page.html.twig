@@ -3,12 +3,16 @@ Fragment template for page template
 
 @var \App\Sowapps\SoIngenious\Template template
 @var \App\Entity\Fragment fragment
+@var \App\Entity\Page page
 #}
 {% extends 'document-web.html.twig' %}
+
+{% set bsTheme = 'dark' %}
 
 {% block title %}{{ 'app.pageTitle' | trans({page: page.title}) }}{% endblock %}
 
 {% block body %}
+    {{- fragment.children.topmenu | fragment | raw -}}
     <div class="fragment fragment-page template-{{ template.name }}">
         {%- block contents %}{% endblock -%}
     </div>

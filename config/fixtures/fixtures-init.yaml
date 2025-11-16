@@ -40,7 +40,16 @@ localizedUnit:
 fragment:
     class: App\Entity\Fragment
     items:
-        -   _ref: "fragment_home"
+        -   _ref: "fragment_menu_top"
+            name: "Top Menu FR"
+            properties:
+                items:
+                    -   label: Accueil
+                        target: /
+            snippet: true
+            templateName: "menu-top"
+            language: $language_french:Sowapps\SoCore\Entity\Language
+        -   _ref: "fragment_page_home"
             name: "Home FR"
             properties:
                 content:
@@ -65,12 +74,19 @@ fragment:
             templateName: "raw"
             language: $language_french:Sowapps\SoCore\Entity\Language
 
+fragmentLink:
+    class: App\Entity\FragmentLink
+    items:
+        -   parent: $fragment_page_home:App\Entity\Fragment
+            child: $fragment_menu_top:App\Entity\Fragment
+            name: "topmenu"
+
 page:
     class: App\Entity\Page
     items:
         -   _ref: "page_home"
             title: "Accueil"
             path: "/"
-            fragment: $fragment_home:App\Entity\Fragment
+            fragment: $fragment_page_home:App\Entity\Fragment
             localizedUnit: $localized_unit_home:App\Entity\LocalizedUnit
             language: $language_french:Sowapps\SoCore\Entity\Language

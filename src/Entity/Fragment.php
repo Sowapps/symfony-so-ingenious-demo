@@ -35,23 +35,42 @@ class Fragment extends AbstractEntity {
     private ?string $templateName = null;
 
     /**
-     * @var Collection<int, FragmentChild>
+     * @var Collection<int, FragmentLink>
      */
-    #[ORM\OneToMany(targetEntity: FragmentChild::class, mappedBy: 'parentFragment')]
-    private Collection $children;
+    #[ORM\OneToMany(targetEntity: FragmentLink::class, mappedBy: 'parent')]
+    #[ORM\OrderBy(['name' => 'ASC', 'position' => 'ASC'])]
+    private Collection $childLinks;
 
     /**
-     * @var Collection<int, FragmentChild>
+     * @var Collection<int, FragmentLink>
      */
-    #[ORM\OneToMany(targetEntity: FragmentChild::class, mappedBy: 'childFragment')]
-    private Collection $parents;
+    #[ORM\OneToMany(targetEntity: FragmentLink::class, mappedBy: 'child')]
+    private Collection $parentLinks;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->children = new ArrayCollection();
-        $this->parents = new ArrayCollection();
+        $this->childLinks = new ArrayCollection();
+        $this->parentLinks = new ArrayCollection();
+    }
+
+    /**
+     * @return array<string, Fragment>
+     */
+    public function getChildren(): array {
+        $map = [];
+        foreach( $this->getChildLinks() as $childLink ) {
+            $child = $childLink->getChild();
+            if( $childLink->isUnique() ) {
+                $map[$childLink->getName()] = $child;
+            } else {
+                $map[$childLink->getName()] ??= [];
+                $map[$childLink->getName()][$childLink->getPosition()] = $child;
+            }
+        }
+
+        return $map;
     }
 
     public function setRelated($name, AbstractEntity $entity): void {
@@ -130,29 +149,29 @@ class Fragment extends AbstractEntity {
     }
 
     /**
-     * @return Collection<int, FragmentChild>
+     * @return Collection<int, FragmentLink>
      */
-    public function getChildren(): Collection
+    public function getChildLinks(): Collection
     {
-        return $this->children;
+        return $this->childLinks;
     }
 
-    public function addChild(FragmentChild $child): static
+    public function addChildLink(FragmentLink $childLink): static
     {
-        if (!$this->children->contains($child)) {
-            $this->children->add($child);
-            $child->setParentFragment($this);
+        if( !$this->childLinks->contains($childLink) ) {
+            $this->childLinks->add($childLink);
+            $childLink->setParent($this);
         }
 
         return $this;
     }
 
-    public function removeChild(FragmentChild $child): static
+    public function removeChildLink(FragmentLink $childLink): static
     {
-        if ($this->children->removeElement($child)) {
+        if( $this->childLinks->removeElement($childLink) ) {
             // set the owning side to null (unless already changed)
-            if ($child->getParentFragment() === $this) {
-                $child->setParentFragment(null);
+            if( $childLink->getParent() === $this ) {
+                $childLink->setParent(null);
             }
         }
 
@@ -160,29 +179,29 @@ class Fragment extends AbstractEntity {
     }
 
     /**
-     * @return Collection<int, FragmentChild>
+     * @return Collection<int, FragmentLink>
      */
-    public function getParents(): Collection
+    public function getParentLinks(): Collection
     {
-        return $this->parents;
+        return $this->parentLinks;
     }
 
-    public function addParent(FragmentChild $parent): static
+    public function addParentLink(FragmentLink $parentLink): static
     {
-        if (!$this->parents->contains($parent)) {
-            $this->parents->add($parent);
-            $parent->setChildFragment($this);
+        if( !$this->parentLinks->contains($parentLink) ) {
+            $this->parentLinks->add($parentLink);
+            $parentLink->setChild($this);
         }
 
         return $this;
     }
 
-    public function removeParent(FragmentChild $parent): static
+    public function removeParentLink(FragmentLink $parentLink): static
     {
-        if ($this->parents->removeElement($parent)) {
+        if( $this->parentLinks->removeElement($parentLink) ) {
             // set the owning side to null (unless already changed)
-            if ($parent->getChildFragment() === $this) {
-                $parent->setChildFragment(null);
+            if( $parentLink->getChild() === $this ) {
+                $parentLink->setChild(null);
             }
         }
 
