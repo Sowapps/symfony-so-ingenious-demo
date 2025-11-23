@@ -10,3 +10,12 @@ controllers:
         namespace: App\Controller
     type: attribute
     prefix: '/{_locale}'
+    requirements:
+        _locale: '[a-zA-Z]{2}|[a-zA-Z]{2}\-[a-zA-Z]{2}'
+
+fragmentPages:
+    resource: App\Service\FragmentPageRoutingService::loadRoutes
+    type: service
+    prefix: '/{_locale}'
+    requirements:
+        _locale: '[a-zA-Z]{2}|[a-zA-Z]{2}\-[a-zA-Z]{2}'

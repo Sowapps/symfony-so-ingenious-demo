@@ -1,10 +1,11 @@
 {#
 @var string bodyController
+@var string bsTheme
 #}
 
- {% set currentLanguage = language.languageByLocale(app.request.locale) %}
+{% set currentLanguage = language.languageByLocale(app.locale) %}
 <!doctype html>
-<html lang="{{ currentLanguage.primaryCode }}">
+<html lang="{{ currentLanguage.primaryCode }}" {% if bsTheme|default %}data-bs-theme="{{ bsTheme }}"{% endif %}>
 {#<html lang="en">#}
 <head>
     <meta charset="UTF-8">

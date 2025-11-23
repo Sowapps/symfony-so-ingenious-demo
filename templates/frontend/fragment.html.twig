@@ -1,0 +1,9 @@
+{#
+Fragment template for component template
+
+@var \App\Sowapps\SoIngenious\Template template
+@var \App\Entity\Fragment fragment
+#}
+<div class="fragment fragment-component template-{{ template.name | templateName }}">
+    {%- block contents %}{% endblock -%}
+</div>

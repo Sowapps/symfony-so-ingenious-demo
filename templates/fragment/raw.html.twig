@@ -1,0 +1,17 @@
+{#- --
+kind: fragment
+label: "Raw"
+description: "Raw template for rich text"
+version: 1
+properties:
+    content: rich_text
+-- -#}
+{#
+@var \App\Sowapps\SoIngenious\Template template
+@var \App\Entity\Fragment fragment
+#}
+{% extends 'frontend/fragment.html.twig' %}
+
+{% block contents %}
+    {{- fragment.properties.content | richText | raw -}}
+{% endblock %}

@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\FragmentChild;
+use App\Entity\FragmentLink;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<FragmentChild>
+ * @extends ServiceEntityRepository<FragmentLink>
  */
-class FragmentChildRepository extends ServiceEntityRepository
+class FragmentLinkRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, FragmentChild::class);
+        parent::__construct($registry, FragmentLink::class);
     }
 
     //    /**
-    //     * @return FragmentChild[] Returns an array of FragmentChild objects
+    //     * @return FragmentLink[] Returns an array of FragmentLink objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class FragmentChildRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?FragmentChild
+    //    public function findOneBySomeField($value): ?FragmentLink
     //    {
     //        return $this->createQueryBuilder('f')
     //            ->andWhere('f.exampleField = :val')

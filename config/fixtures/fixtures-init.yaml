@@ -32,3 +32,63 @@ user:
             timezone: "Europe/Paris"
             language: $language_french:Sowapps\SoCore\Entity\Language
 
+localizedUnit:
+    class: App\Entity\LocalizedUnit
+    items:
+        -   _ref: "localized_unit_home"
+
+fragment:
+    class: App\Entity\Fragment
+    items:
+        -   _ref: "fragment_menu_top"
+            name: "Top Menu FR"
+            properties:
+                items:
+                    -   name: home
+                        label: Accueil
+                        target: /
+            snippet: true
+            templateName: "menu-top"
+            language: $language_french:Sowapps\SoCore\Entity\Language
+        -   _ref: "fragment_page_home_fr"
+            name: "Home FR"
+            properties:
+                content:
+                    format: markdown
+                    text: |
+                        # Accueil
+
+                        Bienvenue sur la page d'accueil
+            snippet: false
+            templateName: "page/raw"
+            language: $language_french:Sowapps\SoCore\Entity\Language
+        -   _ref: "fragment_test"
+            name: "Test FR"
+            properties:
+                content:
+                    format: markdown
+                    text: |
+                        ## Test section
+
+                        Composant de test
+            snippet: false
+            templateName: "raw"
+            language: $language_french:Sowapps\SoCore\Entity\Language
+
+fragmentLink:
+    class: App\Entity\FragmentLink
+    items:
+        -   parent: $fragment_page_home_fr:App\Entity\Fragment
+            child: $fragment_menu_top:App\Entity\Fragment
+            name: "topmenu"
+
+page:
+    class: App\Entity\Page
+    items:
+        -   _ref: "page_home_fr"
+            menuName: "home"
+            title: "Accueil"
+            path: "/"
+            fragment: $fragment_page_home_fr:App\Entity\Fragment
+            localizedUnit: $localized_unit_home:App\Entity\LocalizedUnit
+            language: $language_french:Sowapps\SoCore\Entity\Language
