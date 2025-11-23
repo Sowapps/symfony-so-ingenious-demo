@@ -30,6 +30,9 @@ class Page extends AbstractEntity
     #[ORM\JoinColumn(nullable: false)]
     private ?LocalizedUnit $localizedUnit = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $menuName = null;
+
     #[ORM\PostPersist]
     public function onPostPersist(PostPersistEventArgs $args): void {
         // Add page to the related list of the fragment
@@ -91,6 +94,16 @@ class Page extends AbstractEntity
     public function setLocalizedUnit(?LocalizedUnit $localizedUnit): static
     {
         $this->localizedUnit = $localizedUnit;
+
+        return $this;
+    }
+
+    public function getMenuName(): ?string {
+        return $this->menuName;
+    }
+
+    public function setMenuName(?string $menuName): static {
+        $this->menuName = $menuName;
 
         return $this;
     }

@@ -12,7 +12,7 @@ Fragment template for page template
 {% block title %}{{ 'app.pageTitle' | trans({page: page.title}) }}{% endblock %}
 
 {% block body %}
-    {{- fragment.children.topmenu | fragment | raw -}}
+    {{- fragment.children.topmenu | fragment({active: page.menuName}) | raw -}}
     <div class="fragment fragment-page template-{{ template.name }}">
         {%- block contents %}{% endblock -%}
     </div>

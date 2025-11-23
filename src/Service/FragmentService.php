@@ -43,14 +43,14 @@ class FragmentService {
         $this->templateFolder = new SplFileInfo($templatePath);
     }
 
-    public function getFragmentRendering(Fragment $fragment): string {
-        return $this->renderFragment($fragment);// Disable cache
+    public function getFragmentRendering(Fragment $fragment, array $parameters = []): string {
+        return $this->renderFragment($fragment, $parameters);// Disable cache
 
         //        $key = $this->getFragmentCacheKey($fragment);
         //        return $this->cache->get($key, function (ItemInterface $item) use ($fragment) {
         //            $item->tag(['fragment', 'fragment_' . $fragment->getId(), 'language_' . $fragment->getLanguage()->getId()]);
         //            $item->expiresAfter(86400);
-        //            return $this->renderFragment($fragment);
+        //            return $this->renderFragment($fragment, $parameters);
         //        });
 
         //        if( !$fragment->getHtml() ) {
@@ -71,11 +71,12 @@ class FragmentService {
         $this->cache->delete($key);
     }
 
-    public function renderFragment(Fragment $fragment): string {
+    public function renderFragment(Fragment $fragment, array $parameters = []): string {
         $template = $this->getTemplate($fragment->getTemplateName());
         $values = [
             'template' => $template,
             'fragment' => $fragment,
+            'parameters' => $parameters,
         ];
         // Add dynamic values from properties._related
         $related = $fragment->getProperties()['_related'] ?? [];
@@ -167,12 +168,16 @@ class FragmentService {
         $meta['kind'] ??= 'fragment';
         $meta['description'] ??= null;
         $meta['version'] ??= 1;
-        $meta['children'] ??= [];
 
         $this->normalizeRecursiveProperties($meta, '');
 
+        // Parameters are never required
+        $meta['parameters'] ??= [];
+        $this->normalizeParameters($meta['parameters']);
+
         // Normalize children
         // All children are required
+        $meta['children'] ??= [];
         foreach( $meta['children'] as &$childSignature ) {
             $isMultiple = false;
             if( is_string($childSignature) ) {
@@ -221,6 +226,18 @@ class FragmentService {
                     break;
                 // Other types are not expecting any validation
             }
+        }
+    }
+
+    protected function normalizeParameters(array &$object): void {
+        foreach( $object as &$propertySignature ) {
+            // If signature is a string, convert it into array
+            if( is_string($propertySignature) ) {
+                $propertySignature = ['type' => ltrim($propertySignature, '?')];
+            }
+            // Now signature is an array
+
+            $propertySignature['required'] = false;
         }
     }
 
