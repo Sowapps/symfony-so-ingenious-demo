@@ -17,7 +17,9 @@ readonly class Template {
         private string $label,
         private string $description,
         private string $kind,
-        private int $version
+        private int   $version,
+        private array $properties,
+        private array $children
     ) {
         // We had to copy it or SplFileInfo is not usable outside this class
         $this->file = new SplFileInfo($file->getRealPath());
@@ -49,6 +51,14 @@ readonly class Template {
 
     public function getVersion(): int {
         return $this->version;
+    }
+
+    public function getProperties(): array {
+        return $this->properties;
+    }
+
+    public function getChildren(): array {
+        return $this->children;
     }
 
 }
