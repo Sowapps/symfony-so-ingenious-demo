@@ -62,7 +62,43 @@ Template show command displays information about the template, like metadata.
 bin/console app:template:show <name>
 ```
 
-## Properties
+## Fragment's template
+
+Templates of fragments must be declared in folder `templates/fragment`.  
+The templates must have a metadata header with their signature.  
+Here are all the signature root properties :
+
+- kind: string, always `fragment`.
+- label: string, the label/title of the template.
+- description: string, the long description of the template.
+- version: int, the version of the template, increase with breaking changes.
+- properties : See [Template Properties](#template-properties)
+- children : See [Child Fragment](#child-fragment)
+
+You can find many example but the basic is the header :
+
+```
+{#---
+kind: fragment
+label: "Test template"
+description: "Test template for rich content"
+version: 1
+properties:
+    content: rich_text
+    items:
+      type: list
+      items:
+          type: object
+          properties:
+              name: string
+              label: string
+              target: string
+children:
+    topmenu: menu-top
+---#}
+```
+
+## Template Properties
 
 The properties are declared in the template headers; they can be optional or required, but this declaration enforces a strict format, that we call signature.  
 They are stored in a json property of the fragment.
@@ -131,7 +167,7 @@ so this page is automatically declared in related properties of the fragment.
 Fragment children are declared as relation using FragmentLink, the name of relation is important here.
 
 A child may be or may be not a snippet, it means the template declare if it could reuse an existing child fragment as its own child.  
-You could need to reuse fragment in multiple part of you website, but sometimes you want it unique.
+You could need to reuse fragment in multiple part of you website, but sometimes you want it unique.  
 By default, children are unique, but you could prefix it with `*` to get it as list, it allows multiple ordered children with this name.
 
 #### The long signature
