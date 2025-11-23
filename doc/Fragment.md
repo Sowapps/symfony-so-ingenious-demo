@@ -71,6 +71,8 @@ Here are all the signature root properties :
 - kind: string, always `fragment`.
 - label: string, the label/title of the template.
 - description: string, the long description of the template.
+- purpose: optional string restricted by TemplatePurpose enum, the purpose of the template. E.g. `page`, `article`...
+  The use of templates could be restricted by this purpose, so if you expect a page, you can only render a page.
 - version: int, the version of the template, increase with breaking changes.
 - properties : See [Template Properties](#template-properties)
 - children : See [Child Fragment](#child-fragment)

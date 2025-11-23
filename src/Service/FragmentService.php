@@ -7,6 +7,7 @@ namespace App\Service;
 
 use App\Entity\Fragment;
 use App\Sowapps\SoIngenious\Template;
+use App\Sowapps\SoIngenious\TemplatePurpose;
 use DirectoryIterator;
 use RuntimeException;
 use SplFileInfo;
@@ -104,6 +105,7 @@ class FragmentService {
             $templateMeta['label'],
             $templateMeta['description'],
             $templateMeta['kind'],
+            isset($templateMeta['purpose']) ? TemplatePurpose::from($templateMeta['purpose']) : null,
             $templateMeta['version'],
             $templateMeta['properties'],
             $templateMeta['children']
@@ -119,6 +121,13 @@ class FragmentService {
         }
 
         return $this->scanTemplates($this->templateFolder);
+    }
+
+    /**
+     * @return Template[]
+     */
+    public function listTemplatesByPurpose(TemplatePurpose $purpose): array {
+        return array_filter($this->scanTemplates($this->templateFolder), fn(Template $template) => $template->getPurpose() === $purpose);
     }
 
     /**
