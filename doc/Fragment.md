@@ -66,6 +66,7 @@ bin/console app:template:show <name>
 
 Templates of fragments must be declared in folder `templates/fragment`.  
 The templates must have a metadata header with their signature.  
+Template purpose is provided to fragment for its own purpose, so the template and fragment must share the same purpose at all time.  
 Here are all the signature root properties :
 
 - kind: string, always `fragment`.

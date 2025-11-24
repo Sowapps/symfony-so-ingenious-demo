@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\FragmentRepository;
+use App\Sowapps\SoIngenious\TemplatePurpose;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -33,6 +34,9 @@ class Fragment extends AbstractEntity {
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $templateName = null;
+
+    #[ORM\Column(length: 255, nullable: true, enumType: TemplatePurpose::class)]
+    private ?TemplatePurpose $purpose = null;
 
     /**
      * @var Collection<int, FragmentLink>
@@ -144,6 +148,16 @@ class Fragment extends AbstractEntity {
 
     public function setTemplateName(?string $templateName): static {
         $this->templateName = $templateName;
+
+        return $this;
+    }
+
+    public function getPurpose(): ?TemplatePurpose {
+        return $this->purpose;
+    }
+
+    public function setPurpose(?TemplatePurpose $purpose): static {
+        $this->purpose = $purpose;
 
         return $this;
     }

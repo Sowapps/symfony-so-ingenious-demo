@@ -42,6 +42,7 @@ fragment:
     items:
         -   _ref: "fragment_menu_top"
             name: "Top Menu FR"
+            purpose: enum(menu, \App\Sowapps\SoIngenious\TemplatePurpose)
             properties:
                 items:
                     -   name: home
@@ -52,6 +53,7 @@ fragment:
             language: $language_french:Sowapps\SoCore\Entity\Language
         -   _ref: "fragment_page_home_fr"
             name: "Home FR"
+            purpose: enum(page, \App\Sowapps\SoIngenious\TemplatePurpose)
             properties:
                 content:
                     format: markdown
