@@ -1,19 +1,17 @@
-{#---
+{#- --
 kind: fragment
-label: "Raw Page"
-description: "Raw template for rich text Page"
-purpose: page
+label: "Basic Article"
+description: "Basic Article with rich content"
+purpose: article
 version: 1
 properties:
     content: rich_text
-children:
-    topmenu: menu-top
----#}
+-- -#}
 {#
 @var \App\Sowapps\SoIngenious\Template template
 @var \App\Entity\Fragment fragment
 #}
-{% extends 'frontend/fragment-page.html.twig' %}
+{% extends 'frontend/fragment.html.twig' %}
 
 {%- block contents -%}
     {{- fragment.properties.content | richText | raw -}}

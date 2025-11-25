@@ -3,7 +3,7 @@
  * @author Florent HAZARD <f.hazard@sowapps.com>
  */
 
-namespace App\Service;
+namespace App\Service\Routing;
 
 use App\Controller\FragmentPageController;
 use App\Repository\PageRepository;

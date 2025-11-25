@@ -26,9 +26,16 @@ class Fragment extends AbstractEntity {
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $html = null;
 
+    /**
+     * Is this fragment reusable ?
+     * @var bool|null
+     */
     #[ORM\Column]
     private ?bool $snippet = null;
 
+    /**
+     * @deprecated Model changed, is it useful ?
+     */
     #[ORM\ManyToOne(targetEntity: self::class)]
     private ?self $snippetFragment = null;
 

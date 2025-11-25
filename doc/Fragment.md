@@ -14,7 +14,7 @@ A fragment can contain :
 - Basic values : string, object of string, or even list of object of string. This is available in `properties` of fragment.
 - Another fragment, available in `children` of fragment :
     - A standalone child fragment built for this parent
-    - A snippet child fragment reusable between multiple parents, identified by template
+  - A snippet child fragment is reusable between multiple parents, identified by template
 
 ## Commands
 

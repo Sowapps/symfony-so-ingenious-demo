@@ -35,7 +35,8 @@ user:
 localizedUnit:
     class: App\Entity\LocalizedUnit
     items:
-        -   _ref: "localized_unit_home"
+        -   _ref: "lu_page_home"
+        -   _ref: "lu_article_demo01"
 
 fragment:
     class: App\Entity\Fragment
@@ -64,17 +65,13 @@ fragment:
             snippet: false
             templateName: "page/raw"
             language: $language_french:Sowapps\SoCore\Entity\Language
-        -   _ref: "fragment_test"
-            name: "Test FR"
-            properties:
-                content:
-                    format: markdown
-                    text: |
-                        ## Test section
-
-                        Composant de test
+        -   _ref: "fragment_article_demo01_fr"
+            name: "Article démo 01 FR"
+            purpose: enum(article, \App\Sowapps\SoIngenious\TemplatePurpose)
+            templateName: "article/basic"
             snippet: false
-            templateName: "raw"
+            properties:
+                content: content(article-demo01.md)
             language: $language_french:Sowapps\SoCore\Entity\Language
 
 fragmentLink:
@@ -92,5 +89,16 @@ page:
             title: "Accueil"
             path: "/"
             fragment: $fragment_page_home_fr:App\Entity\Fragment
-            localizedUnit: $localized_unit_home:App\Entity\LocalizedUnit
+            localizedUnit: $lu_page_home:App\Entity\LocalizedUnit
+            language: $language_french:Sowapps\SoCore\Entity\Language
+
+article:
+    class: App\Entity\Article
+    items:
+        -   _ref: "article_demo01_fr"
+            title: "La méthode des petits pas : comment progresser chaque jour sans s’épuiser"
+            slug: "methode-petits-pas-progresser-chaque-jour"
+            status: enum(published, \App\Sowapps\SoIngenious\PublicationStatus)
+            fragment: $fragment_article_demo01_fr:App\Entity\Fragment
+            localizedUnit: $lu_article_demo01:App\Entity\LocalizedUnit
             language: $language_french:Sowapps\SoCore\Entity\Language
