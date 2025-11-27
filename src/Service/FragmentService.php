@@ -37,9 +37,9 @@ class FragmentService {
         private readonly Twig                   $twig,
         private readonly EntityService          $entityService,
         #[Autowire(param: 'so_ingenious.template.path')]
-        string                         $templatePath,
+        string                  $templatePath,
         #[Autowire(param: 'twig.default_path')]
-        private readonly string        $twigTemplatePath,
+        private readonly string $twigTemplatePath,
     ) {
         $this->templateFolder = new SplFileInfo($templatePath);
     }
@@ -141,7 +141,7 @@ class FragmentService {
             if( $fileInfo->isDir() && !$fileInfo->isDot() ) {
                 $list = [
                     ...$list,
-                    ...$this->scanTemplates($fileInfo, ($prefix ? $prefix . '/' : '') . $fileInfo->getFilename())
+                    ...$this->scanTemplates($fileInfo, ($prefix ? $prefix . '/' : '') . $fileInfo->getFilename()),
                 ];
                 continue;
             }

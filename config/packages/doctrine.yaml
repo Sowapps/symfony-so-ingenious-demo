@@ -6,6 +6,7 @@ doctrine:
             enum_file_purpose: Sowapps\SoCore\DBAL\EnumFilePurposeType
             enum_file_source: Sowapps\SoCore\DBAL\EnumFileSourceType
             enum_file_storage: Sowapps\SoCore\DBAL\EnumFileStorageType
+            query_criteria: App\Sowapps\SoIngenious\Doctrine\Type\QueryCriteriaType
         mapping_types:
             enum: string
         profiling_collect_backtrace: '%kernel.debug%'

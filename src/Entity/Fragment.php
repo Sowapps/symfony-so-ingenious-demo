@@ -6,12 +6,14 @@ use App\Repository\FragmentRepository;
 use App\Sowapps\SoIngenious\TemplatePurpose;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Sowapps\SoCore\Entity\AbstractEntity;
 use Sowapps\SoCore\Entity\Language;
 
 #[ORM\Entity(repositoryClass: FragmentRepository::class)]
+#[ORM\InheritanceType('SINGLE_TABLE')]
+#[ORM\DiscriminatorColumn(name: 'dtype', type: 'string')]
+#[ORM\DiscriminatorMap(['fragment' => Fragment::class, 'fragment_publication' => PublicationFragment::class])]
 class Fragment extends AbstractEntity {
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -23,9 +25,6 @@ class Fragment extends AbstractEntity {
     #[ORM\Column]
     private array $properties = [];
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $html = null;
-
     /**
      * Is this fragment reusable ?
      * @var bool|null
@@ -33,17 +32,18 @@ class Fragment extends AbstractEntity {
     #[ORM\Column]
     private ?bool $snippet = null;
 
-    /**
-     * @deprecated Model changed, is it useful ?
-     */
-    #[ORM\ManyToOne(targetEntity: self::class)]
-    private ?self $snippetFragment = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $templateName = null;
 
     #[ORM\Column(length: 255, nullable: true, enumType: TemplatePurpose::class)]
     private ?TemplatePurpose $purpose = null;
+
+    /**
+     * Link fragments about same subjet but with a different language (Home => Home FR, Home EN)
+     */
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?LocalizedUnit $localizedUnit = null;
 
     /**
      * @var Collection<int, FragmentLink>
@@ -57,6 +57,9 @@ class Fragment extends AbstractEntity {
      */
     #[ORM\OneToMany(targetEntity: FragmentLink::class, mappedBy: 'child')]
     private Collection $parentLinks;
+
+    #[ORM\OneToOne(mappedBy: 'fragment', cascade: ['persist', 'remove'])]
+    private ?FragmentRoute $route = null;
 
     public function __construct()
     {
@@ -119,32 +122,12 @@ class Fragment extends AbstractEntity {
         return $this;
     }
 
-    public function getHtml(): ?string {
-        return $this->html;
-    }
-
-    public function setHtml(?string $html): static {
-        $this->html = $html;
-
-        return $this;
-    }
-
     public function isSnippet(): ?bool {
         return $this->snippet;
     }
 
     public function setSnippet(bool $snippet): static {
         $this->snippet = $snippet;
-
-        return $this;
-    }
-
-    public function getSnippetFragment(): ?self {
-        return $this->snippetFragment;
-    }
-
-    public function setSnippetFragment(?self $snippetFragment): static {
-        $this->snippetFragment = $snippetFragment;
 
         return $this;
     }
@@ -165,6 +148,16 @@ class Fragment extends AbstractEntity {
 
     public function setPurpose(?TemplatePurpose $purpose): static {
         $this->purpose = $purpose;
+
+        return $this;
+    }
+
+    public function getLocalizedUnit(): ?LocalizedUnit {
+        return $this->localizedUnit;
+    }
+
+    public function setLocalizedUnit(?LocalizedUnit $localizedUnit): static {
+        $this->localizedUnit = $localizedUnit;
 
         return $this;
     }
@@ -225,6 +218,26 @@ class Fragment extends AbstractEntity {
                 $parentLink->setChild(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRoute(): ?FragmentRoute {
+        return $this->route;
+    }
+
+    public function setRoute(?FragmentRoute $route): static {
+        // unset the owning side of the relation if necessary
+        if( $route === null && $this->route !== null ) {
+            $this->route->setFragment(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if( $route !== null && $route->getFragment() !== $this ) {
+            $route->setFragment($this);
+        }
+
+        $this->route = $route;
 
         return $this;
     }

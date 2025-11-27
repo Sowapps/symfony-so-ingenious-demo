@@ -10,6 +10,7 @@ enum PublicationStatus: string {
     case Draft = 'draft';
     case Published = 'published';
     case Scheduled = 'scheduled';// TODO
+    case Archived = 'archived';
 
     public static function values(): array {
         return array_map(fn($case) => $case->value, self::cases());

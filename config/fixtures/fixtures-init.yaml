@@ -35,8 +35,10 @@ user:
 localizedUnit:
     class: App\Entity\LocalizedUnit
     items:
-        -   _ref: "lu_page_home"
-        -   _ref: "lu_article_demo01"
+        -   _ref: "lu_route_home"
+        -   _ref: "lu_fragment_menu_top"
+        -   _ref: "lu_fragment_page_home"
+        -   _ref: "lu_fragment_article_demo01"
 
 fragment:
     class: App\Entity\Fragment
@@ -51,10 +53,24 @@ fragment:
                         target: /
             snippet: true
             templateName: "menu-top"
+            localizedUnit: $lu_fragment_menu_top:App\Entity\LocalizedUnit
             language: $language_french:Sowapps\SoCore\Entity\Language
+
+publicationFragment:
+    class: App\Entity\PublicationFragment
+    items:
         -   _ref: "fragment_page_home_fr"
+            slug: "page-home-fr"
             name: "Home FR"
+            title: "Accueil"
+            status: enum(published, \App\Sowapps\SoIngenious\PublicationStatus)
+            publishDate: "date(2025-11-27T18:04:55+01:00)"
             purpose: enum(page, \App\Sowapps\SoIngenious\TemplatePurpose)
+            routing: enum(standalone, \App\Sowapps\SoIngenious\FragmentRouting)
+            snippet: false
+            templateName: "page/raw"
+            localizedUnit: $lu_fragment_page_home:App\Entity\LocalizedUnit
+            language: $language_french:Sowapps\SoCore\Entity\Language
             properties:
                 content:
                     format: markdown
@@ -62,43 +78,31 @@ fragment:
                         # Accueil
 
                         Bienvenue sur la page d'accueil
-            snippet: false
-            templateName: "page/raw"
-            language: $language_french:Sowapps\SoCore\Entity\Language
         -   _ref: "fragment_article_demo01_fr"
+            slug: "article-demo-01-fr"
             name: "Article démo 01 FR"
+            status: enum(published, \App\Sowapps\SoIngenious\PublicationStatus)
             purpose: enum(article, \App\Sowapps\SoIngenious\TemplatePurpose)
             templateName: "article/basic"
             snippet: false
+            localizedUnit: $lu_fragment_article_demo01:App\Entity\LocalizedUnit
+            language: $language_french:Sowapps\SoCore\Entity\Language
             properties:
                 content: content(article-demo01.md)
-            language: $language_french:Sowapps\SoCore\Entity\Language
 
 fragmentLink:
     class: App\Entity\FragmentLink
     items:
-        -   parent: $fragment_page_home_fr:App\Entity\Fragment
+        -   parent: $fragment_page_home_fr:App\Entity\PublicationFragment
             child: $fragment_menu_top:App\Entity\Fragment
             name: "topmenu"
 
-page:
-    class: App\Entity\Page
+fragmentRoute:
+    class: App\Entity\FragmentRoute
     items:
-        -   _ref: "page_home_fr"
+        -   path: "/"
+            routing: enum(standalone, \App\Sowapps\SoIngenious\FragmentRouting)
             menuName: "home"
-            title: "Accueil"
-            path: "/"
-            fragment: $fragment_page_home_fr:App\Entity\Fragment
-            localizedUnit: $lu_page_home:App\Entity\LocalizedUnit
-            language: $language_french:Sowapps\SoCore\Entity\Language
-
-article:
-    class: App\Entity\Article
-    items:
-        -   _ref: "article_demo01_fr"
-            title: "La méthode des petits pas : comment progresser chaque jour sans s’épuiser"
-            slug: "methode-petits-pas-progresser-chaque-jour"
-            status: enum(published, \App\Sowapps\SoIngenious\PublicationStatus)
-            fragment: $fragment_article_demo01_fr:App\Entity\Fragment
-            localizedUnit: $lu_article_demo01:App\Entity\LocalizedUnit
+            fragment: $fragment_page_home_fr:App\Entity\PublicationFragment
+            localizedUnit: $lu_route_home:App\Entity\LocalizedUnit
             language: $language_french:Sowapps\SoCore\Entity\Language
