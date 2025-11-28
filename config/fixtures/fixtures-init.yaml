@@ -90,12 +90,12 @@ publicationFragment:
             properties:
                 content: content(article-demo01.md)
 
-fragmentLink:
-    class: App\Entity\FragmentLink
-    items:
-        -   parent: $fragment_page_home_fr:App\Entity\PublicationFragment
-            child: $fragment_menu_top:App\Entity\Fragment
-            name: "topmenu"
+#fragmentLink:
+#    class: App\Entity\FragmentLink
+#    items:
+#        -   parent: $fragment_page_home_fr:App\Entity\PublicationFragment
+#            child: $fragment_menu_top:App\Entity\Fragment
+#            name: "topmenu"
 
 fragmentRoute:
     class: App\Entity\FragmentRoute
@@ -106,3 +106,9 @@ fragmentRoute:
             fragment: $fragment_page_home_fr:App\Entity\PublicationFragment
             localizedUnit: $lu_route_home:App\Entity\LocalizedUnit
             language: $language_french:Sowapps\SoCore\Entity\Language
+
+slotFragment:
+    class: App\Entity\SlotFragment
+    items:
+        -   slot: "menu_top"
+            fragmentUnit: $lu_fragment_menu_top:App\Entity\LocalizedUnit

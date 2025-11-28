@@ -6,6 +6,8 @@
 namespace App\Service;
 
 use App\Entity\Fragment;
+use App\Repository\FragmentRepository;
+use App\Repository\SlotFragmentRepository;
 use App\Sowapps\SoIngenious\Template;
 use App\Sowapps\SoIngenious\TemplatePurpose;
 use DirectoryIterator;
@@ -36,12 +38,22 @@ class FragmentService {
         private readonly TagAwareCacheInterface $cache,
         private readonly Twig                   $twig,
         private readonly EntityService          $entityService,
+        private readonly LanguageService        $languageService,
+        private readonly FragmentRepository     $fragmentRepository,
+        private readonly SlotFragmentRepository $slotFragmentRepository,
         #[Autowire(param: 'so_ingenious.template.path')]
         string                  $templatePath,
         #[Autowire(param: 'twig.default_path')]
         private readonly string $twigTemplatePath,
     ) {
         $this->templateFolder = new SplFileInfo($templatePath);
+    }
+
+    public function getSlotFragment(string $slot): ?Fragment {
+        $language = $this->languageService->getActiveLanguage();
+        $slotFragment = $this->slotFragmentRepository->getByName($slot);
+
+        return $this->fragmentRepository->getByLocalizedUnitAndLanguage($slotFragment->getFragmentUnit(), $language);
     }
 
     public function getFragmentRendering(Fragment $fragment, array $parameters = []): string {

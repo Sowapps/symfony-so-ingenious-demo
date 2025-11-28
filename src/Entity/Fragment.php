@@ -18,10 +18,6 @@ class Fragment extends AbstractEntity {
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Language $language = null;
-
     #[ORM\Column]
     private array $properties = [];
 
@@ -44,6 +40,10 @@ class Fragment extends AbstractEntity {
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?LocalizedUnit $localizedUnit = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Language $language = null;
 
     /**
      * @var Collection<int, FragmentLink>

@@ -11,7 +11,7 @@ Fragment template for Page
 {% block title %}{{ 'app.pageTitle' | trans({page: fragment.title}) }}{% endblock %}
 
 {% block body %}
-    {{- fragment.children.topmenu | fragment({active: fragment.route.menuName}) | raw -}}
+    {{- slot('menu_top') | fragment({active: fragment.route.menuName}) | raw -}}
     <div class="fragment fragment-page template-{{ template.name }}">
         {%- block contents %}{% endblock -%}
     </div>

@@ -13,4 +13,8 @@ class SlotFragmentRepository extends AbstractRepository {
     public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, SlotFragment::class, 'slotFragment');
     }
+
+    public function getByName(string $name): ?SlotFragment {
+        return $this->findOneBy(['slot' => $name]);
+    }
 }
