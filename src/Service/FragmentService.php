@@ -84,13 +84,10 @@ class FragmentService {
         $this->cache->delete($key);
     }
 
-    public function renderFragment(Fragment $fragment, array $parameters = []): string {
+    public function renderFragment(Fragment $fragment, array $values = []): string {
         $template = $this->getTemplate($fragment->getTemplateName());
-        $values = [
-            'template' => $template,
-            'fragment' => $fragment,
-            'parameters' => $parameters,
-        ];
+        $values['template'] = $template;
+        $values['fragment'] = $fragment;
         // Add dynamic values from properties._related
         $related = $fragment->getProperties()['_related'] ?? [];
         foreach( $related as $name => $reference ) {

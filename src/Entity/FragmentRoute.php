@@ -84,7 +84,11 @@ class FragmentRoute extends Route {
         return $this->itemCriteria;
     }
 
-    public function setItemCriteria(?QueryCriteria $itemCriteria): FragmentRoute {
+    public function setItemCriteria(QueryCriteria|array|null $itemCriteria): FragmentRoute {
+        if( is_array($itemCriteria) ) {
+            // Array from fixtures
+            $itemCriteria = QueryCriteria::fromArray($itemCriteria);
+        }
         $this->itemCriteria = $itemCriteria;
         return $this;
     }

@@ -30,14 +30,16 @@ user:
                 - 'ROLE_USER'
                 - 'ROLE_DEVELOPER'
             timezone: "Europe/Paris"
-            language: $language_french:Sowapps\SoCore\Entity\Language
+            language: ref(language_french, Sowapps\SoCore\Entity\Language)
 
 localizedUnit:
     class: App\Entity\LocalizedUnit
     items:
-        -   _ref: "lu_route_home"
+        -   _ref: "lu_route_home_fr"
+        -   _ref: "lu_route_article_single_fr"
         -   _ref: "lu_fragment_menu_top"
         -   _ref: "lu_fragment_page_home"
+        -   _ref: "lu_fragment_page_article_single_fr"
         -   _ref: "lu_fragment_article_demo01"
 
 fragment:
@@ -53,8 +55,8 @@ fragment:
                         target: /
             snippet: true
             templateName: "menu-top"
-            localizedUnit: $lu_fragment_menu_top:App\Entity\LocalizedUnit
-            language: $language_french:Sowapps\SoCore\Entity\Language
+            localizedUnit: ref(lu_fragment_menu_top, App\Entity\LocalizedUnit)
+            language: ref(language_french, Sowapps\SoCore\Entity\Language)
 
 publicationFragment:
     class: App\Entity\PublicationFragment
@@ -69,8 +71,8 @@ publicationFragment:
             routing: enum(standalone, \App\Sowapps\SoIngenious\FragmentRouting)
             snippet: false
             templateName: "page/raw"
-            localizedUnit: $lu_fragment_page_home:App\Entity\LocalizedUnit
-            language: $language_french:Sowapps\SoCore\Entity\Language
+            localizedUnit: ref(lu_fragment_page_home, App\Entity\LocalizedUnit)
+            language: ref(language_french, Sowapps\SoCore\Entity\Language)
             properties:
                 content:
                     format: markdown
@@ -78,23 +80,36 @@ publicationFragment:
                         # Accueil
 
                         Bienvenue sur la page d'accueil
+        -   _ref: "fragment_page_article_single_fr"
+            slug: "page-article-single-fr"
+            name: "Single Article Page FR"
+            title: "Article"
+            status: enum(published, \App\Sowapps\SoIngenious\PublicationStatus)
+            publishDate: "date(2025-11-27T18:04:55+01:00)"
+            purpose: enum(page, \App\Sowapps\SoIngenious\TemplatePurpose)
+            routing: enum(single_item, \App\Sowapps\SoIngenious\FragmentRouting)
+            snippet: false
+            templateName: "page/article-single"
+            localizedUnit: ref(lu_fragment_page_home, App\Entity\LocalizedUnit)
+            language: ref(language_french, Sowapps\SoCore\Entity\Language)
         -   _ref: "fragment_article_demo01_fr"
-            slug: "article-demo-01-fr"
+            slug: "methode-petits-pas-progresser-chaque-jour"
             name: "Article démo 01 FR"
+            title: "La méthode des petits pas : comment progresser chaque jour sans s’épuiser"
             status: enum(published, \App\Sowapps\SoIngenious\PublicationStatus)
             purpose: enum(article, \App\Sowapps\SoIngenious\TemplatePurpose)
             templateName: "article/basic"
             snippet: false
-            localizedUnit: $lu_fragment_article_demo01:App\Entity\LocalizedUnit
-            language: $language_french:Sowapps\SoCore\Entity\Language
+            localizedUnit: ref(lu_fragment_article_demo01, App\Entity\LocalizedUnit)
+            language: ref(language_french, Sowapps\SoCore\Entity\Language)
             properties:
                 content: content(article-demo01.md)
 
 #fragmentLink:
 #    class: App\Entity\FragmentLink
 #    items:
-#        -   parent: $fragment_page_home_fr:App\Entity\PublicationFragment
-#            child: $fragment_menu_top:App\Entity\Fragment
+#        -   parent: ref(fragment_page_home_fr, App\Entity\PublicationFragment)
+#            child: ref(fragment_menu_top, App\Entity\Fragment)
 #            name: "topmenu"
 
 fragmentRoute:
@@ -103,12 +118,19 @@ fragmentRoute:
         -   path: "/"
             routing: enum(standalone, \App\Sowapps\SoIngenious\FragmentRouting)
             menuName: "home"
-            fragment: $fragment_page_home_fr:App\Entity\PublicationFragment
-            localizedUnit: $lu_route_home:App\Entity\LocalizedUnit
-            language: $language_french:Sowapps\SoCore\Entity\Language
+            fragment: ref(fragment_page_home_fr, App\Entity\PublicationFragment)
+            localizedUnit: ref(lu_route_home_fr, App\Entity\LocalizedUnit)
+            language: ref(language_french, Sowapps\SoCore\Entity\Language)
+        -   path: "/article/{slug}"
+            routing: enum(single_item, \App\Sowapps\SoIngenious\FragmentRouting)
+            menuName: "article"
+            itemPurpose: enum(article, \App\Sowapps\SoIngenious\TemplatePurpose)
+            fragment: ref(fragment_page_article_single_fr, App\Entity\PublicationFragment)
+            localizedUnit: ref(lu_route_article_single_fr, App\Entity\LocalizedUnit)
+            language: ref(language_french, Sowapps\SoCore\Entity\Language)
 
 slotFragment:
     class: App\Entity\SlotFragment
     items:
         -   slot: "menu_top"
-            fragmentUnit: $lu_fragment_menu_top:App\Entity\LocalizedUnit
+            fragmentUnit: ref(lu_fragment_menu_top, App\Entity\LocalizedUnit)

@@ -3,6 +3,7 @@ kind: fragment
 label: "Raw Page"
 description: "Raw template for rich text Page"
 purpose: page
+routing: standalone
 version: 1
 properties:
     content: rich_text
@@ -14,5 +15,7 @@ properties:
 {% extends 'frontend/fragment-page.html.twig' %}
 
 {%- block contents -%}
-    {{- fragment.properties.content | richText | raw -}}
+    <div class="container">
+        {{- fragment.properties.content | richText | raw -}}
+    </div>
 {%- endblock -%}

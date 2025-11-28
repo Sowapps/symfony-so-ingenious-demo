@@ -1,0 +1,29 @@
+{#- --
+kind: fragment
+label: "Raw Page"
+description: "Raw template for rich text Page"
+purpose: page
+routing: single_item
+version: 1
+item: article
+-- -#}
+{#
+@var \App\Sowapps\SoIngenious\Template template
+@var \App\Entity\Fragment fragment
+#}
+{% extends 'frontend/fragment-page.html.twig' %}
+
+{%- block contents -%}
+    {# TODO Non-published case #}
+    <div class="container py-3">
+        <div class="row">
+            <div class="col col-lg-8">
+                {{- item | fragment | raw -}}
+            </div>
+            <div class="col col-lg-4">
+                {# TODO ARTICLE_MENU #}
+                ARTICLE_MENU
+            </div>
+        </div>
+    </div>
+{%- endblock -%}

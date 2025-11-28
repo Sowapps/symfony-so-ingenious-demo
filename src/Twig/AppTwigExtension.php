@@ -27,7 +27,7 @@ readonly class AppTwigExtension {
 
     #[AsTwigFilter('fragment')]
     public function formatFragment(Fragment $fragment, array $parameters = []): string {
-        return $this->fragmentService->getFragmentRendering($fragment, $parameters);
+        return $this->fragmentService->getFragmentRendering($fragment, ['parameters' => $parameters]);
     }
 
     #[AsTwigFilter('templateName')]

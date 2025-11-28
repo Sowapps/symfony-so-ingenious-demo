@@ -28,10 +28,22 @@ class FragmentRepository extends AbstractRepository
             ->getOneOrNullResult();
     }
 
-    public function getFilterCriteria(): array {
-        return [ // TODO distinguish single item filters and list item filters
+    /**
+     * These filters would return a list of fragments
+     */
+    public function getSingleFilters(): array {
+        return [
             'id'     => 'fragment.id',
             'slug'   => 'fragment.slug',
+        ];
+    }
+
+    /**
+     * These filters would return a list of fragments
+     *  Must return a field with the same name as the key
+     */
+    public function getListFilters(): array {
+        return [
             'status' => 'fragment.status',
             //          'date' => 'fragment.publishDate',// TODO Implement with multiple operators ? Too complexe for now
             'year'   => 'YEAR(f.publishDate) AS year',
