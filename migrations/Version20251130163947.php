@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20251127232149 extends AbstractMigration {
+final class Version20251130163947 extends AbstractMigration {
     public function getDescription(): string {
         return '';
     }
@@ -99,8 +99,8 @@ final class Version20251127232149 extends AbstractMigration {
             CREATE TABLE fragment (
               id INT AUTO_INCREMENT NOT NULL,
               create_user_id INT DEFAULT NULL,
-              language_id INT NOT NULL,
               localized_unit_id INT NOT NULL,
+              language_id INT NOT NULL,
               create_date DATETIME NOT NULL COMMENT '(DC2Type:datetimetz_immutable)',
               create_ip VARCHAR(60) NOT NULL,
               name VARCHAR(255) NOT NULL,
@@ -116,8 +116,8 @@ final class Version20251127232149 extends AbstractMigration {
               title VARCHAR(255) DEFAULT NULL,
               excerpt VARCHAR(511) DEFAULT NULL,
               INDEX IDX_CBAD15EC85564492 (create_user_id),
-              INDEX IDX_CBAD15EC82F1BAF4 (language_id),
               INDEX IDX_CBAD15EC38810B54 (localized_unit_id),
+              INDEX IDX_CBAD15EC82F1BAF4 (language_id),
               PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
         SQL
@@ -161,6 +161,7 @@ final class Version20251127232149 extends AbstractMigration {
               create_user_id INT DEFAULT NULL,
               create_date DATETIME NOT NULL COMMENT '(DC2Type:datetimetz_immutable)',
               create_ip VARCHAR(60) NOT NULL,
+              name VARCHAR(255) DEFAULT NULL,
               INDEX IDX_9B5A64AA85564492 (create_user_id),
               PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
@@ -285,14 +286,14 @@ final class Version20251127232149 extends AbstractMigration {
             ALTER TABLE
               fragment
             ADD
-              CONSTRAINT FK_CBAD15EC82F1BAF4 FOREIGN KEY (language_id) REFERENCES language (id)
+              CONSTRAINT FK_CBAD15EC38810B54 FOREIGN KEY (localized_unit_id) REFERENCES localized_unit (id)
         SQL
         );
         $this->addSql(<<<'SQL'
             ALTER TABLE
               fragment
             ADD
-              CONSTRAINT FK_CBAD15EC38810B54 FOREIGN KEY (localized_unit_id) REFERENCES localized_unit (id)
+              CONSTRAINT FK_CBAD15EC82F1BAF4 FOREIGN KEY (language_id) REFERENCES language (id)
         SQL
         );
         $this->addSql(<<<'SQL'
@@ -404,8 +405,8 @@ final class Version20251127232149 extends AbstractMigration {
         $this->addSql('ALTER TABLE email_subscription DROP FOREIGN KEY FK_F6D58280C88D811C');
         $this->addSql('ALTER TABLE file DROP FOREIGN KEY FK_8C9F361085564492');
         $this->addSql('ALTER TABLE fragment DROP FOREIGN KEY FK_CBAD15EC85564492');
-        $this->addSql('ALTER TABLE fragment DROP FOREIGN KEY FK_CBAD15EC82F1BAF4');
         $this->addSql('ALTER TABLE fragment DROP FOREIGN KEY FK_CBAD15EC38810B54');
+        $this->addSql('ALTER TABLE fragment DROP FOREIGN KEY FK_CBAD15EC82F1BAF4');
         $this->addSql('ALTER TABLE fragment_link DROP FOREIGN KEY FK_18C4A42F85564492');
         $this->addSql('ALTER TABLE fragment_link DROP FOREIGN KEY FK_18C4A42F727ACA70');
         $this->addSql('ALTER TABLE fragment_link DROP FOREIGN KEY FK_18C4A42FDD62C21B');

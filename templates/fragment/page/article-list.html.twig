@@ -1,0 +1,47 @@
+{#- --
+kind: fragment
+label: "Raw Page"
+description: "Raw template for rich text Page"
+purpose: page
+routing: single_item
+version: 1
+item: article
+-- -#}
+{#
+@var \App\Sowapps\SoIngenious\Template template
+@var \App\Entity\Fragment fragment
+@var \App\Entity\PublicationFragment[] items
+#}
+{% extends 'frontend/fragment-page.html.twig' %}
+
+{%- block contents -%}
+    <div class="container py-3">
+        <div class="row">
+            <div class="col col-lg-8">
+                <div class="row">
+                    {% for item in items %}
+                        <div class="col col-lg-6">
+                            <article class="bg-secondary-emphasis p-2">
+                                <a href="{{ route('route_article_single', item) }}">
+                                    <h5>{{- item.title -}}</h5>
+                                </a>
+                                <blockquote class="blockquote small">
+                                    <p>{{- item.excerpt | default('') -}}</p>
+                                    <footer class="blockquote-footer text-dark">
+                                        {# TODO Translate text #}
+                                        <span class="date">Le {{ item.createDate | date("d/m/Y H:i") }}</span>
+                                        <span class="author">Par {{ item.createUser.name }}</span>
+                                    </footer>
+                                </blockquote>
+                            </article>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col col-lg-4">
+                {# TODO ARTICLE_LIST_MENU #}
+                ARTICLE_LIST_MENU
+            </div>
+        </div>
+    </div>
+{%- endblock -%}

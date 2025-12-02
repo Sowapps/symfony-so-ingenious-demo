@@ -27,27 +27,4 @@ class FragmentRepository extends AbstractRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
-
-    /**
-     * These filters would return a list of fragments
-     */
-    public function getSingleFilters(): array {
-        return [
-            'id'     => 'fragment.id',
-            'slug'   => 'fragment.slug',
-        ];
-    }
-
-    /**
-     * These filters would return a list of fragments
-     *  Must return a field with the same name as the key
-     */
-    public function getListFilters(): array {
-        return [
-            'status' => 'fragment.status',
-            //          'date' => 'fragment.publishDate',// TODO Implement with multiple operators ? Too complexe for now
-            'year'   => 'YEAR(f.publishDate) AS year',
-            'month'  => 'MONTH(f.publishDate) AS month',
-        ];
-    }
 }

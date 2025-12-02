@@ -3,9 +3,13 @@
 namespace App\Twig;
 
 use App\Entity\Fragment;
+use App\Repository\RouteRepository;
 use App\Service\ContentFormatter\ContentFormatter;
 use App\Service\FragmentService;
+use App\Service\LanguageService;
+use App\Service\Routing\DatabaseRoutingService;
 use RuntimeException;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Attribute\AsTwigFilter;
 use Twig\Attribute\AsTwigFunction;
 
@@ -15,8 +19,12 @@ use Twig\Attribute\AsTwigFunction;
 readonly class AppTwigExtension {
 
     public function __construct(
-        private FragmentService $fragmentService,
-        private ContentFormatter $contentFormatter,
+        private UrlGeneratorInterface  $urlGenerator,
+        private FragmentService        $fragmentService,
+        private ContentFormatter       $contentFormatter,
+        private RouteRepository        $routeRepository,
+        private LanguageService        $languageService,
+        private DatabaseRoutingService $databaseRoutingService,
     ) {
     }
 
@@ -33,6 +41,13 @@ readonly class AppTwigExtension {
     #[AsTwigFilter('templateName')]
     public function formatTemplateName(string $value): string {
         return str_replace('/', '--', $value);
+    }
+
+    #[AsTwigFunction('route')]
+    public function getRoutePath(string $name, array|Fragment|null $parameter = null): string {
+        $route = $this->routeRepository->getByName($name, $this->languageService->getActiveLanguage());
+        $sfRouteName = $this->databaseRoutingService->getSymfonyRouteName($route, $parameter);
+        return $this->urlGenerator->generate($sfRouteName);
     }
 
     #[AsTwigFunction('slot')]

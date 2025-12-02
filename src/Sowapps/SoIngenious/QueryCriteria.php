@@ -17,8 +17,8 @@ class QueryCriteria {
          */
         private array $filters = [],
         /**
-         * @var array<string, mixed>
-         * @example [['publishDate', 'DESC']]
+         * @var array<string, string>
+         * @example ['publishDate' => 'DESC']
          */
         private array $orderBy = [],
         private ?int  $limit = null,
@@ -29,6 +29,9 @@ class QueryCriteria {
         return $this->filters;
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getOrderBy(): array {
         return $this->orderBy;
     }

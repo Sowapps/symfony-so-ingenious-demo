@@ -34,7 +34,9 @@ doctrine:
         dql:
             string_functions:
                 # Match against should have the path to the MatchAgainst class created in the previous step
-                MATCH: \DoctrineExtensions\Query\Mysql\MatchAgainst
+                MATCH: DoctrineExtensions\Query\Mysql\MatchAgainst
+                MONTH: DoctrineExtensions\Query\Mysql\Month
+                YEAR: DoctrineExtensions\Query\Mysql\Year
             numeric_functions:
                 # For more about spatial functions, see https://github.com/creof/doctrine2-spatial/blob/4e3d8154a23cbb7216f32b38244dce615db6c28b/INSTALL.md
                 st_distance_sphere: Sowapps\SoCore\Doctrine\StDistanceSphere

@@ -15,11 +15,19 @@ abstract class Route extends AbstractEntity {
     #[ORM\Column(length: 255)]
     private ?string $path = null;
 
-    #[ORM\ManyToOne]
+    /**
+     * The language for this route, the path could change relying on the locale
+     * Fetch eager to preload it, required for routing service
+     */
+    #[ORM\ManyToOne(fetch: 'EAGER')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Language $language = null;
 
-    #[ORM\ManyToOne]
+    /**
+     * The localized unit for same route through all languages
+     * Fetch eager to preload it, required for routing service
+     */
+    #[ORM\ManyToOne(fetch: 'EAGER')]
     #[ORM\JoinColumn(nullable: false)]
     private ?LocalizedUnit $localizedUnit = null;
 
