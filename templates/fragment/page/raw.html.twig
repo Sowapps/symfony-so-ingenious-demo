@@ -2,19 +2,20 @@
 kind: fragment
 label: "Raw Page"
 description: "Raw template for rich text Page"
+purpose: page
+routing: standalone
 version: 1
 properties:
     content: rich_text
-children:
-    topmenu: menu-top
 ---#}
 {#
-TODO Documentation of template description
 @var \App\Sowapps\SoIngenious\Template template
 @var \App\Entity\Fragment fragment
 #}
 {% extends 'frontend/fragment-page.html.twig' %}
 
 {%- block contents -%}
-    {{- fragment.properties.content | richText | raw -}}
+    <div class="container">
+        {{- fragment.properties.content | richText | raw -}}
+    </div>
 {%- endblock -%}

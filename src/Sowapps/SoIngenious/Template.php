@@ -17,6 +17,7 @@ readonly class Template {
         private string $label,
         private string $description,
         private string $kind,
+        private ?TemplatePurpose $purpose,
         private int   $version,
         private array $properties,
         private array $children
@@ -47,6 +48,10 @@ readonly class Template {
 
     public function getKind(): string {
         return $this->kind;
+    }
+
+    public function getPurpose(): ?TemplatePurpose {
+        return $this->purpose;
     }
 
     public function getVersion(): int {

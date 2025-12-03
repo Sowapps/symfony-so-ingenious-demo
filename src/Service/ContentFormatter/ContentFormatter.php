@@ -14,6 +14,7 @@ use Symfony\Contracts\Service\ServiceSubscriberInterface;
  */
 class ContentFormatter implements ServiceSubscriberInterface {
 
+    // TODO move to enum in SoIngeniousBundle
     public const FORMAT_HTML = 'html';
     public const FORMAT_TEXT = 'text';
     public const FORMAT_MARKDOWN = 'markdown';

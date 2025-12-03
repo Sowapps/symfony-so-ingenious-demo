@@ -5,57 +5,38 @@
 
 namespace App\Service;
 
-use App\Entity\User;
+use RuntimeException;
 use Sowapps\SoCore\Entity\Language;
 use Sowapps\SoCore\Repository\LanguageRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Service to manager languages
  */
 class LanguageService {
-    protected ?string $currentLocale = null;
+    protected ?Language $activeLanguage = null;
 
     /**
      * LanguageService constructor
      *
-     * @param RouterInterface $router
+     * @param RequestStack $requestStack
      * @param LanguageRepository $languageRepository
      */
     public function __construct(
-        private readonly RouterInterface $router,
+        private readonly RequestStack $requestStack,
         private readonly LanguageRepository $languageRepository
     ) {
     }
 
-    /**
-     * Use user language's locale to generate links in app.
-     * It's very useful for email sending.
-     *
-     * @param User $user
-     */
-    public function useUserLocale(User $user): void {
-        if( !$this->currentLocale ) {
-            $this->currentLocale = $this->router->getContext()->getParameter('_locale');
+    public function getActiveLanguage(): Language {
+        if( !$this->activeLanguage ) {
+            $request = $this->requestStack->getCurrentRequest();
+            $locale = $request?->getLocale();
+
+            $this->activeLanguage = $this->getLanguageByLocale($locale) ?? $this->getDefaultLocaleLanguage();
         }
-        $language = $user->getLanguage();
-        $this->router->getContext()->setParameter('_locale', $language->getLocale());
-    }
-
-    /**
-     * Restore request local into the router
-     *
-     * @return bool
-     */
-    public function restoreLocale(): bool {
-        if( $this->currentLocale ) {
-            $this->router->getContext()->setParameter('_locale', $this->currentLocale);
-
-            return true;
-        }
-
-        return false;
+        return $this->activeLanguage;
     }
 
     public function getBestUserLanguage(Request $request): ?Language {
@@ -115,23 +96,25 @@ class LanguageService {
     }
 
     /**
-     * @return Language[]
      * @deprecated Use LanguageRepository::findAll ? (require confirmation)
      */
     public function getLanguages(): array {
         return $this->languageRepository->findAll();
     }
 
-    /**
-     * @param string $locale
-     * @return Language|null
-     */
-    public function getLanguageByLocale(string $locale): ?Language {
+    public function getLanguageByLocale(?string $locale): ?Language {
+        if( !$locale ) {
+            return null;
+        }
         return $this->languageRepository->findByLocale($locale);
     }
 
-    public function getDefaultLocaleLanguage(): ?Language {
-        return $this->getLanguageByLocale($this->getDefaultLocale());
+    public function getDefaultLocaleLanguage(): Language {
+        $language = $this->getLanguageByLocale($this->getDefaultLocale());
+        if( !$language ) {
+            throw new RuntimeException('The default locale has no registered language');
+        }
+        return $language;
     }
 
     public function getDefaultLocale(): string {

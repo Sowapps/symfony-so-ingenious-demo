@@ -6,7 +6,10 @@
 namespace App\Service;
 
 use App\Entity\Fragment;
+use App\Repository\FragmentRepository;
+use App\Repository\SlotFragmentRepository;
 use App\Sowapps\SoIngenious\Template;
+use App\Sowapps\SoIngenious\TemplatePurpose;
 use DirectoryIterator;
 use RuntimeException;
 use SplFileInfo;
@@ -35,12 +38,22 @@ class FragmentService {
         private readonly TagAwareCacheInterface $cache,
         private readonly Twig                   $twig,
         private readonly EntityService          $entityService,
+        private readonly LanguageService        $languageService,
+        private readonly FragmentRepository     $fragmentRepository,
+        private readonly SlotFragmentRepository $slotFragmentRepository,
         #[Autowire(param: 'so_ingenious.template.path')]
-        string                         $templatePath,
+        string                  $templatePath,
         #[Autowire(param: 'twig.default_path')]
-        private readonly string        $twigTemplatePath,
+        private readonly string $twigTemplatePath,
     ) {
         $this->templateFolder = new SplFileInfo($templatePath);
+    }
+
+    public function getSlotFragment(string $slot): ?Fragment {
+        $language = $this->languageService->getActiveLanguage();
+        $slotFragment = $this->slotFragmentRepository->getByName($slot);
+
+        return $this->fragmentRepository->getByLocalizedUnitAndLanguage($slotFragment->getFragmentUnit(), $language);
     }
 
     public function getFragmentRendering(Fragment $fragment, array $parameters = []): string {
@@ -71,13 +84,10 @@ class FragmentService {
         $this->cache->delete($key);
     }
 
-    public function renderFragment(Fragment $fragment, array $parameters = []): string {
+    public function renderFragment(Fragment $fragment, array $values = []): string {
         $template = $this->getTemplate($fragment->getTemplateName());
-        $values = [
-            'template' => $template,
-            'fragment' => $fragment,
-            'parameters' => $parameters,
-        ];
+        $values['template'] = $template;
+        $values['fragment'] = $fragment;
         // Add dynamic values from properties._related
         $related = $fragment->getProperties()['_related'] ?? [];
         foreach( $related as $name => $reference ) {
@@ -104,6 +114,7 @@ class FragmentService {
             $templateMeta['label'],
             $templateMeta['description'],
             $templateMeta['kind'],
+            isset($templateMeta['purpose']) ? TemplatePurpose::from($templateMeta['purpose']) : null,
             $templateMeta['version'],
             $templateMeta['properties'],
             $templateMeta['children']
@@ -122,6 +133,13 @@ class FragmentService {
     }
 
     /**
+     * @return Template[]
+     */
+    public function listTemplatesByPurpose(TemplatePurpose $purpose): array {
+        return array_filter($this->scanTemplates($this->templateFolder), fn(Template $template) => $template->getPurpose() === $purpose);
+    }
+
+    /**
      * @param SplFileInfo $folderInfo
      * @param string $prefix
      * @return Template[]
@@ -132,7 +150,7 @@ class FragmentService {
             if( $fileInfo->isDir() && !$fileInfo->isDot() ) {
                 $list = [
                     ...$list,
-                    ...$this->scanTemplates($fileInfo, ($prefix ? $prefix . '/' : '') . $fileInfo->getFilename())
+                    ...$this->scanTemplates($fileInfo, ($prefix ? $prefix . '/' : '') . $fileInfo->getFilename()),
                 ];
                 continue;
             }

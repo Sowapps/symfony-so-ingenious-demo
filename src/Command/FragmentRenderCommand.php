@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Repository\FragmentRepository;
 use App\Service\FragmentService;
+use RuntimeException;
 use Symfony\Component\Console\Attribute\Argument;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -26,6 +27,9 @@ readonly class FragmentRenderCommand {
         OutputInterface                     $output
     ): int {
         $fragment = $this->fragmentRepository->find($fragmentId);
+        if( !$fragment ) {
+            throw new RuntimeException(sprintf("Invalid fragment \"%s\", fragment not found", $fragmentId));
+        }
         $render = $this->fragmentService->renderFragment($fragment);
         $output->writeln($render);
 

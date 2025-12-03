@@ -1,18 +1,17 @@
 {#
-Fragment template for page template
+Fragment template for Page
 
 @var \App\Sowapps\SoIngenious\Template template
-@var \App\Entity\Fragment fragment
-@var \App\Entity\Page page
+@var \App\Entity\PublicationFragment fragment
 #}
 {% extends 'document-web.html.twig' %}
 
 {% set bsTheme = 'dark' %}
 
-{% block title %}{{ 'app.pageTitle' | trans({page: page.title}) }}{% endblock %}
+{% block title %}{{ 'app.pageTitle' | trans({page: fragment.title}) }}{% endblock %}
 
 {% block body %}
-    {{- fragment.children.topmenu | fragment({active: page.menuName}) | raw -}}
+    {{- slot('menu_top') | fragment({active: fragment.route.menuName}) | raw -}}
     <div class="fragment fragment-page template-{{ template.name }}">
         {%- block contents %}{% endblock -%}
     </div>

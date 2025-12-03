@@ -13,9 +13,23 @@ controllers:
     requirements:
         _locale: '[a-zA-Z]{2}|[a-zA-Z]{2}\-[a-zA-Z]{2}'
 
-fragmentPages:
-    resource: App\Service\FragmentPageRoutingService::loadRoutes
+databaseRouting:
+    resource: App\Service\Routing\DatabaseRoutingService::loadRoutes
     type: service
     prefix: '/{_locale}'
     requirements:
         _locale: '[a-zA-Z]{2}|[a-zA-Z]{2}\-[a-zA-Z]{2}'
+
+#fragmentArticles:
+#    resource: App\Service\Routing\FragmentArticleRoutingService::loadRoutes
+#    type: service
+#    prefix: '/{_locale}'
+#    requirements:
+#        _locale: '[a-zA-Z]{2}|[a-zA-Z]{2}\-[a-zA-Z]{2}'
+#
+#fragmentPages:
+#    resource: App\Service\Routing\FragmentPageRoutingService::loadRoutes
+#    type: service
+#    prefix: '/{_locale}'
+#    requirements:
+#        _locale: '[a-zA-Z]{2}|[a-zA-Z]{2}\-[a-zA-Z]{2}'

@@ -2,42 +2,17 @@
 
 namespace App\Repository;
 
+use App\Core\Entity\AbstractRepository;
 use App\Entity\LocalizedUnit;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<LocalizedUnit>
+ * @extends AbstractRepository<LocalizedUnit>
  */
-class LocalizedUnitRepository extends ServiceEntityRepository
+class LocalizedUnitRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, LocalizedUnit::class);
+        parent::__construct($registry, LocalizedUnit::class, 'localizedUnit');
     }
-
-    //    /**
-    //     * @return LocalizedUnit[] Returns an array of LocalizedUnit objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('l')
-    //            ->andWhere('l.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('l.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?LocalizedUnit
-    //    {
-    //        return $this->createQueryBuilder('l')
-    //            ->andWhere('l.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }
