@@ -8,6 +8,12 @@ use Sowapps\SoCore\Entity\AbstractEntity;
 
 #[ORM\Entity(repositoryClass: FragmentLinkRepository::class)]
 class FragmentLink extends AbstractEntity {
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $position = null;
+
     #[ORM\ManyToOne(inversedBy: 'childLinks')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Fragment $parent = null;
@@ -15,12 +21,6 @@ class FragmentLink extends AbstractEntity {
     #[ORM\ManyToOne(inversedBy: 'parentLinks')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Fragment $child = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?int $position = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
 
     public function isUnique(): bool {
         return $this->position === null;

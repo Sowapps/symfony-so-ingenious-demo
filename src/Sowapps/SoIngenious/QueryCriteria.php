@@ -25,6 +25,24 @@ class QueryCriteria {
     ) {
     }
 
+    /**
+     * Integrat other criteria to build a new one.
+     * Filters are merges, orderBy and limit are overloaded.
+     * @param QueryCriteria $criteria
+     * @return QueryCriteria
+     */
+    public function and(QueryCriteria $criteria): QueryCriteria {
+        // $criteria has priority, because this is a more specific usage
+        return new self(
+            filters: [...$this->filters, ...$criteria->filters],
+            orderBy: $criteria->orderBy ?: $this->orderBy,
+            limit: $criteria->limit ?? $this->limit,
+        );
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
     public function getFilters(): array {
         return $this->filters;
     }

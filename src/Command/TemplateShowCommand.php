@@ -34,7 +34,6 @@ readonly class TemplateShowCommand {
             'Version : ' . $template->getVersion(),
             '',
             'Properties : ' . $this->renderTemplateProperties($template),
-            '',
             'Children : ' . $this->renderTemplateChildren($template),
         ]);
 
@@ -47,7 +46,7 @@ readonly class TemplateShowCommand {
             return 'None';
         }
 
-        return $this->renderRecursiveArray($properties);
+        return "\n" . $this->renderRecursiveArray($properties, 1);
     }
 
     protected function renderTemplateChildren(Template $template): string {
@@ -56,7 +55,7 @@ readonly class TemplateShowCommand {
             return 'None';
         }
 
-        return $this->renderRecursiveArray($children);
+        return "\n" . $this->renderRecursiveArray($children, 1);
     }
 
     protected function renderRecursiveArray(array $array, int $depth = 0): string {
@@ -64,7 +63,7 @@ readonly class TemplateShowCommand {
         $output = '';
         foreach( $array as $key => $value ) {
             $isArray = is_array($value);
-            $output .= sprintf('%s%s => %s' . "\n", $indent, $key, $isArray ? '' : $value);
+            $output .= sprintf('%s%s => %s' . "\n", $indent, $key, $isArray ? '' : json_encode($value));
             if( $isArray ) {
                 $output .= $this->renderRecursiveArray($value, $depth + 1);
             }

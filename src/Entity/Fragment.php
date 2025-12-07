@@ -48,7 +48,7 @@ class Fragment extends AbstractEntity {
     /**
      * @var Collection<int, FragmentLink>
      */
-    #[ORM\OneToMany(targetEntity: FragmentLink::class, mappedBy: 'parent')]
+    #[ORM\OneToMany(targetEntity: FragmentLink::class, mappedBy: 'parent', cascade: ['persist', 'remove'])]
     #[ORM\OrderBy(['name' => 'ASC', 'position' => 'ASC'])]
     private Collection $childLinks;
 
@@ -67,6 +67,37 @@ class Fragment extends AbstractEntity {
 
         $this->childLinks = new ArrayCollection();
         $this->parentLinks = new ArrayCollection();
+        $this->fragmentFiles = new ArrayCollection();
+    }
+
+    /**
+     * Set children using array for Fixtures
+     * @param array $children
+     * @return Fragment
+     * @internal For Fixtures only
+     */
+    public function setChildren(array $children): static {
+        $this->childLinks->clear();
+        foreach( $children as $name => $nameChildren ) {
+            // $nameChildren is an array of children with same name
+            // If this is an array, we provide a position, cause isUnique() is base on it
+            $isList = is_array($nameChildren);
+            if( !$isList ) {
+                $nameChildren = [$nameChildren];
+            }
+            $position = 0;
+            foreach( $nameChildren as $child ) {
+                $link = new FragmentLink();
+                $link->setName($name);
+                $link->setChild($child);
+                $this->addChildLink($link);
+                if( $isList ) {
+                    $link->setPosition($position++);
+                }
+            }
+        }
+
+        return $this;
     }
 
     /**

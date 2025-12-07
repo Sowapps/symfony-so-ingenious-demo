@@ -1,0 +1,30 @@
+{#- --
+kind: fragment
+label: "Article list template Widget"
+description: "Widget of article list"
+purpose: widget
+routing: item_list
+item: article
+version: 1
+properties:
+    title: "?string"
+children:
+    items: "*widget"
+-- -#}
+{#
+@var \App\Sowapps\SoIngenious\Template template
+@var \App\Entity\Fragment fragment
+@var \App\Entity\PublicationFragment[] items
+#}
+{% extends 'frontend/fragment.html.twig' %}
+
+{% set items = fragment.children.items %}
+
+{%- block contents -%}
+    {%- if fragment.properties.title is defined -%}
+        <h3>{{ fragment.properties.title }}</h3>
+    {%- endif -%}
+    {%- for item in items -%}
+        {{- item | fragment | raw -}}
+    {%- endfor -%}
+{%- endblock -%}

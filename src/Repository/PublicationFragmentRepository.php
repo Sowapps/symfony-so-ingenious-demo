@@ -31,10 +31,11 @@ class PublicationFragmentRepository extends AbstractRepository {
      */
     public function getListFilters(): array {
         return [
-            'status' => 'publicationFragment.status',
+            'purpose' => 'publicationFragment.purpose',
+            'status'  => 'publicationFragment.status',
             //          'date' => 'publicationFragment.publishDate',// TODO Implement with multiple operators ? Too complexe for now
-            'year'   => 'YEAR(publicationFragment.publishDate)',
-            'month'  => 'MONTH(publicationFragment.publishDate)',
+            'year'    => 'YEAR(publicationFragment.publishDate)',
+            'month'   => 'MONTH(publicationFragment.publishDate)',
         ];
     }
 }
