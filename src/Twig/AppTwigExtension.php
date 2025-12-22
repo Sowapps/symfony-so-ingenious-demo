@@ -12,6 +12,8 @@ use App\Service\Routing\DatabaseRoutingService;
 use App\Sowapps\SoIngenious\QueryCriteria;
 use Doctrine\ORM\Query\QueryException;
 use RuntimeException;
+use Sowapps\SoCore\Entity\File;
+use Sowapps\SoCore\Service\FileService;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Attribute\AsTwigFilter;
 use Twig\Attribute\AsTwigFunction;
@@ -28,6 +30,7 @@ readonly class AppTwigExtension {
         private RouteRepository        $routeRepository,
         private LanguageService        $languageService,
         private DatabaseRoutingService $databaseRoutingService,
+        private FileService $fileService,
     ) {
     }
 
@@ -56,6 +59,11 @@ readonly class AppTwigExtension {
     #[AsTwigFilter('fragment')]
     public function formatFragment(Fragment $fragment, array $parameters = []): string {
         return $this->fragmentService->getFragmentRendering($fragment, ['parameters' => $parameters]);
+    }
+
+    #[AsTwigFilter('fileUrl')]
+    public function getFileUrl(File $file, bool $download = false): string {
+        return $this->fileService->getFileUrl($file, $download);
     }
 
     #[AsTwigFilter('templateName')]

@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Sowapps\SoCore\Entity\AbstractEntity;
+use Sowapps\SoCore\Entity\File;
 use Sowapps\SoCore\Entity\Language;
 
 #[ORM\Entity(repositoryClass: FragmentRepository::class)]
@@ -137,17 +138,37 @@ class Fragment extends AbstractEntity {
     }
 
     /**
+     * @return array<string, File>
+     */
+    public function getFiles(): array {
+        $map = [];
+        foreach( $this->getFragmentFiles() as $fragmentFile ) {
+            $file = $fragmentFile->getFile();
+            $name = $fragmentFile->getName();
+            if( $fragmentFile->isUnique() ) {
+                $map[$name] = $file;
+            } else {
+                $map[$name] ??= [];
+                $map[$name][$fragmentFile->getPosition()] = $file;
+            }
+        }
+
+        return $map;
+    }
+
+    /**
      * @return array<string, Fragment>
      */
     public function getChildren(): array {
         $map = [];
         foreach( $this->getChildLinks() as $childLink ) {
             $child = $childLink->getChild();
+            $name = $childLink->getName();
             if( $childLink->isUnique() ) {
-                $map[$childLink->getName()] = $child;
+                $map[$name] = $child;
             } else {
-                $map[$childLink->getName()] ??= [];
-                $map[$childLink->getName()][$childLink->getPosition()] = $child;
+                $map[$name] ??= [];
+                $map[$name][$childLink->getPosition()] = $child;
             }
         }
 

@@ -12,6 +12,9 @@ class FragmentFile extends AbstractEntity {
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $position = null;
+
     #[ORM\ManyToOne(inversedBy: 'fragmentFiles')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Fragment $fragment = null;
@@ -20,12 +23,26 @@ class FragmentFile extends AbstractEntity {
     #[ORM\JoinColumn(nullable: false)]
     private ?File $file = null;
 
+    public function isUnique(): bool {
+        return $this->position === null;
+    }
+
     public function getName(): ?string {
         return $this->name;
     }
 
     public function setName(string $name): static {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getPosition(): ?int {
+        return $this->position;
+    }
+
+    public function setPosition(?int $position): static {
+        $this->position = $position;
 
         return $this;
     }
