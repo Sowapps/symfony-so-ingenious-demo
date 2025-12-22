@@ -174,7 +174,8 @@ class FragmentService {
             isset($templateMeta['purpose']) ? TemplatePurpose::from($templateMeta['purpose']) : null,
             $templateMeta['version'],
             $templateMeta['properties'],
-            $templateMeta['children']
+            $templateMeta['children'],
+            $templateMeta['files']
         );
     }
 
@@ -264,6 +265,33 @@ class FragmentService {
             $childSignature['multiple'] = $isMultiple;
             $childSignature['required'] = true;
         }
+        unset($childName, $childSignature);
+
+        // Normalize files
+        $meta['files'] ??= [];
+        foreach( $meta['files'] as $fileName => &$fileSignature ) {
+            $isMultiple = false;
+            $isRequired = true;
+            if( is_string($fileSignature) ) {
+                $isOptional = $fileSignature[0] === '?';
+                $isRequired = !$isOptional;
+                $fileSignature = ltrim($fileSignature, '?');
+                $isMultiple = $fileSignature[0] === '*';
+                $fileSignature = ltrim($fileSignature, '*');
+                [$purpose, $mimeType] = explode('=', $fileSignature, 2);
+                $fileSignature = [
+                    'purpose'  => $purpose,
+                    'mimeType' => $mimeType,
+                ];
+            } else if( empty($fileSignature['purpose']) ) {
+                throw new ValueError(sprintf('Missing required purpose in signature of file "%s"', $fileName));
+            } else if( empty($fileSignature['mimeType']) ) {
+                throw new ValueError(sprintf('Missing required mimeType in signature of file "%s"', $fileName));
+            }
+            $fileSignature['multiple'] = $isMultiple;
+            $fileSignature['required'] = $isRequired;
+        }
+        unset($fileName, $fileSignature);
 
         return $meta;
     }

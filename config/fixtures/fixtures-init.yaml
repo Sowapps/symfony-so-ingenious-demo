@@ -51,6 +51,18 @@ localizedUnit:
         -   _ref: "lu_fragment_article_demo01"
         -   _ref: "lu_fragment_article_demo02"
 
+file:
+    class: Sowapps\SoCore\Entity\File
+    items:
+        -   _ref: "file_article_main_demo01"
+            name: "Article Demo 01"
+            purpose: article_main
+            sourceName: import(article-demo01.png)
+        -   _ref: "file_article_main_demo02"
+            name: "Article Demo 02"
+            purpose: article_main
+            sourceName: import(article-demo02.png)
+
 fragment:
     class: App\Entity\Fragment
     items:
@@ -183,6 +195,16 @@ publicationFragment:
             language: ref(language_french, Sowapps\SoCore\Entity\Language)
             properties:
                 content: content(article-demo02.md)
+
+fragmentFile:
+    class: App\Entity\FragmentFile
+    items:
+        -   name: "image"
+            fragment: ref(fragment_article_demo01_fr, App\Entity\PublicationFragment)
+            file: ref(file_article_main_demo01, Sowapps\SoCore\Entity\File)
+        -   name: "image"
+            fragment: ref(fragment_article_demo02_fr, App\Entity\PublicationFragment)
+            file: ref(file_article_main_demo02, Sowapps\SoCore\Entity\File)
 
 fragmentRoute:
     class: App\Entity\FragmentRoute

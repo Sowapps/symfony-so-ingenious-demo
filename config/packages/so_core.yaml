@@ -17,6 +17,14 @@ so_core:
     file:
         store_path: "%kernel.project_dir%/var/store/files"
         public_path: "%kernel.project_dir%/public"
+        purposes:
+            - article_main
+        sources:
+            - fixture
+            #            - http_upload
+            - local
+    #        storages:
+    #            - local
     admin:
         auth:
             background:

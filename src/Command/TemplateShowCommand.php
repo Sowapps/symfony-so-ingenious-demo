@@ -35,6 +35,7 @@ readonly class TemplateShowCommand {
             '',
             'Properties : ' . $this->renderTemplateProperties($template),
             'Children : ' . $this->renderTemplateChildren($template),
+            'Files : ' . $this->renderTemplateFiles($template),
         ]);
 
         return Command::SUCCESS;
@@ -56,6 +57,15 @@ readonly class TemplateShowCommand {
         }
 
         return "\n" . $this->renderRecursiveArray($children, 1);
+    }
+
+    protected function renderTemplateFiles(Template $template): string {
+        $files = $template->getFiles();
+        if( !$files ) {
+            return 'None';
+        }
+
+        return "\n" . $this->renderRecursiveArray($files, 1);
     }
 
     protected function renderRecursiveArray(array $array, int $depth = 0): string {

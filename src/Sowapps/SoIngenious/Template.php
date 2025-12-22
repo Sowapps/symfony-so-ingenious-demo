@@ -20,7 +20,8 @@ readonly class Template {
         private ?TemplatePurpose $purpose,
         private int   $version,
         private array $properties,
-        private array $children
+        private array $children,
+        private array $files
     ) {
         // We had to copy it or SplFileInfo is not usable outside this class
         $this->file = new SplFileInfo($file->getRealPath());
@@ -64,6 +65,10 @@ readonly class Template {
 
     public function getChildren(): array {
         return $this->children;
+    }
+
+    public function getFiles(): array {
+        return $this->files;
     }
 
 }

@@ -61,6 +61,12 @@ class Fragment extends AbstractEntity {
     #[ORM\OneToOne(mappedBy: 'fragment', cascade: ['persist', 'remove'])]
     private ?FragmentRoute $route = null;
 
+    /**
+     * @var Collection<int, FragmentFile>
+     */
+    #[ORM\OneToMany(targetEntity: FragmentFile::class, mappedBy: 'fragment', cascade: ['persist', 'remove'])]
+    private Collection $fragmentFiles;
+
     public function __construct()
     {
         parent::__construct();
@@ -93,6 +99,36 @@ class Fragment extends AbstractEntity {
                 $this->addChildLink($link);
                 if( $isList ) {
                     $link->setPosition($position++);
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set files using array for Fixtures
+     * @param array $files
+     * @return Fragment
+     * @internal For Fixtures only
+     */
+    public function setFiles(array $files): static {
+        $this->fragmentFiles->clear();
+        foreach( $files as $name => $nameFiles ) {
+            // $nameFiles is an array of children with same name
+            // If this is an array, we provide a position, cause isUnique() is base on it
+            $isList = is_array($nameFiles);
+            if( !$isList ) {
+                $nameFiles = [$nameFiles];
+            }
+            $position = 0;
+            foreach( $nameFiles as $file ) {
+                $fragmentFile = new FragmentFile();
+                $fragmentFile->setName($name);
+                $fragmentFile->setFile($file);
+                $this->addFragmentFile($fragmentFile);
+                if( $isList ) {
+                    $file->setPosition($position++);
                 }
             }
         }
@@ -269,6 +305,33 @@ class Fragment extends AbstractEntity {
         }
 
         $this->route = $route;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FragmentFile>
+     */
+    public function getFragmentFiles(): Collection {
+        return $this->fragmentFiles;
+    }
+
+    public function addFragmentFile(FragmentFile $fragmentFile): static {
+        if( !$this->fragmentFiles->contains($fragmentFile) ) {
+            $this->fragmentFiles->add($fragmentFile);
+            $fragmentFile->setFragment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFragmentFile(FragmentFile $fragmentFile): static {
+        if( $this->fragmentFiles->removeElement($fragmentFile) ) {
+            // set the owning side to null (unless already changed)
+            if( $fragmentFile->getFragment() === $this ) {
+                $fragmentFile->setFragment(null);
+            }
+        }
 
         return $this;
     }
