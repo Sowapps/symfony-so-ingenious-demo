@@ -608,11 +608,11 @@
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "0.5",
-            "ref": "c891eb9a33f522440ec7dfc0dae3f63ce3a9ee87"
+            "ref": "4fe7a892a9f6f052c64ca2d6ee600cf95716f974"
         },
         "files": [
-            "./config/packages/symfonycasts_sass.yaml",
-            "./assets/styles/app.scss"
+            "assets/styles/app.scss",
+            "config/packages/symfonycasts_sass.yaml"
         ]
     },
     "symfonycasts/verify-email-bundle": {
