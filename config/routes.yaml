@@ -1,3 +1,16 @@
+# yaml-language-server: $schema=../vendor/symfony/routing/Loader/schema/routing.schema.json
+
+# This file is the entry point to configure the routes of your app.
+# Methods with the #[Route] attribute are automatically imported.
+# See also https://symfony.com/doc/current/routing.html
+
+# To list all registered routes, run the following command:
+#   bin/console debug:router
+
+# Recipe update of symfony/routing
+#controllers:
+#    resource: routing.controllers
+
 so_core:
     resource: '@SoCoreBundle/config/routes.yaml'
 
@@ -19,17 +32,3 @@ databaseRouting:
     prefix: '/{_locale}'
     requirements:
         _locale: '[a-zA-Z]{2}|[a-zA-Z]{2}\-[a-zA-Z]{2}'
-
-#fragmentArticles:
-#    resource: App\Service\Routing\FragmentArticleRoutingService::loadRoutes
-#    type: service
-#    prefix: '/{_locale}'
-#    requirements:
-#        _locale: '[a-zA-Z]{2}|[a-zA-Z]{2}\-[a-zA-Z]{2}'
-#
-#fragmentPages:
-#    resource: App\Service\Routing\FragmentPageRoutingService::loadRoutes
-#    type: service
-#    prefix: '/{_locale}'
-#    requirements:
-#        _locale: '[a-zA-Z]{2}|[a-zA-Z]{2}\-[a-zA-Z]{2}'
