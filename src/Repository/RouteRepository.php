@@ -2,9 +2,9 @@
 
 namespace App\Repository;
 
-use App\Core\Entity\AbstractRepository;
 use App\Entity\Route;
 use Doctrine\Persistence\ManagerRegistry;
+use Sowapps\SoCore\Core\DBAL\AbstractRepository;
 use Sowapps\SoCore\Entity\Language;
 
 /**

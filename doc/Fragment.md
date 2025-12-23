@@ -97,7 +97,7 @@ properties:
               label: string
               target: string
 children:
-    topmenu: menu-top
+    topmenu: menu
 ---#}
 ```
 
@@ -167,7 +167,8 @@ so this page is automatically declared in related properties of the fragment.
 
 ## Child Fragment
 
-Fragment children are declared as relation using FragmentLink, the name of relation is important here.
+Fragment children are declared as relation using FragmentLink, the name of relation is important here.  
+The short declaration is only about the purpose of the child fragment.
 
 A child may be or may be not a snippet, it means the template declare if it could reuse an existing child fragment as its own child.  
 You could need to reuse fragment in multiple part of you website, but sometimes you want it unique.  
@@ -180,7 +181,7 @@ Using the long signature means you can declare the entire configuration explicit
 
 **Child configuration reference**
 
-*template* : The template of the child, as string  
+*purpose* : The purpose of the child, as string  
 *multiple* : Expecting multiple children, as boolean. The name of this relation is associated with several child fragments, so the template expects a list  
 *required* : The child is required, as boolean. _This value is hard-coded, you can not change it for now_
 

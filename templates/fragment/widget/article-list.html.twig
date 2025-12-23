@@ -1,0 +1,41 @@
+{#- --
+kind: fragment
+label: "Article list template Widget"
+description: "Widget of article list"
+purpose: widget
+routing: item_list
+item: article
+version: 1
+properties:
+    title: "?string"
+    itemCriteria: query_criteria
+-- -#}
+{#
+@var \App\Sowapps\SoIngenious\Template template
+@var \App\Entity\Fragment fragment
+@var \App\Entity\PublicationFragment[] items
+#}
+{% extends 'frontend/fragment.html.twig' %}
+
+{% set items = fragment.properties.itemCriteria | criteria | list %}
+
+{%- block contents -%}
+    <div class="p-4 d-flex flex-column shadow-sm border border-light-subtle">
+        {%- if fragment.properties.title is defined -%}
+            <h4 class="mb-3">{{ fragment.properties.title }}</h4>
+        {%- endif -%}
+        {% for item in items %}
+            <div class="d-flex mb-3">
+                {#                <div class="flex-shrink-0"> #}
+                {#                    <img src="..." alt="..."> #}
+                {#                </div> #}
+                <div class="flex-grow-1">{# ms-3 #}
+                    <a class="link-dark text-decoration-none" href="{{ route('route_article_single', item) }}">
+                        <h6>{{- item.title -}}</h6>
+                    </a>
+                    <div class="date text-secondary small">Le {{ item.createDate | date("d/m/Y H:i") }}</div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{%- endblock -%}

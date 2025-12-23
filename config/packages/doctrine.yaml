@@ -3,6 +3,7 @@ doctrine:
         url: '%env(resolve:DATABASE_URL)%'
         types:
             enum_email_purpose: Sowapps\SoCore\DBAL\EnumEmailPurposeType
+            # TODO Remove enum_file_purpose
             enum_file_purpose: Sowapps\SoCore\DBAL\EnumFilePurposeType
             enum_file_source: Sowapps\SoCore\DBAL\EnumFileSourceType
             enum_file_storage: Sowapps\SoCore\DBAL\EnumFileStorageType

@@ -46,8 +46,22 @@ localizedUnit:
         -   _ref: "lu_fragment_page_article_list_all"
         -   _ref: "lu_fragment_page_article_list_month"
         -   _ref: "lu_fragment_page_article_single"
+        -   _ref: "lu_fragment_widget_last_article_list"
+        -   _ref: "lu_fragment_widget_list_rightCol"
         -   _ref: "lu_fragment_article_demo01"
         -   _ref: "lu_fragment_article_demo02"
+
+file:
+    class: Sowapps\SoCore\Entity\File
+    items:
+        -   _ref: "file_article_main_demo01"
+            name: "Article Demo 01"
+            purpose: article_main
+            sourceName: import(article-demo01.png)
+        -   _ref: "file_article_main_demo02"
+            name: "Article Demo 02"
+            purpose: article_main
+            sourceName: import(article-demo02.png)
 
 fragment:
     class: App\Entity\Fragment
@@ -64,6 +78,32 @@ fragment:
             templateName: "menu-top"
             localizedUnit: ref(lu_fragment_menu_top, App\Entity\LocalizedUnit)
             language: ref(language_french, Sowapps\SoCore\Entity\Language)
+        -   _ref: "fragment_widget_article_list_last_fr"
+            name: "Last Article List FR"
+            purpose: enum(widget, \App\Sowapps\SoIngenious\TemplatePurpose)
+            snippet: true
+            templateName: "widget/article-list"
+            localizedUnit: ref(lu_fragment_widget_last_article_list, App\Entity\LocalizedUnit)
+            language: ref(language_french, Sowapps\SoCore\Entity\Language)
+            properties:
+                title: "Articles récents"
+                itemCriteria:
+                    filters:
+                        purpose: article
+                        status: published
+                    orderBy:
+                        publishDate: DESC
+                    limit: 4
+        -   _ref: "fragment_widget_list_rightCol_fr"
+            name: "Right column widget list FR"
+            purpose: enum(widget, \App\Sowapps\SoIngenious\TemplatePurpose)
+            snippet: true
+            templateName: "widget/widget-list"
+            localizedUnit: ref(lu_fragment_widget_list_rightCol, App\Entity\LocalizedUnit)
+            language: ref(language_french, Sowapps\SoCore\Entity\Language)
+            children:
+                items:
+                    - ref(fragment_widget_article_list_last_fr, App\Entity\Fragment)
 
 publicationFragment:
     class: App\Entity\PublicationFragment
@@ -123,6 +163,8 @@ publicationFragment:
             templateName: "page/article-single"
             localizedUnit: ref(lu_fragment_page_article_single, App\Entity\LocalizedUnit)
             language: ref(language_french, Sowapps\SoCore\Entity\Language)
+            children:
+                rightColumn: ref(fragment_widget_list_rightCol_fr, App\Entity\Fragment)
         -   _ref: "fragment_article_demo01_fr"
             slug: "methode-petits-pas-progresser-chaque-jour"
             name: "Article démo 01 FR"
@@ -154,12 +196,15 @@ publicationFragment:
             properties:
                 content: content(article-demo02.md)
 
-#fragmentLink:
-#    class: App\Entity\FragmentLink
-#    items:
-#        -   parent: ref(fragment_page_home_fr, App\Entity\PublicationFragment)
-#            child: ref(fragment_menu_top, App\Entity\Fragment)
-#            name: "topmenu"
+fragmentFile:
+    class: App\Entity\FragmentFile
+    items:
+        -   name: "image"
+            fragment: ref(fragment_article_demo01_fr, App\Entity\PublicationFragment)
+            file: ref(file_article_main_demo01, Sowapps\SoCore\Entity\File)
+        -   name: "image"
+            fragment: ref(fragment_article_demo02_fr, App\Entity\PublicationFragment)
+            file: ref(file_article_main_demo02, Sowapps\SoCore\Entity\File)
 
 fragmentRoute:
     class: App\Entity\FragmentRoute

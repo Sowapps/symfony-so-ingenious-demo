@@ -6,6 +6,8 @@ purpose: article
 version: 1
 properties:
     content: rich_text
+files:
+    image: article_main=image/*
 -- -#}
 {#
 @var \App\Sowapps\SoIngenious\Template template
@@ -14,5 +16,9 @@ properties:
 {% extends 'frontend/fragment.html.twig' %}
 
 {%- block contents -%}
+    <div class="mx-4 mb-3">
+        <img src="{{ fragment.files.image | fileUrl }}" class="img-fluid" alt="">
+    </div>
+
     {{- fragment.properties.content | richText | raw -}}
 {%- endblock -%}

@@ -6,6 +6,8 @@ purpose: page
 routing: single_item
 version: 1
 item: article
+children:
+    rightColumn: widget
 -- -#}
 {#
 @var \App\Sowapps\SoIngenious\Template template
@@ -16,14 +18,13 @@ item: article
 
 {%- block contents -%}
     {# TODO Non-published case #}
-    <div class="container py-3">
-        <div class="row">
+    <div class="container py-5">
+        <div class="row gx-5">
             <div class="col col-lg-8">
                 {{- item | fragment | raw -}}
             </div>
             <div class="col col-lg-4">
-                {# TODO ARTICLE_MENU #}
-                ARTICLE_MENU
+                {{- fragment.children.rightColumn | fragment | raw -}}
             </div>
         </div>
     </div>

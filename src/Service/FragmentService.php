@@ -6,11 +6,16 @@
 namespace App\Service;
 
 use App\Entity\Fragment;
+use App\Entity\PublicationFragment;
 use App\Repository\FragmentRepository;
+use App\Repository\PublicationFragmentRepository;
 use App\Repository\SlotFragmentRepository;
+use App\Sowapps\SoIngenious\QueryCriteria;
 use App\Sowapps\SoIngenious\Template;
 use App\Sowapps\SoIngenious\TemplatePurpose;
 use DirectoryIterator;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\Query\QueryException;
 use RuntimeException;
 use SplFileInfo;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -26,6 +31,10 @@ class FragmentService {
 
     public const PROPERTY_TYPE_STRING = 'string';
     public const PROPERTY_TYPE_RICH_TEXT = 'rich_text';
+    /**
+     * @see QueryCriteria
+     */
+    public const PROPERTY_TYPE_QUERY_CRITERIA = 'query_criteria';
     public const PROPERTY_TYPE_OBJECT = 'object';// Require "properties" in signature
     public const PROPERTY_TYPE_LIST = 'list';// Require "items" in signature
 
@@ -35,18 +44,66 @@ class FragmentService {
 
     public function __construct(
         #[Autowire(service: 'app.fragment')]
-        private readonly TagAwareCacheInterface $cache,
-        private readonly Twig                   $twig,
-        private readonly EntityService          $entityService,
-        private readonly LanguageService        $languageService,
-        private readonly FragmentRepository     $fragmentRepository,
-        private readonly SlotFragmentRepository $slotFragmentRepository,
+        private readonly TagAwareCacheInterface        $cache,
+        private readonly Twig                          $twig,
+        private readonly EntityService                 $entityService,
+        private readonly LanguageService               $languageService,
+        private readonly FragmentRepository            $fragmentRepository,
+        private readonly PublicationFragmentRepository $publicationFragmentRepository,
+        private readonly SlotFragmentRepository        $slotFragmentRepository,
         #[Autowire(param: 'so_ingenious.template.path')]
-        string                  $templatePath,
+        string                                         $templatePath,
         #[Autowire(param: 'twig.default_path')]
-        private readonly string $twigTemplatePath,
+        private readonly string                        $twigTemplatePath,
     ) {
         $this->templateFolder = new SplFileInfo($templatePath);
+    }
+
+    /**
+     * @param QueryCriteria $itemCriteria
+     * @return PublicationFragment[]
+     * @throws QueryException
+     */
+    public function getCriteriaItems(QueryCriteria $itemCriteria): array {
+        // , ?string $itemPurpose = null
+        // Build Doctrine Criteria
+        $criteria = Criteria::create();
+        if( $itemCriteria->getOrderBy() ) {
+            // Optional for listing all paths
+            $criteria->orderBy($itemCriteria->getOrderBy());
+        }
+        if( $itemCriteria->getLimit() !== null ) {
+            $criteria->setMaxResults($itemCriteria->getLimit());
+        }
+        $listFilters = $this->publicationFragmentRepository->getListFilters();
+        $query = $this->publicationFragmentRepository->query();
+        $qe = $query->expr();
+        //        $eb = Criteria::expr();
+        $conditionAndX = $qe->andX();
+        //        if($itemPurpose) {
+        //            $criteria->andWhere($eb->eq('purpose', $itemPurpose));
+        //        }
+
+        foreach( $itemCriteria->getFilters() as $filterName => $filterValue ) {
+            $filterSelect = $listFilters[$filterName] ?? null;
+            if( !$filterSelect ) {
+                throw new RuntimeException(sprintf('Filter "%s" not found for a route', $filterName));
+            }
+            $conditionAndX->add($qe->eq($filterSelect, ':' . $filterName));
+            $query->setParameter($filterName, $filterValue);
+        }
+
+        $query = $query->addCriteria($criteria);
+        if( $conditionAndX->count() ) {
+            // Add complex filters
+            $query->andWhere($conditionAndX);
+        }
+
+        $items = $query
+            ->getQuery()
+            ->getResult();
+        //        dump($items);
+        return $items;
     }
 
     public function getSlotFragment(string $slot): ?Fragment {
@@ -117,7 +174,8 @@ class FragmentService {
             isset($templateMeta['purpose']) ? TemplatePurpose::from($templateMeta['purpose']) : null,
             $templateMeta['version'],
             $templateMeta['properties'],
-            $templateMeta['children']
+            $templateMeta['children'],
+            $templateMeta['files']
         );
     }
 
@@ -196,15 +254,44 @@ class FragmentService {
         // Normalize children
         // All children are required
         $meta['children'] ??= [];
-        foreach( $meta['children'] as &$childSignature ) {
+        foreach( $meta['children'] as $childName => &$childSignature ) {
             $isMultiple = false;
             if( is_string($childSignature) ) {
                 $isMultiple = $childSignature[0] === '*';
-                $childSignature = ['template' => ltrim($childSignature, '*')];
+                $childSignature = ['purpose' => ltrim($childSignature, '*')];
+            } else if( !isset($childSignature['purpose']) ) {
+                throw new ValueError(sprintf('Missing required purpose in signature of child "%s"', $childName));
             }
             $childSignature['multiple'] = $isMultiple;
             $childSignature['required'] = true;
         }
+        unset($childName, $childSignature);
+
+        // Normalize files
+        $meta['files'] ??= [];
+        foreach( $meta['files'] as $fileName => &$fileSignature ) {
+            $isMultiple = false;
+            $isRequired = true;
+            if( is_string($fileSignature) ) {
+                $isOptional = $fileSignature[0] === '?';
+                $isRequired = !$isOptional;
+                $fileSignature = ltrim($fileSignature, '?');
+                $isMultiple = $fileSignature[0] === '*';
+                $fileSignature = ltrim($fileSignature, '*');
+                [$purpose, $mimeType] = explode('=', $fileSignature, 2);
+                $fileSignature = [
+                    'purpose'  => $purpose,
+                    'mimeType' => $mimeType,
+                ];
+            } else if( empty($fileSignature['purpose']) ) {
+                throw new ValueError(sprintf('Missing required purpose in signature of file "%s"', $fileName));
+            } else if( empty($fileSignature['mimeType']) ) {
+                throw new ValueError(sprintf('Missing required mimeType in signature of file "%s"', $fileName));
+            }
+            $fileSignature['multiple'] = $isMultiple;
+            $fileSignature['required'] = $isRequired;
+        }
+        unset($fileName, $fileSignature);
 
         return $meta;
     }
