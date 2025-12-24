@@ -6,22 +6,31 @@ purpose: page
 routing: item_list
 item: article
 version: 1
+children:
+    rightColumn: widget
 -- -#}
 {#
 @var \App\Sowapps\SoIngenious\Template template
-@var \App\Entity\Fragment fragment
+@var \App\Entity\PublicationFragment fragment
+@var string title
 @var \App\Entity\PublicationFragment[] items
 #}
 {% extends 'frontend/fragment-page.html.twig' %}
 
 {%- block contents -%}
     <div class="container py-3">
+        <h1>{{ title }}</h1>
         <div class="row">
             <div class="col col-lg-8">
                 <div class="row">
                     {% for item in items %}
                         <div class="col col-lg-6">
                             <article class="bg-secondary-emphasis p-2">
+                                {%- if item.files.image is defined -%}
+                                    <div class="mb-2">
+                                        <img src="{{ item.files.image | fileUrl }}" class="img-fluid" alt="">
+                                    </div>
+                                {%- endif -%}
                                 <a href="{{ route('route_article_single', item) }}">
                                     <h5>{{- item.title -}}</h5>
                                 </a>
@@ -39,8 +48,7 @@ version: 1
                 </div>
             </div>
             <div class="col col-lg-4">
-                {# TODO ARTICLE_LIST_MENU #}
-                ARTICLE_LIST_MENU
+                {{- fragment.children.rightColumn | fragment | raw -}}
             </div>
         </div>
     </div>

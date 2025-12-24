@@ -17,6 +17,7 @@ use DirectoryIterator;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Query\QueryException;
 use RuntimeException;
+use Sowapps\SoCore\Service\LanguageService;
 use SplFileInfo;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Yaml\Yaml;

@@ -8,7 +8,7 @@ namespace App\Service;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Sowapps\SoCore\Service\AbstractUserService;
-use Sowapps\SoCore\Service\StringHelper;
+use Sowapps\SoCore\Service\StringService;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -23,11 +23,11 @@ class UserService extends AbstractUserService {
         UserPasswordHasherInterface    $passwordEncoder,
         AccessDecisionManagerInterface $accessDecisionManager,
         Security                       $security,
-        StringHelper                   $stringHelper,
+        StringService $stringService,
         #[Autowire(param: 'so_core.user')]
         array                          $config
     ) {
-        parent::__construct($passwordEncoder, $accessDecisionManager, $security, $stringHelper, $config);
+        parent::__construct($passwordEncoder, $accessDecisionManager, $security, $stringService, $config);
     }
 
     function getUserRepository(): UserRepository {
