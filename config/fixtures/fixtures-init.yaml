@@ -49,17 +49,22 @@ localizedUnit:
         -   _ref: "lu_fragment_widget_last_article_list"
         -   _ref: "lu_fragment_widget_list_rightCol"
         -   _ref: "lu_fragment_article_demo01"
+        -   _ref: "lu_fragment_article_demo01_traps"
         -   _ref: "lu_fragment_article_demo02"
 
 file:
     class: Sowapps\SoCore\Entity\File
     items:
-        -   _ref: "file_article_main_demo01"
-            name: "Article Demo 01"
+        -   _ref: "file_article_demo01_main"
+            name: "Image Article Demo 01"
             purpose: article_main
             sourceName: import(article-demo01.png)
-        -   _ref: "file_article_main_demo02"
-            name: "Article Demo 02"
+        -   _ref: "file_article_demo01_traps"
+            name: "Image Article Demo 01 - Traps"
+            purpose: widget_image
+            sourceName: import(article-demo01-traps.png)
+        -   _ref: "file_article_demo02_main"
+            name: "Image Article Demo 02"
             purpose: article_main
             sourceName: import(article-demo02.png)
 
@@ -104,6 +109,15 @@ fragment:
             children:
                 items:
                     - ref(fragment_widget_article_list_last_fr, App\Entity\Fragment)
+        -   _ref: "fragment_article_demo01_traps"
+            name: "Article Demo 01 - Image Traps FR"
+            purpose: enum(widget, \App\Sowapps\SoIngenious\TemplatePurpose)
+            properties:
+                alternativeText: "Les pièges à éviter (Article démo 01)"
+            snippet: false
+            templateName: "widget/image"
+            localizedUnit: ref(lu_fragment_article_demo01_traps, App\Entity\LocalizedUnit)
+            language: ref(language_french, Sowapps\SoCore\Entity\Language)
 
 publicationFragment:
     class: App\Entity\PublicationFragment
@@ -205,10 +219,13 @@ fragmentFile:
     items:
         -   name: "image"
             fragment: ref(fragment_article_demo01_fr, App\Entity\PublicationFragment)
-            file: ref(file_article_main_demo01, Sowapps\SoCore\Entity\File)
+            file: ref(file_article_demo01_main, Sowapps\SoCore\Entity\File)
+        -   name: "image"
+            fragment: ref(fragment_article_demo01_traps, App\Entity\Fragment)
+            file: ref(file_article_demo01_traps, Sowapps\SoCore\Entity\File)
         -   name: "image"
             fragment: ref(fragment_article_demo02_fr, App\Entity\PublicationFragment)
-            file: ref(file_article_main_demo02, Sowapps\SoCore\Entity\File)
+            file: ref(file_article_demo02_main, Sowapps\SoCore\Entity\File)
 
 fragmentRoute:
     class: App\Entity\FragmentRoute

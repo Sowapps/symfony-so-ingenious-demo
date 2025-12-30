@@ -19,6 +19,7 @@ so_core:
         public_path: "%kernel.project_dir%/public"
         purposes:
             - article_main
+            - widget_image
         sources:
             - fixture
             #            - http_upload

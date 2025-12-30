@@ -66,6 +66,7 @@ class FragmentService {
      * @throws QueryException
      */
     public function getCriteriaItems(QueryCriteria $itemCriteria): array {
+        // TODO Clean code
         // , ?string $itemPurpose = null
         // Build Doctrine Criteria
         $criteria = Criteria::create();
@@ -105,6 +106,13 @@ class FragmentService {
             ->getResult();
         //        dump($items);
         return $items;
+    }
+
+    public function getBySelector(string $selector, string $value): ?Fragment {
+        return match ($selector) {
+            'id' => $this->fragmentRepository->find($value),
+            'slot' => $this->getSlotFragment($value),
+        };
     }
 
     public function getSlotFragment(string $slot): ?Fragment {
