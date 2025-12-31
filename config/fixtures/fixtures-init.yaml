@@ -51,6 +51,7 @@ localizedUnit:
         -   _ref: "lu_fragment_article_demo01"
         -   _ref: "lu_fragment_article_demo01_traps"
         -   _ref: "lu_fragment_article_demo02"
+        -   _ref: "lu_fragment_article_demo03"
 
 file:
     class: Sowapps\SoCore\Entity\File
@@ -67,6 +68,10 @@ file:
             name: "Image Article Demo 02"
             purpose: article_main
             sourceName: import(article-demo02.png)
+        -   _ref: "file_article_demo03_main"
+            name: "Image Article Demo 03"
+            purpose: article_main
+            sourceName: import(article-demo03.png)
 
 fragment:
     class: App\Entity\Fragment
@@ -213,6 +218,21 @@ publicationFragment:
             language: ref(language_french, Sowapps\SoCore\Entity\Language)
             properties:
                 content: content(article-demo02.md)
+        -   _ref: "fragment_article_demo03_fr"
+            slug: "ecrire-post-linkedin-qui-cartonne"
+            name: "Article démo 03 FR"
+            title: "Écrire un post LinkedIn qui cartonne : méthode simple pour booster ton engagement"
+            excerpt: "Une méthode concrète en 7 étapes pour écrire des posts LinkedIn plus lus, commentés et partagés : du hook aux hashtags, en passant par la valeur apportée et le bon timing."
+            publishDate: "date(2025-11-30T18:04:55+01:00)"
+            createUser: ref(user_default, App\Entity\User)
+            status: enum(published, \App\Sowapps\SoIngenious\PublicationStatus)
+            purpose: enum(article, \App\Sowapps\SoIngenious\TemplatePurpose)
+            templateName: "article/basic"
+            snippet: false
+            localizedUnit: ref(lu_fragment_article_demo03, App\Entity\LocalizedUnit)
+            language: ref(language_french, Sowapps\SoCore\Entity\Language)
+            properties:
+                content: content(article-demo03.md)
 
 fragmentFile:
     class: App\Entity\FragmentFile
@@ -226,6 +246,9 @@ fragmentFile:
         -   name: "image"
             fragment: ref(fragment_article_demo02_fr, App\Entity\PublicationFragment)
             file: ref(file_article_demo02_main, Sowapps\SoCore\Entity\File)
+        -   name: "image"
+            fragment: ref(fragment_article_demo03_fr, App\Entity\PublicationFragment)
+            file: ref(file_article_demo03_main, Sowapps\SoCore\Entity\File)
 
 fragmentRoute:
     class: App\Entity\FragmentRoute
