@@ -166,7 +166,7 @@ Ce qui compte, ce n’est pas « est-ce que j’ai été parfait ? », mais :
 Tu n’as pas besoin de te rattraper, de « compenser » ou de doubler l’effort.  
 Reviens simplement à ton petit pas habituel.
 
-[[fragment:id={{ ref(fragment_article_demo01_traps, App\Entity\Fragment) }}]]
+[[fragment:ref=demo01_traps]]
 
 ---
 

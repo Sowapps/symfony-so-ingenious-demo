@@ -47,6 +47,7 @@ class Fragment extends AbstractEntity {
     private ?Language $language = null;
 
     /**
+     * Links to other child fragments where this fragment is the parent
      * @var Collection<int, FragmentLink>
      */
     #[ORM\OneToMany(targetEntity: FragmentLink::class, mappedBy: 'parent', cascade: ['persist', 'remove'])]
@@ -54,10 +55,26 @@ class Fragment extends AbstractEntity {
     private Collection $childLinks;
 
     /**
+     * Links to other parent fragments where this fragment is the child
      * @var Collection<int, FragmentLink>
      */
     #[ORM\OneToMany(targetEntity: FragmentLink::class, mappedBy: 'child')]
     private Collection $parentLinks;
+
+    /**
+     * Inline references to other child fragments where this fragment is the parent
+     * @var Collection<int, FragmentReference>
+     */
+    #[ORM\OneToMany(targetEntity: FragmentReference::class, mappedBy: 'parent', cascade: ['persist', 'remove'])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
+    private Collection $childReferences;
+
+    /**
+     * Inline references to other parent fragments where this fragment is the child
+     * @var Collection<int, FragmentReference>
+     */
+    #[ORM\OneToMany(targetEntity: FragmentReference::class, mappedBy: 'child')]
+    private Collection $parentReferences;
 
     #[ORM\OneToOne(mappedBy: 'fragment', cascade: ['persist', 'remove'])]
     private ?FragmentRoute $route = null;
@@ -74,6 +91,8 @@ class Fragment extends AbstractEntity {
 
         $this->childLinks = new ArrayCollection();
         $this->parentLinks = new ArrayCollection();
+        $this->childReferences = new ArrayCollection();
+        $this->parentReferences = new ArrayCollection();
         $this->fragmentFiles = new ArrayCollection();
     }
 
@@ -102,6 +121,24 @@ class Fragment extends AbstractEntity {
                     $link->setPosition($position++);
                 }
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set child references using array for Fixtures
+     * @param array $references
+     * @return Fragment
+     * @internal For Fixtures only
+     */
+    public function setReferences(array $references): static {
+        $this->childReferences->clear();
+        foreach( $references as $childName => $childFragment ) {
+            $reference = new FragmentReference();
+            $reference->setName($childName);
+            $reference->setChild($childFragment);
+            $this->addChildReference($reference);
         }
 
         return $this;
@@ -170,6 +207,20 @@ class Fragment extends AbstractEntity {
                 $map[$name] ??= [];
                 $map[$name][$childLink->getPosition()] = $child;
             }
+        }
+
+        return $map;
+    }
+
+    /**
+     * @return array<string, Fragment>
+     */
+    public function getReferences(): array {
+        $map = [];
+        foreach( $this->getChildReferences() as $childReference ) {
+            $child = $childReference->getChild();
+            $name = $childReference->getName();
+            $map[$name] = $child;
         }
 
         return $map;
@@ -304,6 +355,60 @@ class Fragment extends AbstractEntity {
             // set the owning side to null (unless already changed)
             if( $parentLink->getChild() === $this ) {
                 $parentLink->setChild(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FragmentReference>
+     */
+    public function getChildReferences(): Collection {
+        return $this->childReferences;
+    }
+
+    public function addChildReference(FragmentReference $childReference): static {
+        if( !$this->childReferences->contains($childReference) ) {
+            $this->childReferences->add($childReference);
+            $childReference->setParent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChildReference(FragmentReference $childReference): static {
+        if( $this->childReferences->removeElement($childReference) ) {
+            // set the owning side to null (unless already changed)
+            if( $childReference->getParent() === $this ) {
+                $childReference->setParent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FragmentReference>
+     */
+    public function getParentReferences(): Collection {
+        return $this->parentReferences;
+    }
+
+    public function addParentReference(FragmentReference $parentReference): static {
+        if( !$this->parentReferences->contains($parentReference) ) {
+            $this->parentReferences->add($parentReference);
+            $parentReference->setChild($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParentReference(FragmentReference $parentReference): static {
+        if( $this->parentReferences->removeElement($parentReference) ) {
+            // set the owning side to null (unless already changed)
+            if( $parentReference->getChild() === $this ) {
+                $parentReference->setChild(null);
             }
         }
 

@@ -20,10 +20,10 @@ use Stringable;
  * @see FragmentMarkdownParser
  * @see FragmentNode
  */
-class FragmentMarkdownRenderer implements NodeRendererInterface {
+readonly class FragmentMarkdownRenderer implements NodeRendererInterface {
 
     public function __construct(
-        private readonly FragmentService $fragmentService,
+        private FragmentService $fragmentService,
     ) {
     }
 
@@ -37,6 +37,13 @@ class FragmentMarkdownRenderer implements NodeRendererInterface {
                 $node::class
             ));
         }
+
+        /**
+         * TODO Optimize by pre-loading all fragment's references #40
+         * Hard to optimize, require a fragment context, it could be optional ? So require 2 loading ways
+         * May require to optimize the whole fragment generation to pre-loading all fragment not only the current one
+         * @see https://github.com/Sowapps/symfony-so-ingenious-demo/issues/40
+         */
 
         $fragment = $this->fragmentService->getBySelector($node->selector, $node->value);
 

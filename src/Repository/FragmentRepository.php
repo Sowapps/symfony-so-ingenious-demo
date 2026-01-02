@@ -18,6 +18,15 @@ class FragmentRepository extends AbstractRepository
         parent::__construct($registry, Fragment::class, 'fragment');
     }
 
+    public function getByReference(string $reference): ?Fragment {
+        return $this->query()
+            ->join('fragment.parentReferences', 'parentReference')
+            ->andWhere('parentReference.name = :name')
+            ->setParameter('name', $reference)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function getByLocalizedUnitAndLanguage(LocalizedUnit $unit, Language $language): ?Fragment {
         return $this->query()
             ->andWhere('fragment.localizedUnit = :unit')

@@ -111,6 +111,7 @@ class FragmentService {
     public function getBySelector(string $selector, string $value): ?Fragment {
         return match ($selector) {
             'id' => $this->fragmentRepository->find($value),
+            'ref' => $this->fragmentRepository->getByReference($value),
             'slot' => $this->getSlotFragment($value),
         };
     }

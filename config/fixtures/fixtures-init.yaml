@@ -203,6 +203,8 @@ publicationFragment:
             language: ref(language_french, Sowapps\SoCore\Entity\Language)
             properties:
                 content: content(article-demo01.md)
+            references:
+                demo01_traps: ref(fragment_article_demo01_traps, App\Entity\Fragment)
         -   _ref: "fragment_article_demo02_fr"
             slug: "routines-du-matin-ce-qui-marche-vraiment"
             name: "Article démo 02 FR"
