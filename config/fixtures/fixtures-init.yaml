@@ -47,6 +47,7 @@ localizedUnit:
         -   _ref: "lu_fragment_page_article_list_month"
         -   _ref: "lu_fragment_page_article_single"
         -   _ref: "lu_fragment_widget_last_article_list"
+        -   _ref: "lu_fragment_widget_article_archive_list"
         -   _ref: "lu_fragment_widget_list_rightCol"
         -   _ref: "lu_fragment_article_demo01"
         -   _ref: "lu_fragment_article_demo01_traps"
@@ -104,6 +105,25 @@ fragment:
                     orderBy:
                         publishDate: DESC
                     limit: 4
+        -   _ref: "fragment_widget_article_archive_list_fr"
+            name: "Article Archive List FR"
+            purpose: enum(widget, \App\Sowapps\SoIngenious\TemplatePurpose)
+            snippet: true
+            templateName: "widget/filtered-list-page-menu"
+            localizedUnit: ref(lu_fragment_widget_article_archive_list, App\Entity\LocalizedUnit)
+            language: ref(language_french, Sowapps\SoCore\Entity\Language)
+            properties:
+                title: "Archives"
+                itemCriteria:
+                    filters:
+                        purpose: article
+                        status: published
+                    orderBy:
+                        publishDate: DESC
+                    limit: 4
+                route:
+                    path: "/article/{year}/{month}/"
+                    label: "{{ item.publishDate | date('F Y') }}"
         -   _ref: "fragment_widget_list_rightCol_fr"
             name: "Right column widget list FR"
             purpose: enum(widget, \App\Sowapps\SoIngenious\TemplatePurpose)
