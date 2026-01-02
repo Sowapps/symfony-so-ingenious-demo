@@ -1,0 +1,22 @@
+{#- --
+kind: fragment
+label: "Image Widget"
+description: "Widget of single image"
+purpose: widget
+version: 1
+properties:
+    alternativeText: "?string"
+files:
+    image: widget_image=image/*
+-- -#}
+{#
+@var \App\Sowapps\SoIngenious\Template template
+@var \App\Entity\Fragment fragment
+#}
+{% extends 'frontend/fragment.html.twig' %}
+
+{%- block contents -%}
+    <div class="mx-4 mb-4">
+        <img src="{{ fragment.files.image | fileUrl }}" class="img-fluid" alt="{{ fragment.properties.title | default('') | escape('html') }}">
+    </div>
+{%- endblock -%}

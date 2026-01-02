@@ -5,7 +5,7 @@
 
 namespace App\Event;
 
-use App\Service\LanguageService;
+use Sowapps\SoCore\Service\LanguageService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\RequestEvent;

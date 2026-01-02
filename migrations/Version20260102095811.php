@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20251222191506 extends AbstractMigration {
+final class Version20260102095811 extends AbstractMigration {
     public function getDescription(): string {
         return '';
     }
@@ -152,6 +152,23 @@ final class Version20251222191506 extends AbstractMigration {
               INDEX IDX_18C4A42F85564492 (create_user_id),
               INDEX IDX_18C4A42F727ACA70 (parent_id),
               INDEX IDX_18C4A42FDD62C21B (child_id),
+              PRIMARY KEY(id)
+            ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+        SQL
+        );
+        $this->addSql(<<<'SQL'
+            CREATE TABLE fragment_reference (
+              id INT AUTO_INCREMENT NOT NULL,
+              create_user_id INT DEFAULT NULL,
+              parent_id INT NOT NULL,
+              child_id INT NOT NULL,
+              create_date DATETIME NOT NULL COMMENT '(DC2Type:datetimetz_immutable)',
+              create_ip VARCHAR(60) NOT NULL,
+              name VARCHAR(255) NOT NULL,
+              UNIQUE INDEX UNIQ_D7E43BE35E237E06 (name),
+              INDEX IDX_D7E43BE385564492 (create_user_id),
+              INDEX IDX_D7E43BE3727ACA70 (parent_id),
+              INDEX IDX_D7E43BE3DD62C21B (child_id),
               PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
         SQL
@@ -357,6 +374,27 @@ final class Version20251222191506 extends AbstractMigration {
         );
         $this->addSql(<<<'SQL'
             ALTER TABLE
+              fragment_reference
+            ADD
+              CONSTRAINT FK_D7E43BE385564492 FOREIGN KEY (create_user_id) REFERENCES user (id)
+        SQL
+        );
+        $this->addSql(<<<'SQL'
+            ALTER TABLE
+              fragment_reference
+            ADD
+              CONSTRAINT FK_D7E43BE3727ACA70 FOREIGN KEY (parent_id) REFERENCES fragment (id)
+        SQL
+        );
+        $this->addSql(<<<'SQL'
+            ALTER TABLE
+              fragment_reference
+            ADD
+              CONSTRAINT FK_D7E43BE3DD62C21B FOREIGN KEY (child_id) REFERENCES fragment (id)
+        SQL
+        );
+        $this->addSql(<<<'SQL'
+            ALTER TABLE
               language
             ADD
               CONSTRAINT FK_D4DB71B585564492 FOREIGN KEY (create_user_id) REFERENCES user (id)
@@ -451,6 +489,9 @@ final class Version20251222191506 extends AbstractMigration {
         $this->addSql('ALTER TABLE fragment_link DROP FOREIGN KEY FK_18C4A42F85564492');
         $this->addSql('ALTER TABLE fragment_link DROP FOREIGN KEY FK_18C4A42F727ACA70');
         $this->addSql('ALTER TABLE fragment_link DROP FOREIGN KEY FK_18C4A42FDD62C21B');
+        $this->addSql('ALTER TABLE fragment_reference DROP FOREIGN KEY FK_D7E43BE385564492');
+        $this->addSql('ALTER TABLE fragment_reference DROP FOREIGN KEY FK_D7E43BE3727ACA70');
+        $this->addSql('ALTER TABLE fragment_reference DROP FOREIGN KEY FK_D7E43BE3DD62C21B');
         $this->addSql('ALTER TABLE language DROP FOREIGN KEY FK_D4DB71B585564492');
         $this->addSql('ALTER TABLE localized_unit DROP FOREIGN KEY FK_9B5A64AA85564492');
         $this->addSql('ALTER TABLE route DROP FOREIGN KEY FK_2C4207985564492');
@@ -468,6 +509,7 @@ final class Version20251222191506 extends AbstractMigration {
         $this->addSql('DROP TABLE fragment');
         $this->addSql('DROP TABLE fragment_file');
         $this->addSql('DROP TABLE fragment_link');
+        $this->addSql('DROP TABLE fragment_reference');
         $this->addSql('DROP TABLE language');
         $this->addSql('DROP TABLE localized_unit');
         $this->addSql('DROP TABLE route');

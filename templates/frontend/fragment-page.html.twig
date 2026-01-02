@@ -3,12 +3,13 @@ Fragment template for Page
 
 @var \App\Sowapps\SoIngenious\Template template
 @var \App\Entity\PublicationFragment fragment
+@var string|null title
 #}
 {% extends 'document-web.html.twig' %}
 
 {# {% set bsTheme = 'dark' %} #}
 
-{% block title %}{{ 'app.pageTitle' | trans({page: fragment.title}) }}{% endblock %}
+{% block title %}{{ 'app.pageTitle' | trans({page: title | default(fragment.title)}) }}{% endblock %}
 
 {% block body %}
     {{- slot('menu_top') | fragment({active: fragment.route.menuName}) | raw -}}

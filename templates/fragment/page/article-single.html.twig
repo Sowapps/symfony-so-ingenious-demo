@@ -1,7 +1,7 @@
 {#- --
 kind: fragment
-label: "Raw Page"
-description: "Raw template for rich text Page"
+label: "Article Page"
+description: "Page with single article"
 purpose: page
 routing: single_item
 version: 1
@@ -11,7 +11,7 @@ children:
 -- -#}
 {#
 @var \App\Sowapps\SoIngenious\Template template
-@var \App\Entity\Fragment fragment
+@var \App\Entity\PublicationFragment fragment
 @var \App\Entity\PublicationFragment item
 #}
 {% extends 'frontend/fragment-page.html.twig' %}

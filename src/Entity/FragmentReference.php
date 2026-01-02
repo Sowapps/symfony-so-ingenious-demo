@@ -2,29 +2,28 @@
 
 namespace App\Entity;
 
-use App\Repository\FragmentLinkRepository;
+use App\Repository\FragmentReferenceRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Sowapps\SoCore\Entity\AbstractEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-#[ORM\Entity(repositoryClass: FragmentLinkRepository::class)]
-class FragmentLink extends AbstractEntity {
-    #[ORM\Column(length: 255)]
+/**
+ * Inline fragment reference of another fragment
+ */
+#[ORM\Entity(repositoryClass: FragmentReferenceRepository::class)]
+#[UniqueEntity('name')]
+class FragmentReference extends AbstractEntity {
+    /** Reference is unique through all fragments */
+    #[ORM\Column(length: 255, unique: true, nullable: false)]
     private ?string $name = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $position = null;
-
-    #[ORM\ManyToOne(inversedBy: 'childLinks')]
+    #[ORM\ManyToOne(inversedBy: 'childReferences')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Fragment $parent = null;
 
-    #[ORM\ManyToOne(inversedBy: 'parentLinks')]
+    #[ORM\ManyToOne(inversedBy: 'parentReferences')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Fragment $child = null;
-
-    public function isUnique(): bool {
-        return $this->position === null;
-    }
 
     public function getName(): ?string {
         return $this->name;
@@ -32,16 +31,6 @@ class FragmentLink extends AbstractEntity {
 
     public function setName(string $name): static {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getPosition(): ?int {
-        return $this->position;
-    }
-
-    public function setPosition(?int $position): static {
-        $this->position = $position;
 
         return $this;
     }

@@ -49,19 +49,29 @@ localizedUnit:
         -   _ref: "lu_fragment_widget_last_article_list"
         -   _ref: "lu_fragment_widget_list_rightCol"
         -   _ref: "lu_fragment_article_demo01"
+        -   _ref: "lu_fragment_article_demo01_traps"
         -   _ref: "lu_fragment_article_demo02"
+        -   _ref: "lu_fragment_article_demo03"
 
 file:
     class: Sowapps\SoCore\Entity\File
     items:
-        -   _ref: "file_article_main_demo01"
-            name: "Article Demo 01"
+        -   _ref: "file_article_demo01_main"
+            name: "Image Article Demo 01"
             purpose: article_main
             sourceName: import(article-demo01.png)
-        -   _ref: "file_article_main_demo02"
-            name: "Article Demo 02"
+        -   _ref: "file_article_demo01_traps"
+            name: "Image Article Demo 01 - Traps"
+            purpose: widget_image
+            sourceName: import(article-demo01-traps.png)
+        -   _ref: "file_article_demo02_main"
+            name: "Image Article Demo 02"
             purpose: article_main
             sourceName: import(article-demo02.png)
+        -   _ref: "file_article_demo03_main"
+            name: "Image Article Demo 03"
+            purpose: article_main
+            sourceName: import(article-demo03.png)
 
 fragment:
     class: App\Entity\Fragment
@@ -104,6 +114,15 @@ fragment:
             children:
                 items:
                     - ref(fragment_widget_article_list_last_fr, App\Entity\Fragment)
+        -   _ref: "fragment_article_demo01_traps"
+            name: "Article Demo 01 - Image Traps FR"
+            purpose: enum(widget, \App\Sowapps\SoIngenious\TemplatePurpose)
+            properties:
+                alternativeText: "Les pièges à éviter (Article démo 01)"
+            snippet: false
+            templateName: "widget/image"
+            localizedUnit: ref(lu_fragment_article_demo01_traps, App\Entity\LocalizedUnit)
+            language: ref(language_french, Sowapps\SoCore\Entity\Language)
 
 publicationFragment:
     class: App\Entity\PublicationFragment
@@ -130,7 +149,7 @@ publicationFragment:
         -   _ref: "fragment_page_article_list_all_fr"
             slug: "page-article-list-all-fr"
             name: "All Article List Page FR"
-            title: "Articles"
+            title: "Tous les articles"
             publishDate: "date(2025-11-27T18:04:55+01:00)"
             status: enum(published, \App\Sowapps\SoIngenious\PublicationStatus)
             purpose: enum(page, \App\Sowapps\SoIngenious\TemplatePurpose)
@@ -139,10 +158,12 @@ publicationFragment:
             templateName: "page/article-list"
             localizedUnit: ref(lu_fragment_page_article_list_all, App\Entity\LocalizedUnit)
             language: ref(language_french, Sowapps\SoCore\Entity\Language)
+            children:
+                rightColumn: ref(fragment_widget_list_rightCol_fr, App\Entity\Fragment)
         -   _ref: "fragment_page_article_list_month_fr"
             slug: "page-article-list-month-fr"
             name: "Year/Month Article List Page FR"
-            title: "Articles par mois"
+            title: "Articles en {monthText} {year}"
             publishDate: "date(2025-11-27T18:04:55+01:00)"
             status: enum(published, \App\Sowapps\SoIngenious\PublicationStatus)
             purpose: enum(page, \App\Sowapps\SoIngenious\TemplatePurpose)
@@ -151,6 +172,8 @@ publicationFragment:
             templateName: "page/article-list"
             localizedUnit: ref(lu_fragment_page_article_list_month, App\Entity\LocalizedUnit)
             language: ref(language_french, Sowapps\SoCore\Entity\Language)
+            children:
+                rightColumn: ref(fragment_widget_list_rightCol_fr, App\Entity\Fragment)
         -   _ref: "fragment_page_article_single_fr"
             slug: "page-article-single-fr"
             name: "Single Article Page FR"
@@ -180,6 +203,8 @@ publicationFragment:
             language: ref(language_french, Sowapps\SoCore\Entity\Language)
             properties:
                 content: content(article-demo01.md)
+            references:
+                demo01_traps: ref(fragment_article_demo01_traps, App\Entity\Fragment)
         -   _ref: "fragment_article_demo02_fr"
             slug: "routines-du-matin-ce-qui-marche-vraiment"
             name: "Article démo 02 FR"
@@ -195,16 +220,37 @@ publicationFragment:
             language: ref(language_french, Sowapps\SoCore\Entity\Language)
             properties:
                 content: content(article-demo02.md)
+        -   _ref: "fragment_article_demo03_fr"
+            slug: "ecrire-post-linkedin-qui-cartonne"
+            name: "Article démo 03 FR"
+            title: "Écrire un post LinkedIn qui cartonne : méthode simple pour booster ton engagement"
+            excerpt: "Une méthode concrète en 7 étapes pour écrire des posts LinkedIn plus lus, commentés et partagés : du hook aux hashtags, en passant par la valeur apportée et le bon timing."
+            publishDate: "date(2025-11-30T18:04:55+01:00)"
+            createUser: ref(user_default, App\Entity\User)
+            status: enum(published, \App\Sowapps\SoIngenious\PublicationStatus)
+            purpose: enum(article, \App\Sowapps\SoIngenious\TemplatePurpose)
+            templateName: "article/basic"
+            snippet: false
+            localizedUnit: ref(lu_fragment_article_demo03, App\Entity\LocalizedUnit)
+            language: ref(language_french, Sowapps\SoCore\Entity\Language)
+            properties:
+                content: content(article-demo03.md)
 
 fragmentFile:
     class: App\Entity\FragmentFile
     items:
         -   name: "image"
             fragment: ref(fragment_article_demo01_fr, App\Entity\PublicationFragment)
-            file: ref(file_article_main_demo01, Sowapps\SoCore\Entity\File)
+            file: ref(file_article_demo01_main, Sowapps\SoCore\Entity\File)
+        -   name: "image"
+            fragment: ref(fragment_article_demo01_traps, App\Entity\Fragment)
+            file: ref(file_article_demo01_traps, Sowapps\SoCore\Entity\File)
         -   name: "image"
             fragment: ref(fragment_article_demo02_fr, App\Entity\PublicationFragment)
-            file: ref(file_article_main_demo02, Sowapps\SoCore\Entity\File)
+            file: ref(file_article_demo02_main, Sowapps\SoCore\Entity\File)
+        -   name: "image"
+            fragment: ref(fragment_article_demo03_fr, App\Entity\PublicationFragment)
+            file: ref(file_article_demo03_main, Sowapps\SoCore\Entity\File)
 
 fragmentRoute:
     class: App\Entity\FragmentRoute
