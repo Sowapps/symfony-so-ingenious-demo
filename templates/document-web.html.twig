@@ -1,9 +1,17 @@
 {#
+ADOV is Admin Overlay
 @var string bodyController
 @var string bsTheme
+@var bool adminView
 #}
 
 {% set currentLanguage = language.languageByLocale(app.locale) %}
+{% set adminView = true %}{# TODO Remove this line #}
+{% set bodyClass = bodyClass | default %}
+{%- if adminView %}
+    {% set bodyClass = bodyClass ~ ' adov-container' %}
+{%- endif -%}
+
 <!doctype html>
 <html lang="{{ currentLanguage.primaryCode }}" {% if bsTheme|default %}data-bs-theme="{{ bsTheme }}"{% endif %}>
 {#<html lang="en">#}
@@ -18,6 +26,9 @@
 
     {% block stylesheets -%}
         <link rel="stylesheet" href="{{ asset('styles/app.scss') }}">
+        {%- if adminView %}
+            <link rel="stylesheet" href="{{ asset('styles/adov.scss') }}">
+        {%- endif -%}
     {%- endblock %}
 
     {% block javascripts %}
@@ -25,8 +36,39 @@
     {% endblock %}
 </head>
 {% block document_body -%}
-	<body class="{{ bodyClass | default }}"{%- if bodyController is defined %} data-controller="{{ bodyController }}"{% endif %}>
-	{% block body %}{% endblock %}
-	</body>
+    <body class="{{ bodyClass | default }}"{% if bodyController is defined %} data-controller="{{ bodyController }}"{% endif %}>
+    <div class="app-body">
+        {% block body %}{% endblock %}
+    </div>
+    {%- if adminView %}
+        <div class="adov-overlay">
+            <div class="adov-top">
+                <div class="px-2">
+                    <a class="link-light fs-5" href="{{ path('so_core_admin_dashboard') }}" title="Back to Back-office"><i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal"></i></a>
+                </div>
+                {# TODO Show current Fragment & route info #}
+                {# TODO See Fragment tree #}
+                {# TODO Select Fragment in tree #}
+                {# TODO Show selected Fragment info #}
+                {% if fragment is defined %}
+                    {# @var \App\Entity\PublicationFragment fragment #}
+                    <div>{{ fragment.name }}</div>
+                    <div class="me-2">
+                        Actions
+                        {# TODO Select Fragment #}
+                        {# TODO Unselect Fragment #}
+                        {# TODO Undo #}
+                        {# TODO Redo #}
+                        {# TODO Change fragment status #}
+                        {# TODO Save #}
+                    </div>
+                {% else %}
+                    <div></div>
+                    <div></div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    </body>
 {%- endblock %}
 </html>

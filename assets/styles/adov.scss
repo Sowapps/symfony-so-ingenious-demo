@@ -1,0 +1,39 @@
+/*!
+ * ADOV : ADmin OVerlay to edit website content
+ */
+
+:root {
+    --adov-topbar-height: 48px;
+}
+
+.adov-container .adov-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    /* iOS notch safe area */
+    padding-top: env(safe-area-inset-top);
+    z-index: 10001;
+    pointer-events: none;
+
+    .adov-top {
+        height: var(--adov-topbar-height);
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem;
+
+        background-color: var(--bs-dark, #212529);
+        width: 100%;
+        color: var(--bs-white, #fff);
+        pointer-events: auto;
+    }
+}
+
+body.adov-container {
+    padding-top: calc(var(--adov-topbar-height) + env(safe-area-inset-top, 0px));
+}
