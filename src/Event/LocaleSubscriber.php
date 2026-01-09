@@ -18,7 +18,7 @@ class LocaleSubscriber implements EventSubscriberInterface {
     private array $excludedPathPrefixes = [
         '/.well-known', '/_profiler', '/_wdt', '/assets', '/build', '/favicon.ico', '/robots.txt', '/api',
         // Sowapps bundles
-        '/_socore',
+        '/admin', '/_socore',
     ];
 
     public function __construct(

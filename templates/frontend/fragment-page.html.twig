@@ -7,8 +7,6 @@ Fragment template for Page
 #}
 {% extends 'document-web.html.twig' %}
 
-{# {% set bsTheme = 'dark' %} #}
-
 {% block title %}{{ 'app.pageTitle' | trans({page: title | default(fragment.title)}) }}{% endblock %}
 
 {% block body %}
