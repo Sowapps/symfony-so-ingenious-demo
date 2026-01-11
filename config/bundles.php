@@ -13,12 +13,11 @@ return [
     Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
     Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
     Sowapps\SoCore\SoCoreBundle::class => ['all' => true],
-    Sowapps\SoLog\SoLogBundle::class => ['all' => true],
     Sowapps\SoIngenious\SoIngeniousBundle::class => ['all' => true],
     SymfonyCasts\Bundle\VerifyEmail\SymfonyCastsVerifyEmailBundle::class => ['all' => true],
     Symfony\UX\StimulusBundle\StimulusBundle::class => ['all' => true],
     Symfony\UX\Turbo\TurboBundle::class => ['all' => true],
     Symfonycasts\SassBundle\SymfonycastsSassBundle::class => ['all' => true],
-    AutoMapper\Symfony\Bundle\AutoMapperBundle::class            => ['all' => true],
+    AutoMapper\Symfony\Bundle\AutoMapperBundle::class => ['all' => true],
     DAMA\DoctrineTestBundle\DAMADoctrineTestBundle::class => ['test' => true],
 ];

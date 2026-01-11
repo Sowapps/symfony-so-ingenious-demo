@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\FragmentLinkRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Sowapps\SoCore\Entity\AbstractEntity;
+use Sowapps\SoCore\Core\Entity\AbstractEntity;
 
 #[ORM\Entity(repositoryClass: FragmentLinkRepository::class)]
 class FragmentLink extends AbstractEntity {

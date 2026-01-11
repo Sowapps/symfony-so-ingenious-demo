@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\FragmentFileRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Sowapps\SoCore\Entity\AbstractEntity;
+use Sowapps\SoCore\Core\Entity\AbstractEntity;
 use Sowapps\SoCore\Entity\File;
 
 #[ORM\Entity(repositoryClass: FragmentFileRepository::class)]

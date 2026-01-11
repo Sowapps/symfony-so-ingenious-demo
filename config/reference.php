@@ -1521,6 +1521,15 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *     generate_final_entities?: bool, // Default: false
  * }
  * @psalm-type SoCoreConfig = array{
+ *     app?: array{
+ *         label_tk?: scalar|null, // Default: "app.label"
+ *     },
+ *     routing?: array{
+ *         route?: array{
+ *             public_default?: scalar|null, // Default: "home"
+ *             admin_default?: scalar|null, // Default: "admin_home"
+ *         },
+ *     },
  *     user?: array{
  *         class?: scalar|null, // Default: "\\App\\Entity\\User"
  *         activation?: array{
@@ -1556,7 +1565,6 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         storages?: list<scalar|null>,
  *     },
  * }
- * @psalm-type SoLogConfig = array<mixed>
  * @psalm-type SoIngeniousConfig = array<mixed>
  * @psalm-type SymfonycastsVerifyEmailConfig = array{
  *     lifetime?: int, // The length of time in seconds that a signed URI is valid for after it is created. // Default: 3600
@@ -1643,7 +1651,6 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *     security?: SecurityConfig,
  *     monolog?: MonologConfig,
  *     so_core?: SoCoreConfig,
- *     so_log?: SoLogConfig,
  *     so_ingenious?: SoIngeniousConfig,
  *     symfonycasts_verify_email?: SymfonycastsVerifyEmailConfig,
  *     stimulus?: StimulusConfig,
@@ -1665,7 +1672,6 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         monolog?: MonologConfig,
  *         maker?: MakerConfig,
  *         so_core?: SoCoreConfig,
- *         so_log?: SoLogConfig,
  *         so_ingenious?: SoIngeniousConfig,
  *         symfonycasts_verify_email?: SymfonycastsVerifyEmailConfig,
  *         stimulus?: StimulusConfig,
@@ -1685,7 +1691,6 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         security?: SecurityConfig,
  *         monolog?: MonologConfig,
  *         so_core?: SoCoreConfig,
- *         so_log?: SoLogConfig,
  *         so_ingenious?: SoIngeniousConfig,
  *         symfonycasts_verify_email?: SymfonycastsVerifyEmailConfig,
  *         stimulus?: StimulusConfig,
@@ -1706,7 +1711,6 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         security?: SecurityConfig,
  *         monolog?: MonologConfig,
  *         so_core?: SoCoreConfig,
- *         so_log?: SoLogConfig,
  *         so_ingenious?: SoIngeniousConfig,
  *         symfonycasts_verify_email?: SymfonycastsVerifyEmailConfig,
  *         stimulus?: StimulusConfig,

@@ -5,28 +5,21 @@
 
 namespace App\Event;
 
-use App\Service\UserService;
 use DateTimeImmutable;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
-use Sowapps\SoCore\Entity\AbstractEntity;
+use Sowapps\SoCore\Core\Entity\AbstractEntity;
+use Sowapps\SoCore\Service\SecurityService;
 
 /**
  * Follow the lifecycle of an AbstractEntity and fill it with context values
  * TODO Imported sources, require more test
  */
 class EntityLifecycleSubscriber implements EventSubscriber {
-
-	protected UserService $userService;
-
-	/**
-	 * EntityLifecycleSubscriber constructor
-	 *
-	 * @param UserService $userService
-	 */
-	public function __construct(UserService $userService) {
-		$this->userService = $userService;
+    public function __construct(
+        protected SecurityService $securityService
+    ) {
 	}
 
 	/**
@@ -48,7 +41,7 @@ class EntityLifecycleSubscriber implements EventSubscriber {
 			$entity->setCreateDate(new DateTimeImmutable());
 		}
 		if( !$entity->getCreateUser() ) {
-			$currentUser = $this->userService->getCurrent();
+            $currentUser = $this->securityService->getCurrentUser();
 			if( $currentUser ) {
 				$entity->setCreateUser($currentUser);
 			}

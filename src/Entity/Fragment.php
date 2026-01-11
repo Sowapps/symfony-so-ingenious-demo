@@ -7,7 +7,7 @@ use App\Sowapps\SoIngenious\TemplatePurpose;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Sowapps\SoCore\Entity\AbstractEntity;
+use Sowapps\SoCore\Core\Entity\AbstractEntity;
 use Sowapps\SoCore\Entity\File;
 use Sowapps\SoCore\Entity\Language;
 

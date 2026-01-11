@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f6078a79f85c4e2e4ed749e4b9e60cbd",
+    "content-hash": "780d52e5aec17e747abc271438d9899e",
     "packages": [
         {
             "name": "beberlei/doctrineextensions",
@@ -2538,7 +2538,7 @@
             "dist": {
                 "type": "path",
                 "url": "../symfony-so-core-bundle",
-                "reference": "c87b75f5c8f9d317ddfdfc64a95673b7a27af197"
+                "reference": "3d4b6276351fe733367c2850f17edcdb515ce706"
             },
             "require": {
                 "doctrine/collections": "^2.4",
@@ -2547,6 +2547,7 @@
                 "ext-ctype": "*",
                 "ext-iconv": "*",
                 "ext-intl": "*",
+                "jolicode/automapper": "^9.5",
                 "php": ">=8.2",
                 "symfony/asset": "^7.3",
                 "symfony/form": "^7.3",
@@ -2631,54 +2632,6 @@
             "autoload-dev": {
                 "psr-4": {
                     "Sowapps\\SoIngenious\\Tests\\": "tests/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Florent HAZARD",
-                    "email": "contact@sowapps.com",
-                    "homepage": "https://sowapps.com",
-                    "role": "Developer"
-                }
-            ],
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
-            "name": "sowapps/so-log",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "../symfony-so-log-bundle",
-                "reference": "4ff371b8a740d0d6ba4839cce09c4ef5dc954bb4"
-            },
-            "require": {
-                "ext-ctype": "*",
-                "ext-iconv": "*",
-                "ext-intl": "*",
-                "php": ">=8.2",
-                "symfony/twig-bundle": "^7.3",
-                "twig/extra-bundle": "^2.12|^3.0",
-                "twig/twig": "^3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^12.4",
-                "rector/rector": "^2.2",
-                "symfony/phpunit-bridge": "^7.3"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "Sowapps\\SoLog\\": "src/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Sowapps\\SoLog\\Tests\\": "tests/"
                 }
             },
             "license": [

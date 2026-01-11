@@ -11,11 +11,11 @@
 #controllers:
 #    resource: routing.controllers
 
-so_core:
-    resource: '@SoCoreBundle/config/routes.yaml'
+#so_core:
+#    resource: '@SoCoreBundle/config/routes.yaml'
 
-so_log:
-    resource: '@SoLogBundle/config/routes.yaml'
+#so_log:
+#    resource: '@SoLogBundle/config/routes.yaml'
 
 controllers:
     resource:
@@ -26,9 +26,9 @@ controllers:
     requirements:
         _locale: '[a-zA-Z]{2}|[a-zA-Z]{2}\-[a-zA-Z]{2}'
 
-databaseRouting:
-    resource: App\Service\Routing\DatabaseRoutingService::loadRoutes
-    type: service
-    prefix: '/{_locale}'
-    requirements:
-        _locale: '[a-zA-Z]{2}|[a-zA-Z]{2}\-[a-zA-Z]{2}'
+#databaseRouting: # TODO Uncomment
+#    resource: App\Service\Routing\DatabaseRoutingService::loadRoutes
+#    type: service
+#    prefix: '/{_locale}'
+#    requirements:
+#        _locale: '[a-zA-Z]{2}|[a-zA-Z]{2}\-[a-zA-Z]{2}'

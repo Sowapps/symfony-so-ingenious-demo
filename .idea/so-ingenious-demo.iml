@@ -134,7 +134,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/version" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sowapps/so-core" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sowapps/so-ingenious" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/sowapps/so-log" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/staabm/side-effects-detector" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/asset-mapper" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/browser-kit" />

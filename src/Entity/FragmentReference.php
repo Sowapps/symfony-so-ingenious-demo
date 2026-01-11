@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\FragmentReferenceRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Sowapps\SoCore\Entity\AbstractEntity;
+use Sowapps\SoCore\Core\Entity\AbstractEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**

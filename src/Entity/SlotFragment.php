@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\SlotFragmentRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Sowapps\SoCore\Entity\AbstractEntity;
+use Sowapps\SoCore\Core\Entity\AbstractEntity;
 
 /**
  * Link between hardcoded slot and fragment

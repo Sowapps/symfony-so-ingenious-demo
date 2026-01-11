@@ -5,7 +5,7 @@
 
 namespace App\Event;
 
-use App\Service\UserService;
+use Sowapps\SoCore\Service\SecurityService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -16,15 +16,12 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 /**
  * TODO Imported sources, require more test
  */
-class AccessDeniedSubscriber implements EventSubscriberInterface {
+readonly class AccessDeniedSubscriber implements EventSubscriberInterface {
 
-	private UrlGeneratorInterface $router;
-
-	private UserService $userService;
-
-	public function __construct(UrlGeneratorInterface $router, UserService $userService) {
-		$this->router = $router;
-		$this->userService = $userService;
+    public function __construct(
+        protected UrlGeneratorInterface $router,
+        protected SecurityService       $securityService,
+    ) {
 	}
 
 	public function onKernelException(ExceptionEvent $event): void {
@@ -34,9 +31,9 @@ class AccessDeniedSubscriber implements EventSubscriberInterface {
 		}
 
 		// Redirect to user's home if logged in
-		$user = $this->userService->getCurrent();
+        $user = $this->securityService->getCurrentUser();
 		if( $user ) {
-			$route = $this->userService->isAdmin($user) ? 'admin_home' : 'user_home';
+            $route = $this->securityService->isAdmin($user) ? 'admin_home' : 'user_home';
 			$event->setResponse(new RedirectResponse($this->router->generate($route), 302));
 		}
 

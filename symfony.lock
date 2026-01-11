@@ -179,9 +179,6 @@
     "sowapps/so-ingenious": {
         "version": "dev-main"
     },
-    "sowapps/so-log": {
-        "version": "dev-main"
-    },
     "symfony/apache-pack": {
         "version": "1.0",
         "recipe": {
