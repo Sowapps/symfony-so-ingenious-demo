@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RouteRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Sowapps\SoCore\Core\Entity\AbstractEntity;
+use Sowapps\SoCore\Entity\AbstractEntity;
 use Sowapps\SoCore\Entity\Language;
 
 #[ORM\Entity(repositoryClass: RouteRepository::class)]

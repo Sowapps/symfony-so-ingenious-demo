@@ -19,7 +19,7 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use RuntimeException;
-use Sowapps\SoCore\Core\Entity\AbstractEntity;
+use Sowapps\SoCore\Entity\AbstractEntity;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Traversable;
 

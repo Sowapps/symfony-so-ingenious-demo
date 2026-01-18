@@ -15,9 +15,9 @@ use Sowapps\SoCore\Repository\AbstractUserRepository;
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class UserRepository extends AbstractUserRepository {
-	
+
 	public function __construct(ManagerRegistry $registry) {
-		parent::__construct($registry, User::class);
+        parent::__construct($registry, User::class, 'user');
 	}
-	
+
 }

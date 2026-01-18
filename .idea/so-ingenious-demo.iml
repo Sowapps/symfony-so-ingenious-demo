@@ -157,11 +157,13 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/beberlei/doctrineextensions" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php85" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sowapps" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="so-core" />
     <orderEntry type="module" module-name="so-ingenious" />
     <orderEntry type="module" module-name="so-log" />
+    <orderEntry type="module" module-name="so-core-bundle" />
   </component>
 </module>

@@ -2541,9 +2541,8 @@
                 "reference": "3d4b6276351fe733367c2850f17edcdb515ce706"
             },
             "require": {
-                "doctrine/collections": "^2.4",
-                "doctrine/doctrine-bundle": "^2.12",
-                "doctrine/orm": "^3.0",
+                "doctrine/doctrine-bundle": "^2.18.2",
+                "doctrine/orm": "^3.6.1",
                 "ext-ctype": "*",
                 "ext-iconv": "*",
                 "ext-intl": "*",
@@ -2566,7 +2565,7 @@
             },
             "require-dev": {
                 "doctrine/doctrine-fixtures-bundle": "^4.3",
-                "phpunit/phpunit": "^12.4",
+                "phpunit/phpunit": "^11.5",
                 "rector/rector": "^2.2",
                 "symfony/phpunit-bridge": "^7.3"
             },

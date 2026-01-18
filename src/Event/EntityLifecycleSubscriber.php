@@ -9,7 +9,7 @@ use DateTimeImmutable;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
-use Sowapps\SoCore\Core\Entity\AbstractEntity;
+use Sowapps\SoCore\Entity\AbstractEntity;
 use Sowapps\SoCore\Service\SecurityService;
 
 /**

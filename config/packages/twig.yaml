@@ -6,6 +6,7 @@ twig:
         fileService: '@Sowapps\SoCore\Service\FileService'
         language: '@Sowapps\SoCore\Service\LanguageService'
         security: '@Sowapps\SoCore\Service\SecurityService'
+        routing: '%so_core.routing%'
         context:
             app:
                 version: '%app.version%'

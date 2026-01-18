@@ -950,6 +950,51 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     dump_destination?: scalar|null|Param, // A stream URL where dumps should be written to. // Default: null
  *     theme?: "dark"|"light"|Param, // Changes the color of the dump() output when rendered directly on the templating. "dark" (default) or "light". // Default: "dark"
  * }
+ * @psalm-type SoCoreConfig = array{
+ *     app?: array{
+ *         label_tk?: scalar|null|Param, // Default: "app.label"
+ *     },
+ *     routing?: array{
+ *         route?: array{
+ *             public_default?: scalar|null|Param, // Default: "home"
+ *             admin_default?: scalar|null|Param, // Default: "so_core_admin_index"
+ *         },
+ *     },
+ *     user?: array{
+ *         class?: scalar|null|Param, // Default: "\\App\\Entity\\User"
+ *         activation?: array{
+ *             expire?: scalar|null|Param, // Default: "24 hours"
+ *         },
+ *         recover?: array{
+ *             expire?: scalar|null|Param, // Default: "24 hours"
+ *         },
+ *     },
+ *     admin?: array{
+ *         auth?: array{
+ *             background?: list<scalar|null|Param>,
+ *         },
+ *     },
+ *     email?: array{
+ *         from?: array{
+ *             name?: scalar|null|Param,
+ *             email?: scalar|null|Param,
+ *         },
+ *         contact?: array{
+ *             name?: scalar|null|Param,
+ *             email?: scalar|null|Param,
+ *         },
+ *         online_view?: array{
+ *             expire?: scalar|null|Param, // Default: "72 hours"
+ *         },
+ *     },
+ *     file?: array{
+ *         store_path?: scalar|null|Param, // Default: "%kernel.project_dir%/var/store/files"
+ *         public_path?: scalar|null|Param, // Default: "%kernel.project_dir%/public"
+ *         purposes?: list<scalar|null|Param>,
+ *         sources?: list<scalar|null|Param>,
+ *         storages?: list<scalar|null|Param>,
+ *     },
+ * }
  * @psalm-type TwigConfig = array{
  *     form_themes?: list<scalar|null|Param>,
  *     globals?: array<string, array{ // Default: []
@@ -1522,51 +1567,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     generate_final_classes?: bool|Param, // Default: true
  *     generate_final_entities?: bool|Param, // Default: false
  * }
- * @psalm-type SoCoreConfig = array{
- *     app?: array{
- *         label_tk?: scalar|null|Param, // Default: "app.label"
- *     },
- *     routing?: array{
- *         route?: array{
- *             public_default?: scalar|null|Param, // Default: "home"
- *             admin_default?: scalar|null|Param, // Default: "admin_home"
- *         },
- *     },
- *     user?: array{
- *         class?: scalar|null|Param, // Default: "\\App\\Entity\\User"
- *         activation?: array{
- *             expire?: scalar|null|Param, // Default: "24 hours"
- *         },
- *         recover?: array{
- *             expire?: scalar|null|Param, // Default: "24 hours"
- *         },
- *     },
- *     admin?: array{
- *         auth?: array{
- *             background?: list<scalar|null|Param>,
- *         },
- *     },
- *     email?: array{
- *         from?: array{
- *             name?: scalar|null|Param,
- *             email?: scalar|null|Param,
- *         },
- *         contact?: array{
- *             name?: scalar|null|Param,
- *             email?: scalar|null|Param,
- *         },
- *         online_view?: array{
- *             expire?: scalar|null|Param, // Default: "72 hours"
- *         },
- *     },
- *     file?: array{
- *         store_path?: scalar|null|Param, // Default: "%kernel.project_dir%/var/store/files"
- *         public_path?: scalar|null|Param, // Default: "%kernel.project_dir%/public"
- *         purposes?: list<scalar|null|Param>,
- *         sources?: list<scalar|null|Param>,
- *         storages?: list<scalar|null|Param>,
- *     },
- * }
  * @psalm-type SoIngeniousConfig = array<mixed>
  * @psalm-type SymfonycastsVerifyEmailConfig = array{
  *     lifetime?: int|Param, // The length of time in seconds that a signed URI is valid for after it is created. // Default: 3600
@@ -1648,11 +1648,11 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     framework?: FrameworkConfig,
  *     doctrine?: DoctrineConfig,
  *     doctrine_migrations?: DoctrineMigrationsConfig,
+ *     so_core?: SoCoreConfig,
  *     twig?: TwigConfig,
  *     twig_extra?: TwigExtraConfig,
  *     security?: SecurityConfig,
  *     monolog?: MonologConfig,
- *     so_core?: SoCoreConfig,
  *     so_ingenious?: SoIngeniousConfig,
  *     symfonycasts_verify_email?: SymfonycastsVerifyEmailConfig,
  *     stimulus?: StimulusConfig,
@@ -1667,13 +1667,13 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         doctrine?: DoctrineConfig,
  *         doctrine_migrations?: DoctrineMigrationsConfig,
  *         debug?: DebugConfig,
+ *         so_core?: SoCoreConfig,
  *         twig?: TwigConfig,
  *         web_profiler?: WebProfilerConfig,
  *         twig_extra?: TwigExtraConfig,
  *         security?: SecurityConfig,
  *         monolog?: MonologConfig,
  *         maker?: MakerConfig,
- *         so_core?: SoCoreConfig,
  *         so_ingenious?: SoIngeniousConfig,
  *         symfonycasts_verify_email?: SymfonycastsVerifyEmailConfig,
  *         stimulus?: StimulusConfig,
@@ -1688,11 +1688,11 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         framework?: FrameworkConfig,
  *         doctrine?: DoctrineConfig,
  *         doctrine_migrations?: DoctrineMigrationsConfig,
+ *         so_core?: SoCoreConfig,
  *         twig?: TwigConfig,
  *         twig_extra?: TwigExtraConfig,
  *         security?: SecurityConfig,
  *         monolog?: MonologConfig,
- *         so_core?: SoCoreConfig,
  *         so_ingenious?: SoIngeniousConfig,
  *         symfonycasts_verify_email?: SymfonycastsVerifyEmailConfig,
  *         stimulus?: StimulusConfig,
@@ -1707,12 +1707,12 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         framework?: FrameworkConfig,
  *         doctrine?: DoctrineConfig,
  *         doctrine_migrations?: DoctrineMigrationsConfig,
+ *         so_core?: SoCoreConfig,
  *         twig?: TwigConfig,
  *         web_profiler?: WebProfilerConfig,
  *         twig_extra?: TwigExtraConfig,
  *         security?: SecurityConfig,
  *         monolog?: MonologConfig,
- *         so_core?: SoCoreConfig,
  *         so_ingenious?: SoIngeniousConfig,
  *         symfonycasts_verify_email?: SymfonycastsVerifyEmailConfig,
  *         stimulus?: StimulusConfig,

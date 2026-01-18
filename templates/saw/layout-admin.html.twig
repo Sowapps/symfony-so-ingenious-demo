@@ -5,7 +5,7 @@
         <ul class="navbar-nav ms-auto me-3 me-lg-4" data-admin--main-target="userMenu">
 
             <li class="nav-item dropdown">
-                {% include 'component/menu-user.html.twig' %}
+                {% include "@SoCore/component/menu-user.html.twig" %}
             </li>
 
         </ul>
@@ -24,7 +24,7 @@
                                 aria-label="{{ 'action.close' | trans }}"></button>
                     </div>
                     <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
-                        {% include 'component/menu-admin.html.twig' %}
+                        {% include "@SoCore/component/menu-admin.html.twig" %}
                     </div>
                 </div>
             </div>

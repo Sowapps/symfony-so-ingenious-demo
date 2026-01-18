@@ -10,13 +10,26 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20260102095811 extends AbstractMigration {
+final class Version20260118173932 extends AbstractMigration {
     public function getDescription(): string {
         return '';
     }
 
     public function up(Schema $schema): void {
         // this up() migration is auto-generated, please modify it to your needs
+        $this->addSql(<<<'SQL'
+            CREATE TABLE client_session (
+              id INT AUTO_INCREMENT NOT NULL,
+              create_user_id INT DEFAULT NULL,
+              user_id INT DEFAULT NULL,
+              create_date DATETIME NOT NULL COMMENT '(DC2Type:datetimetz_immutable)',
+              create_ip VARCHAR(60) NOT NULL,
+              INDEX IDX_827991A985564492 (create_user_id),
+              INDEX IDX_827991A9A76ED395 (user_id),
+              PRIMARY KEY(id)
+            ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+        SQL
+        );
         $this->addSql(<<<'SQL'
             CREATE TABLE email_message (
               id INT AUTO_INCREMENT NOT NULL,
@@ -257,7 +270,7 @@ final class Version20260102095811 extends AbstractMigration {
               activation_key VARCHAR(32) DEFAULT NULL,
               recover_request_date DATETIME DEFAULT NULL,
               recovery_key VARCHAR(32) DEFAULT NULL,
-              disabled TINYINT(1) NOT NULL,
+              enabled TINYINT(1) NOT NULL,
               timezone VARCHAR(20) NOT NULL,
               UNIQUE INDEX UNIQ_8D93D649E7927C74 (email),
               INDEX IDX_8D93D64985564492 (create_user_id),
@@ -265,6 +278,20 @@ final class Version20260102095811 extends AbstractMigration {
               UNIQUE INDEX UNIQ_8D93D64986383B10 (avatar_id),
               PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+        SQL
+        );
+        $this->addSql(<<<'SQL'
+            ALTER TABLE
+              client_session
+            ADD
+              CONSTRAINT FK_827991A985564492 FOREIGN KEY (create_user_id) REFERENCES user (id)
+        SQL
+        );
+        $this->addSql(<<<'SQL'
+            ALTER TABLE
+              client_session
+            ADD
+              CONSTRAINT FK_827991A9A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)
         SQL
         );
         $this->addSql(<<<'SQL'
@@ -474,6 +501,8 @@ final class Version20260102095811 extends AbstractMigration {
 
     public function down(Schema $schema): void {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('ALTER TABLE client_session DROP FOREIGN KEY FK_827991A985564492');
+        $this->addSql('ALTER TABLE client_session DROP FOREIGN KEY FK_827991A9A76ED395');
         $this->addSql('ALTER TABLE email_message DROP FOREIGN KEY FK_B7D58B085564492');
         $this->addSql('ALTER TABLE email_message DROP FOREIGN KEY FK_B7D58B09A1887DC');
         $this->addSql('ALTER TABLE email_message DROP FOREIGN KEY FK_B7D58B029F6EE60');
@@ -503,6 +532,7 @@ final class Version20260102095811 extends AbstractMigration {
         $this->addSql('ALTER TABLE user DROP FOREIGN KEY FK_8D93D64985564492');
         $this->addSql('ALTER TABLE user DROP FOREIGN KEY FK_8D93D64982F1BAF4');
         $this->addSql('ALTER TABLE user DROP FOREIGN KEY FK_8D93D64986383B10');
+        $this->addSql('DROP TABLE client_session');
         $this->addSql('DROP TABLE email_message');
         $this->addSql('DROP TABLE email_subscription');
         $this->addSql('DROP TABLE file');

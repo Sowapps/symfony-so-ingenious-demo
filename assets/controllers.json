@@ -9,6 +9,16 @@
                 "enabled": false,
                 "fetch": "eager"
             }
+        },
+        "@sowapps/so-core": {
+            "admin-auth-main": {
+                "enabled": true,
+                "fetch": "eager"
+            },
+            "admin-auth-login": {
+                "enabled": true,
+                "fetch": "eager"
+            }
         }
     },
     "entrypoints": []
