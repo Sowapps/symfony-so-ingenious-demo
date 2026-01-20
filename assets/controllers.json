@@ -18,6 +18,18 @@
             "admin-auth-login": {
                 "enabled": true,
                 "fetch": "eager"
+            },
+            "admin-main": {
+                "enabled": true,
+                "fetch": "eager"
+            },
+            "admin-user-edit": {
+                "enabled": true,
+                "fetch": "eager"
+            },
+            "admin-user-list": {
+                "enabled": true,
+                "fetch": "eager"
             }
         }
     },
