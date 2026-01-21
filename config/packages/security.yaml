@@ -17,7 +17,7 @@ security:
             pattern: ^/(_profiler|_wdt|assets|build)/
             security: false
         main:
-            lazy: true
+            lazy: false # We want to authenticate user on all routes
             provider: app_user_provider
             user_checker: Sowapps\SoCore\Security\UserAuthenticationChecker
             json_login:
@@ -32,14 +32,13 @@ security:
 
     # https://symfony.com/doc/current/security.html#hierarchical-roles
     role_hierarchy:
-        ROLE_CONTRIBUTOR: ROLE_USER
-        ROLE_ADMIN: ROLE_CONTRIBUTOR
-        ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_IMPERSONATE ]
-        ROLE_DEVELOPER: ROLE_ADMIN
+        ROLE_ADMIN: ROLE_USER
+        ROLE_CONTRIBUTOR: ROLE_ADMIN
+        ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_CONTRIBUTOR, ROLE_IMPERSONATE ]
 
     # Note: Only the *first* matching rule is applied
     access_control:
-        - { path: ^/admin/, roles: ROLE_CONTRIBUTOR }
+        - { path: ^/admin/, roles: ROLE_ADMIN }
         - { path: ^/api/me(/|$), roles: ROLE_USER }
         - { path: ^/user(/|$), roles: ROLE_USER }
 

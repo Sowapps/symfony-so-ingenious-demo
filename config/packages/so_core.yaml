@@ -32,3 +32,6 @@ so_core:
                 - 'bundles/socore/img/login-backgrounds/harley-davidson-bs1eqd6zSiU-unsplash.jpg'
                 - 'bundles/socore/img/login-backgrounds/mark-harpur-K2s_YE031CA-unsplash.jpg'
                 - 'bundles/socore/img/login-backgrounds/pietro-de-grandi-T7K4aEPoGGk-unsplash.jpg'
+    routing:
+        route:
+            public_default: 'app_index'

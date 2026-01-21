@@ -5,22 +5,20 @@
 
 namespace App\Controller;
 
+use App\Core\Controller\AbstractFragmentController;
 use App\Entity\FragmentRoute;
-use App\Service\FragmentService;
-use Sowapps\SoCore\Core\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 
-class FragmentController extends AbstractController {
+class FragmentController extends AbstractFragmentController {
 
-    public function __construct(
-        private readonly FragmentService $fragmentService,
-    ) {
-    }
-
-    public function __invoke(FragmentRoute $route): Response {
-        return new Response($this->fragmentService->getFragmentRendering($route->getFragment()));
-        //        return new Response(); // TODO
-        //        return new Response($this->fragmentService->getFragmentRendering($page->getFragment()));
+    public function __invoke(
+        Request                   $request,
+        FragmentRoute             $route,
+        #[MapQueryParameter] bool $editor = false
+    ): Response {
+        return $this->renderFragment($route->getFragment(), $editor);
     }
 
 }

@@ -6,9 +6,9 @@ ADOV is Admin Overlay
 #}
 
 {% set currentLanguage = language.languageByLocale(app.locale) %}
-{% set adminView = true %}{# TODO Remove this line #}
+{% set enableAdov = enableAdov|default(false) %}
 {% set bodyClass = bodyClass | default %}
-{%- if adminView %}
+{%- if enableAdov %}
     {% set bodyClass = bodyClass ~ ' adov-container' %}
 {%- endif -%}
 
@@ -26,7 +26,7 @@ ADOV is Admin Overlay
 
     {% block stylesheets -%}
         <link rel="stylesheet" href="{{ asset('styles/app.scss') }}">
-        {%- if adminView %}
+        {%- if enableAdov %}
             <link rel="stylesheet" href="{{ asset('styles/adov.scss') }}">
         {%- endif -%}
     {%- endblock %}
@@ -40,12 +40,21 @@ ADOV is Admin Overlay
     <div class="app-body">
         {% block body %}{% endblock %}
     </div>
-    {%- if adminView %}
+    {%- if enableAdov %}
         <div class="adov-overlay">
             <div class="adov-top">
-                <div class="px-2">
-                    <a class="link-light fs-5" href="{{ path(routing.route.admin_default) }}" title="Back to Back-office"><i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal"></i></a>
-                </div>
+                <divn class="d-flex flex-row">
+                    <div class="px-2">
+                        <a class="link-light fs-5" href="{{ path(routing.route.admin_default) }}" title="Back to Back-office">
+                            <i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal"></i>
+                        </a>
+                    </div>
+                    <div class="px-2">
+                        <a class="link-light fs-5" href="{{ app.request.pathinfo }}" data-editor="false" title="This page in read view">
+                            <i class="fa-solid fa-newspaper"></i>
+                        </a>
+                    </div>
+                </divn>
                 {# TODO Show current Fragment & route info #}
                 {# TODO See Fragment tree #}
                 {# TODO Select Fragment in tree #}

@@ -5,27 +5,21 @@
 
 namespace App\Controller;
 
+use App\Core\Controller\AbstractFragmentController;
 use App\Entity\Fragment;
 use App\Entity\FragmentRoute;
-use App\Service\FragmentService;
-use Sowapps\SoCore\Core\Controller\AbstractController;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 
-class FragmentSingleItemController extends AbstractController {
-
-    public function __construct(
-        private readonly FragmentService $fragmentService,
-    ) {
-    }
+class FragmentSingleItemController extends AbstractFragmentController {
 
     public function __invoke(
-        #[MapEntity(id: 'id')]
-        FragmentRoute $route,
-        #[MapEntity(id: 'itemId')]
-        Fragment      $itemFragment
+        #[MapEntity(id: 'id')] FragmentRoute $route,
+        #[MapEntity(id: 'itemId')] Fragment  $itemFragment,
+        #[MapQueryParameter] bool            $editor = false
     ): Response {
-        return new Response($this->fragmentService->getFragmentRendering($route->getFragment(), ['item' => $itemFragment]));
+        return $this->renderFragment($route->getFragment(), $editor, ['item' => $itemFragment]);
     }
 
 }
