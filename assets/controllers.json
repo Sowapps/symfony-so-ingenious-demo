@@ -23,6 +23,10 @@
                 "enabled": true,
                 "fetch": "eager"
             },
+            "admin-log-view": {
+                "enabled": true,
+                "fetch": "eager"
+            },
             "admin-user-edit": {
                 "enabled": true,
                 "fetch": "eager"
