@@ -7,9 +7,13 @@ ADOV is Admin Overlay
 
 {% set currentLanguage = language.languageByLocale(app.locale) %}
 {% set enableAdov = enableAdov|default(false) %}
+{% set enableAdox = enableAdox|default(false) %}
 {% set bodyClass = bodyClass | default %}
 {%- if enableAdov %}
     {% set bodyClass = bodyClass ~ ' adov-container' %}
+{%- endif -%}
+{%- if enableAdox %}
+    {% set bodyClass = bodyClass ~ ' adox-container' %}
 {%- endif -%}
 
 <!doctype html>
@@ -28,6 +32,9 @@ ADOV is Admin Overlay
         <link rel="stylesheet" href="{{ asset('styles/app.scss') }}">
         {%- if enableAdov %}
             <link rel="stylesheet" href="{{ asset('styles/adov.scss') }}">
+        {%- endif -%}
+        {%- if enableAdox %}
+            <link rel="stylesheet" href="{{ asset('styles/adox.scss') }}">
         {%- endif -%}
     {%- endblock %}
 
@@ -78,6 +85,14 @@ ADOV is Admin Overlay
             </div>
         </div>
     {% endif %}
+    {%- if enableAdox %}
+        <div class="adox-toolbox bg-secondary p-1 d-none d-md-block">
+            <a class="btn btn-secondary" href="{{ app.request.pathinfo }}?editor=1">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+        </div>
+    {% endif %}
+
     </body>
 {%- endblock %}
 </html>

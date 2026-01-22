@@ -18,11 +18,18 @@ class AbstractFragmentController extends AbstractController {
     protected SecurityService $securityService;
 
     public function renderFragment(Fragment $fragment, bool $editor, array $parameters = []): Response {
+        // ADOV or ADOX, they exclude each other
+        // ADOV: ADmin OVerlay to edit website content
+        // ADOX: ADmin toolbOX to manage features on public pages
         if( $editor ) {
             // Check permissions, require firewall config lazy: false
             $this->denyAccessUnlessGranted(SecurityService::ROLE_CONTRIBUTOR);
+            $parameters['enableAdov'] = true;
+            $parameters['enableAdox'] = false;
+        } else {
+            $parameters['enableAdov'] = false;
+            $parameters['enableAdox'] = $this->isGranted(SecurityService::ROLE_CONTRIBUTOR);
         }
-        $parameters['enableAdov'] = $editor;
         return new Response($this->fragmentService->getFragmentRendering($fragment, $parameters));
     }
 
