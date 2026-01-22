@@ -122,6 +122,9 @@ entity:
         date: "Date"
 
 page:
+    public:
+        title: "{page} - {app}"
+        label: "Website"
     home:
         label: "Accueil"
         title: "Accueil"

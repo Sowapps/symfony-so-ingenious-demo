@@ -17,43 +17,28 @@ security:
             pattern: ^/(_profiler|_wdt|assets|build)/
             security: false
         main:
-            lazy: true
+            lazy: false # We want to authenticate user on all routes
             provider: app_user_provider
+            user_checker: Sowapps\SoCore\Security\UserAuthenticationChecker
+            json_login:
+                check_path: api_security_authenticate
+            # JSON Logout is handled programmatically by api_security_disconnect
 
-            # Activate different ways to authenticate:
+            # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
-            form_login:
-                # "login" is the name of the route created previously
-                login_path: so_core_admin_login
-                check_path: so_core_admin_login
-                enable_csrf: true
-                default_target_path: so_core_admin_home
-            remember_me:
-                secret: '%kernel.secret%'
-                lifetime: 172800 # 2 days
-                path: /
-                always_remember_me: true
-            logout:
-                # Intercept logout when getting to "path" route
-                path: so_core_security_logout
-                # After logged out, redirect user to the "target" route
-                target: home
-
-
     # https://symfony.com/doc/current/security.html#hierarchical-roles
     role_hierarchy:
-        ROLE_CONTRIBUTOR: ROLE_USER
-        ROLE_ADMIN: ROLE_CONTRIBUTOR
-        ROLE_DEVELOPER: ROLE_ADMIN
+        ROLE_ADMIN: ROLE_USER
+        ROLE_CONTRIBUTOR: ROLE_ADMIN
+        ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_CONTRIBUTOR, ROLE_IMPERSONATE ]
 
     # Note: Only the *first* matching rule is applied
     access_control:
-        - { path: ^/developer/, roles: ROLE_DEVELOPER }
-        - { path: ^/admin/, roles: ROLE_CONTRIBUTOR }
+        - { path: ^/admin/, roles: ROLE_ADMIN }
         - { path: ^/api/me(/|$), roles: ROLE_USER }
         - { path: ^/user(/|$), roles: ROLE_USER }
 

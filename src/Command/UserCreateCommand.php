@@ -5,7 +5,7 @@ namespace App\Command;
 use App\Entity\User;
 use App\Exception\ConstraintValidationException;
 use App\Service\EntityService;
-use App\Service\SecurityService;
+use Sowapps\SoCore\Service\SecurityService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

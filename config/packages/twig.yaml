@@ -5,8 +5,8 @@ twig:
     globals:
         fileService: '@Sowapps\SoCore\Service\FileService'
         language: '@Sowapps\SoCore\Service\LanguageService'
-        userService: '@Sowapps\SoCore\Service\AbstractUserService'
-        security: '@App\Service\SecurityService'
+        security: '@Sowapps\SoCore\Service\SecurityService'
+        routing: '%so_core.routing%'
         context:
             app:
                 version: '%app.version%'

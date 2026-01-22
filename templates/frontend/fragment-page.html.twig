@@ -10,7 +10,7 @@ Fragment template for Page
 {% block title %}{{ 'app.pageTitle' | trans({page: title | default(fragment.title)}) }}{% endblock %}
 
 {% block body %}
-    {{- slot('menu_top') | fragment({active: fragment.route.menuName}) | raw -}}
+    {{- slot('menu_top') | fragment({active: fragment.route.menuName, enableAdox: enableAdox}) | raw -}}
     <div class="fragment fragment-page template-{{ template.name }}">
         {%- block contents %}{% endblock -%}
     </div>

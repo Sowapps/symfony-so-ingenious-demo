@@ -22,13 +22,33 @@ user:
     class: App\Entity\User
     items:
         -   _ref: "user_default"
-            name: "Sowapps"
+            name: "Super Sowapps"
             email: "contact@sowapps.com"
             password: "password(test)"
             activationDate: 2022-06-06T15:59:43.1Z
             roles:
                 - 'ROLE_USER'
-                - 'ROLE_DEVELOPER'
+                - 'ROLE_SUPER_ADMIN'
+            timezone: "Europe/Paris"
+            language: ref(language_french, Sowapps\SoCore\Entity\Language)
+        -   _ref: "user_contributor"
+            name: "Contributor Sowapps"
+            email: "contact+contributor@sowapps.com"
+            password: "password(test)"
+            activationDate: 2022-06-06T15:59:43.1Z
+            roles:
+                - 'ROLE_USER'
+                - 'ROLE_CONTRIBUTOR'
+            timezone: "Europe/Paris"
+            language: ref(language_french, Sowapps\SoCore\Entity\Language)
+        -   _ref: "user_admin"
+            name: "Admin Sowapps"
+            email: "contact+admin@sowapps.com"
+            password: "password(test)"
+            activationDate: 2022-06-06T15:59:43.1Z
+            roles:
+                - 'ROLE_USER'
+                - 'ROLE_ADMIN'
             timezone: "Europe/Paris"
             language: ref(language_french, Sowapps\SoCore\Entity\Language)
 

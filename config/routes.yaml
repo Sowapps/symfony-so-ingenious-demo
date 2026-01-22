@@ -14,21 +14,21 @@
 so_core:
     resource: '@SoCoreBundle/config/routes.yaml'
 
-so_log:
-    resource: '@SoLogBundle/config/routes.yaml'
+#so_log:
+#    resource: '@SoLogBundle/config/routes.yaml'
+
+databaseRouting:
+    resource: App\Service\Routing\DatabaseRoutingService::loadRoutes
+    type: service
+    prefix: '/{_locale}'
+    requirements:
+        _locale: '[a-zA-Z]{2}|[a-zA-Z]{2}\-[a-zA-Z]{2}'
 
 controllers:
     resource:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
-    prefix: '/{_locale}'
-    requirements:
-        _locale: '[a-zA-Z]{2}|[a-zA-Z]{2}\-[a-zA-Z]{2}'
-
-databaseRouting:
-    resource: App\Service\Routing\DatabaseRoutingService::loadRoutes
-    type: service
     prefix: '/{_locale}'
     requirements:
         _locale: '[a-zA-Z]{2}|[a-zA-Z]{2}\-[a-zA-Z]{2}'

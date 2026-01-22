@@ -24,21 +24,20 @@ parameters:
 {% extends 'frontend/fragment.html.twig' %}
 
 {% set active = parameters.active | default(null) %}
+{% set enableAdox = parameters.enableAdox | default(false) %}
 
 {% block contents %}
     {#    bg-dark  data-bs-theme="dark" DARK THEME #}
     <nav class="navbar navbar-expand-md sticky-top border-bottom">
         <div class="container">
-            {#            <a class="navbar-brand d-md-none" href="#"> #}
-            {#                <svg class="bi" width="24" height="24" aria-hidden="true"> #}
-            {#                    <use xlink:href="#aperture"></use> #}
-            {#                </svg> #}
-            {#                Aperture #}
-            {#            </a> #}
-            {#            TODO Use real template data #}
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            {%- if enableAdox %}
+                <a class="btn btn-secondary d-md-none" href="{{ app.request.pathinfo }}?editor=1">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </a>
+            {% endif %}
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
                 <div class="offcanvas-header"><h5 class="offcanvas-title" id="offcanvasLabel">{{ 'app.label' | trans }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="{{ 'action.close' | trans }}"></button>

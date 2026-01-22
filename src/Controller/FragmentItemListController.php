@@ -5,38 +5,39 @@
 
 namespace App\Controller;
 
+use App\Core\Controller\AbstractFragmentController;
 use App\Entity\FragmentRoute;
-use App\Service\FragmentService;
+use App\Entity\PublicationFragment;
 use App\Sowapps\SoIngenious\QueryCriteria;
-use Sowapps\SoCore\Core\Controller\AbstractController;
 use Sowapps\SoCore\Service\LanguageService;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 
-class FragmentItemListController extends AbstractController {
+class FragmentItemListController extends AbstractFragmentController {
 
     public function __construct(
-        private readonly LanguageService $languageService,
-        private readonly FragmentService $fragmentService,
+        private readonly LanguageService $languageService
     ) {
     }
 
     public function __invoke(
-        #[MapEntity(id: 'id')]
-        FragmentRoute $route,
-        array         $filters
+        #[MapEntity(id: 'id')] FragmentRoute $route,
+        array                                $filters,
+        #[MapQueryParameter] bool            $editor = false
     ): Response {
         $requestCriteria = new QueryCriteria($filters);
         $routeCriteria = $route->getItemCriteria() ?? QueryCriteria::empty();
         $criteria = $routeCriteria->withFilters(['purpose' => $route->getItemPurpose()])->and($requestCriteria);
         $items = $this->fragmentService->getCriteriaItems($criteria);
+        /** @var PublicationFragment $fragment */
         $fragment = $route->getFragment();
         $values = $this->parseValues($route, $filters);
 
-        return new Response($this->fragmentService->getFragmentRendering($fragment, [
+        return $this->renderFragment($fragment, $editor, [
             'title' => $this->stringService->formatString($fragment->getTitle(), $values),
             'items' => $items,
-        ]));
+        ]);
     }
 
     protected function parseValues(FragmentRoute $route, array $filters): array {
