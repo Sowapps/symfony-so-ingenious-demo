@@ -26,16 +26,11 @@ docker-compose -f docker/docker-compose.yml up -d || print_error "Unable to star
 
 php bin/console sass:build --watch &
 
-# Run Symfony server and store PID
+# Save logs once a day
+./scripts/save_log_first_time_of_day.php
 
+# Run Symfony server and store PID
 # With no concurrency (one request in process)
 symfony server:start
 
-# With concurrency (not working ?)
-#php -S localhost:8000 -t public &
-#echo $! > symfony_server.pid
-
-echo "Symfony server started with PID $(cat symfony_server.pid)"
-
-#tail -f var/log/dev.log
 
