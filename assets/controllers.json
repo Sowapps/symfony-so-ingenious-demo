@@ -23,11 +23,27 @@
                 "enabled": true,
                 "fetch": "eager"
             },
+            "admin-log-view": {
+                "enabled": true,
+                "fetch": "eager"
+            },
             "admin-user-edit": {
                 "enabled": true,
                 "fetch": "eager"
             },
             "admin-user-list": {
+                "enabled": true,
+                "fetch": "eager"
+            },
+            "confirm": {
+                "enabled": true,
+                "fetch": "eager"
+            },
+            "confirm-dialog": {
+                "enabled": true,
+                "fetch": "eager"
+            },
+            "dialog": {
                 "enabled": true,
                 "fetch": "eager"
             }

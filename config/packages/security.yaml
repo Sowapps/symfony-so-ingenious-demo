@@ -32,9 +32,10 @@ security:
 
     # https://symfony.com/doc/current/security.html#hierarchical-roles
     role_hierarchy:
-        ROLE_ADMIN: ROLE_USER
-        ROLE_CONTRIBUTOR: ROLE_ADMIN
-        ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_CONTRIBUTOR, ROLE_IMPERSONATE ]
+        ROLE_ADMIN: ROLE_USER # Access to the admin panel
+        ROLE_CONTRIBUTOR: ROLE_ADMIN # Content editor, can edit pages (fragments and routes...)
+        ROLE_SYSTEM: ROLE_ADMIN # System administrator, can manage users, logs, ...
+        ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_CONTRIBUTOR, ROLE_SYSTEM, ROLE_IMPERSONATE ]
 
     # Note: Only the *first* matching rule is applied
     access_control:

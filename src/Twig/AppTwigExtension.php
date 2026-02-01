@@ -14,6 +14,7 @@ use RuntimeException;
 use Sowapps\SoCore\Entity\File;
 use Sowapps\SoCore\Service\FileService;
 use Sowapps\SoCore\Service\LanguageService;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Attribute\AsTwigFilter;
 use Twig\Attribute\AsTwigFunction;
@@ -69,6 +70,23 @@ readonly class AppTwigExtension {
     #[AsTwigFilter('templateName')]
     public function formatTemplateName(string $value): string {
         return str_replace('/', '--', $value);
+    }
+
+    // TODO Move to SoCore
+    #[AsTwigFilter('attributes', isSafe: ['html'])]
+    public function formatAttributes(FormView|array $attributes): string {
+        if( $attributes instanceof FormView ) {
+            $attributes = $attributes->vars['attr'];
+        }
+        $html = '';
+        foreach( $attributes as $key => $value ) {
+            if( $value === null || $value === false || $value === '' ) {
+                continue;
+            }
+            $html .= ' ' . ($value === true ? $key : $key . '="' . $value . '"');
+        }
+
+        return $html;
     }
 
     #[AsTwigFunction('route')]
