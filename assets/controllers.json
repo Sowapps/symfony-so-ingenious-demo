@@ -23,6 +23,10 @@
                 "enabled": true,
                 "fetch": "eager"
             },
+            "admin-language": {
+                "enabled": true,
+                "fetch": "eager"
+            },
             "admin-log-view": {
                 "enabled": true,
                 "fetch": "eager"
@@ -44,6 +48,10 @@
                 "fetch": "eager"
             },
             "dialog": {
+                "enabled": true,
+                "fetch": "eager"
+            },
+            "form": {
                 "enabled": true,
                 "fetch": "eager"
             }

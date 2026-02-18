@@ -5,26 +5,22 @@
 
 namespace App\Service;
 
-use App\Sowapps\Core\Types\SoBigInteger;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 readonly class TextFormatter {
-
-
     /**
      * TextFormatter constructor
      *
      */
     public function __construct(
         private TranslatorInterface $translator,
-        //        private TranslatorInterface $translator,
     ) {
     }
 
     public function translate(string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string {
         return $this->translator->trans($id, $parameters, $domain, $locale);
     }
-	
+
 	/**
 	 * Format with seconds precision
 	 *
@@ -41,33 +37,9 @@ readonly class TextFormatter {
 		} else { // Any number of days
 			$format = 'z \d\a\y\s H:i:s';
 		}
-		
+
 		return gmdate($format, $seconds);
 	}
-
-    public function formatQuantityText(SoBigInteger $intQuantity, bool $signed = false, ?string $suffix = null): string {
-//        global $LOGGER; // TODO Remove Debug
-//        $LOGGER->debug('formatQuantityText - $intQuantity : ' . $intQuantity->getValue());// Debug
-        $quantity = $intQuantity->divide(1000);// Precise DB Integer quantity to real decimal quantity
-//        $LOGGER->debug('formatQuantityText - $intQuantity : ' . $quantity->getValue());// Debug
-        $unitSb = null;// For IDE
-        foreach( self::getUnits() as [$unit, $unitSb] ) {
-            if( !$quantity->lessThan(100000) ) {
-                // Go to next unit
-//                $LOGGER->debug('Unit calculate - ' . $unit . ' : ' . $quantity->getValue() . ' / 1000 = ' . bcdiv($quantity->getValue(), 1000, 2));
-                $quantity = $quantity->divide(1000);
-            } else {
-                // Stop to this unit
-                break;
-            }
-        }
-        // Quantity was reduced to compatible float number
-        $quantityFloat = $quantity->asFloat();
-//        $LOGGER->debug('formatQuantityText - $quantityFloat : ' . $quantityFloat);// Debug
-        $withDecimals = $quantityFloat < 1000;
-        $formatted = number_format($quantityFloat, $withDecimals ? 2 : 0) . ($unitSb ? ' ' . $unitSb : '');
-        return ($signed ? $this->getNumberSign($quantityFloat) : '') . $formatted . ($suffix !== null ? ' ' . $suffix : '');
-    }
 
     protected function getNumberSign(float $quantityFloat): string {
         return $quantityFloat < 0 ? '-' : '+';

@@ -6,13 +6,13 @@ language:
     class: Sowapps\SoCore\Entity\Language
     items:
         -   _ref: "language_french"
-            key: "french"
+            name: "french"
             locale: "fr"
             primaryCode: "fr"
             regionCode: "FR"
             enabled: true
         -   _ref: "language_english"
-            key: "english"
+            name: "english"
             locale: "en"
             primaryCode: "en"
             regionCode: "US"
