@@ -52,10 +52,10 @@ $removePaths = getExistingSuffixedFiles($logPath);
 foreach( $removePaths as $path ) {
     unlink($path);
 }
-writeLn(sprintf("Removed previous saves : %s", implode(', ', $removePaths)));
+writeLn(sprintf("Removed previous log saves : %s", implode(', ', $removePaths)));
 
 // Copy current log file to the new save
-writeLn("Moving '$logPath' to '$targetPath'");
+writeLn("Moving current log file '$logPath' to '$targetPath'");
 rename($logPath, $targetPath);
 exit(0);
 

@@ -20,12 +20,13 @@ so_core:
         purposes:
             - article_main
             - widget_image
+            - import_language
         sources:
             - fixture
-            #            - http_upload
+            - http_upload
             - local
-    #        storages:
-    #            - local
+        storages:
+            - local
     admin:
         auth:
             background:

@@ -10,12 +10,15 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20260118173932 extends AbstractMigration {
-    public function getDescription(): string {
+final class Version20260215094429 extends AbstractMigration
+{
+    public function getDescription(): string
+    {
         return '';
     }
 
-    public function up(Schema $schema): void {
+    public function up(Schema $schema): void
+    {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql(<<<'SQL'
             CREATE TABLE client_session (
@@ -28,8 +31,7 @@ final class Version20260118173932 extends AbstractMigration {
               INDEX IDX_827991A9A76ED395 (user_id),
               PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE email_message (
               id INT AUTO_INCREMENT NOT NULL,
@@ -60,8 +62,7 @@ final class Version20260118173932 extends AbstractMigration {
               INDEX IDX_B7D58B029F6EE60 (to_user_id),
               PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE email_subscription (
               id INT AUTO_INCREMENT NOT NULL,
@@ -81,8 +82,7 @@ final class Version20260118173932 extends AbstractMigration {
               UNIQUE INDEX UNIQ_F6D58280C88D811C (disabled_message_id),
               PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE file (
               id INT AUTO_INCREMENT NOT NULL,
@@ -106,8 +106,7 @@ final class Version20260118173932 extends AbstractMigration {
               INDEX IDX_8C9F361085564492 (create_user_id),
               PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE fragment (
               id INT AUTO_INCREMENT NOT NULL,
@@ -133,8 +132,7 @@ final class Version20260118173932 extends AbstractMigration {
               INDEX IDX_CBAD15EC82F1BAF4 (language_id),
               PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE fragment_file (
               id INT AUTO_INCREMENT NOT NULL,
@@ -150,8 +148,7 @@ final class Version20260118173932 extends AbstractMigration {
               INDEX IDX_A2F70BCE93CB796C (file_id),
               PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE fragment_link (
               id INT AUTO_INCREMENT NOT NULL,
@@ -167,8 +164,7 @@ final class Version20260118173932 extends AbstractMigration {
               INDEX IDX_18C4A42FDD62C21B (child_id),
               PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE fragment_reference (
               id INT AUTO_INCREMENT NOT NULL,
@@ -184,24 +180,24 @@ final class Version20260118173932 extends AbstractMigration {
               INDEX IDX_D7E43BE3DD62C21B (child_id),
               PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE language (
               id INT AUTO_INCREMENT NOT NULL,
               create_user_id INT DEFAULT NULL,
               create_date DATETIME NOT NULL COMMENT '(DC2Type:datetimetz_immutable)',
               create_ip VARCHAR(60) NOT NULL,
-              _key VARCHAR(255) NOT NULL,
+              name VARCHAR(255) NOT NULL,
               locale VARCHAR(7) NOT NULL,
               primary_code VARCHAR(7) NOT NULL,
               region_code VARCHAR(7) NOT NULL,
               enabled TINYINT(1) NOT NULL,
               INDEX IDX_D4DB71B585564492 (create_user_id),
+              UNIQUE INDEX uniq_name (name),
+              UNIQUE INDEX uniq_locale (locale),
               PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE localized_unit (
               id INT AUTO_INCREMENT NOT NULL,
@@ -212,8 +208,7 @@ final class Version20260118173932 extends AbstractMigration {
               INDEX IDX_9B5A64AA85564492 (create_user_id),
               PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE route (
               id INT AUTO_INCREMENT NOT NULL,
@@ -236,8 +231,7 @@ final class Version20260118173932 extends AbstractMigration {
               INDEX IDX_2C42079596BD57E (fragment_id),
               PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE slot_fragment (
               id INT AUTO_INCREMENT NOT NULL,
@@ -250,8 +244,7 @@ final class Version20260118173932 extends AbstractMigration {
               INDEX IDX_1AF8747F562BC9CD (fragment_unit_id),
               PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE user (
               id INT AUTO_INCREMENT NOT NULL,
@@ -278,228 +271,197 @@ final class Version20260118173932 extends AbstractMigration {
               UNIQUE INDEX UNIQ_8D93D64986383B10 (avatar_id),
               PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               client_session
             ADD
               CONSTRAINT FK_827991A985564492 FOREIGN KEY (create_user_id) REFERENCES user (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               client_session
             ADD
               CONSTRAINT FK_827991A9A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               email_message
             ADD
               CONSTRAINT FK_B7D58B085564492 FOREIGN KEY (create_user_id) REFERENCES user (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               email_message
             ADD
               CONSTRAINT FK_B7D58B09A1887DC FOREIGN KEY (subscription_id) REFERENCES email_subscription (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               email_message
             ADD
               CONSTRAINT FK_B7D58B029F6EE60 FOREIGN KEY (to_user_id) REFERENCES user (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               email_subscription
             ADD
               CONSTRAINT FK_F6D5828085564492 FOREIGN KEY (create_user_id) REFERENCES user (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               email_subscription
             ADD
               CONSTRAINT FK_F6D58280C88D811C FOREIGN KEY (disabled_message_id) REFERENCES email_message (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               file
             ADD
               CONSTRAINT FK_8C9F361085564492 FOREIGN KEY (create_user_id) REFERENCES user (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               fragment
             ADD
               CONSTRAINT FK_CBAD15EC85564492 FOREIGN KEY (create_user_id) REFERENCES user (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               fragment
             ADD
               CONSTRAINT FK_CBAD15EC38810B54 FOREIGN KEY (localized_unit_id) REFERENCES localized_unit (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               fragment
             ADD
               CONSTRAINT FK_CBAD15EC82F1BAF4 FOREIGN KEY (language_id) REFERENCES language (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               fragment_file
             ADD
               CONSTRAINT FK_A2F70BCE85564492 FOREIGN KEY (create_user_id) REFERENCES user (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               fragment_file
             ADD
               CONSTRAINT FK_A2F70BCE596BD57E FOREIGN KEY (fragment_id) REFERENCES fragment (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               fragment_file
             ADD
               CONSTRAINT FK_A2F70BCE93CB796C FOREIGN KEY (file_id) REFERENCES file (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               fragment_link
             ADD
               CONSTRAINT FK_18C4A42F85564492 FOREIGN KEY (create_user_id) REFERENCES user (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               fragment_link
             ADD
               CONSTRAINT FK_18C4A42F727ACA70 FOREIGN KEY (parent_id) REFERENCES fragment (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               fragment_link
             ADD
               CONSTRAINT FK_18C4A42FDD62C21B FOREIGN KEY (child_id) REFERENCES fragment (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               fragment_reference
             ADD
               CONSTRAINT FK_D7E43BE385564492 FOREIGN KEY (create_user_id) REFERENCES user (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               fragment_reference
             ADD
               CONSTRAINT FK_D7E43BE3727ACA70 FOREIGN KEY (parent_id) REFERENCES fragment (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               fragment_reference
             ADD
               CONSTRAINT FK_D7E43BE3DD62C21B FOREIGN KEY (child_id) REFERENCES fragment (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               language
             ADD
               CONSTRAINT FK_D4DB71B585564492 FOREIGN KEY (create_user_id) REFERENCES user (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               localized_unit
             ADD
               CONSTRAINT FK_9B5A64AA85564492 FOREIGN KEY (create_user_id) REFERENCES user (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               route
             ADD
               CONSTRAINT FK_2C4207985564492 FOREIGN KEY (create_user_id) REFERENCES user (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               route
             ADD
               CONSTRAINT FK_2C4207982F1BAF4 FOREIGN KEY (language_id) REFERENCES language (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               route
             ADD
               CONSTRAINT FK_2C4207938810B54 FOREIGN KEY (localized_unit_id) REFERENCES localized_unit (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               route
             ADD
               CONSTRAINT FK_2C42079596BD57E FOREIGN KEY (fragment_id) REFERENCES fragment (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               slot_fragment
             ADD
               CONSTRAINT FK_1AF8747F85564492 FOREIGN KEY (create_user_id) REFERENCES user (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               slot_fragment
             ADD
               CONSTRAINT FK_1AF8747F562BC9CD FOREIGN KEY (fragment_unit_id) REFERENCES localized_unit (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               user
             ADD
               CONSTRAINT FK_8D93D64985564492 FOREIGN KEY (create_user_id) REFERENCES user (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               user
             ADD
               CONSTRAINT FK_8D93D64982F1BAF4 FOREIGN KEY (language_id) REFERENCES language (id)
-        SQL
-        );
+        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE
               user
             ADD
               CONSTRAINT FK_8D93D64986383B10 FOREIGN KEY (avatar_id) REFERENCES file (id)
-        SQL
-        );
+        SQL);
     }
 
-    public function down(Schema $schema): void {
+    public function down(Schema $schema): void
+    {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE client_session DROP FOREIGN KEY FK_827991A985564492');
         $this->addSql('ALTER TABLE client_session DROP FOREIGN KEY FK_827991A9A76ED395');

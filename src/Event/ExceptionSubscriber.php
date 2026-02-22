@@ -12,27 +12,34 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Validator\ConstraintViolationInterface;
+use Symfony\Component\Validator\Exception\ValidationFailedException;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * TODO Imported sources, require more test
+ * API and classic http exceptions formatting
  */
-readonly class AccessDeniedSubscriber implements EventSubscriberInterface {
+readonly class ExceptionSubscriber implements EventSubscriberInterface {
 
     public function __construct(
         protected UrlGeneratorInterface $router,
         protected SecurityService       $securityService,
+        protected TranslatorInterface $translator,
         #[Autowire('%so_core.routing%')]
-        protected array $configRouting,
+        protected array               $configRouting,
     ) {
-	}
+    }
 
-	public function onKernelException(ExceptionEvent $event): void {
-		$exception = $event->getThrowable();
+    public function onKernelException(ExceptionEvent $event): void {
+        $exception = $event->getThrowable();
+        $isApi = $this->isApiRequest($event);
         $stopPropagation = true;
+        $response = null;
         if( $exception instanceof AccessDeniedException ) {
             if( !$this->securityService->isAuthenticated() ) {
                 // Not authenticated while checking if the current user is granted the role
@@ -44,8 +51,21 @@ readonly class AccessDeniedSubscriber implements EventSubscriberInterface {
         } else if( $exception instanceof AuthenticationException ) {
             // For now, never happens but it could be
             $this->onAuthenticationException($event);
+        } else if( $exception instanceof UnprocessableEntityHttpException ) {
+            // Unify any validation exception
+            $previous = $exception->getPrevious();
+            if( $previous instanceof ValidationFailedException ) {
+                // Unify any validation exception
+                $response = $this->onValidationException($previous, $isApi);
+            }
+        } else if( $exception instanceof ValidationFailedException ) {
+            // Unify any validation exception
+            $response = $this->onValidationException($exception, $isApi);
         } else {
             $stopPropagation = false;
+        }
+        if( $response ) {
+            $event->setResponse($response);
         }
 
         if( $stopPropagation ) {
@@ -84,19 +104,44 @@ readonly class AccessDeniedSubscriber implements EventSubscriberInterface {
         // Nothing
     }
 
+    protected function onValidationException(ValidationFailedException $exception, bool $isApi): ?JsonResponse {
+        // Api route
+        if( $isApi ) {
+            return new JsonResponse(
+                [
+                    'message'    => $this->translator->trans('so.error.validationFailed'),
+                    'title'      => 'Validation Failed',
+                    'violations' => array_map(function (ConstraintViolationInterface $violation) {
+                        $constraint = $violation->getConstraint();
+                        return [
+                            'path'       => $violation->getPropertyPath(),
+                            'message'    => $violation->getMessage(),
+                            'constraint' => $constraint ? $constraint::class : null,
+                        ];
+                    }, [...$exception->getViolations()]),
+                ],
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+
+        // Web Route
+        // Nothing
+        return null;
+    }
+
     protected function isApiRequest(ExceptionEvent $event): bool {
         $request = $event->getRequest();
 
         return str_starts_with($request->getPathInfo(), '/api');
     }
 
-	public static function getSubscribedEvents(): array {
-		return [
-			KernelEvents::EXCEPTION => [
-				// The priority must be greater than the Security HTTP ExceptionListener, to make sure it's called before the default exception listener
-				['onKernelException', 2],
-			],
-		];
-	}
+    public static function getSubscribedEvents(): array {
+        return [
+            KernelEvents::EXCEPTION => [
+                // The priority must be greater than the Security HTTP ExceptionListener, to make sure it's called before the default exception listener
+                ['onKernelException', 2],
+            ],
+        ];
+    }
 
 }
