@@ -23,6 +23,9 @@ use Sowapps\SoCore\Entity\AbstractEntity;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Traversable;
 
+/**
+ * @deprecated Remove, use the SoCore EntityService
+ */
 class EntityService {
 
 	/**
