@@ -13,10 +13,13 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
  * Listen requests to redirect requests with missing locale
+ * TODO Deprecate in favor of \Sowapps\SoCore\EventListener\LocaleSubscriber
  */
 class LocaleSubscriber implements EventSubscriberInterface {
     private array $excludedPathPrefixes = [
-        '/.well-known', '/_profiler', '/_wdt', '/assets', '/build', '/favicon.ico', '/robots.txt', '/api',
+        '/.well-known', '/_profiler', '/_wdt', '/assets', '/build', '/favicon.ico', '/robots.txt',
+        // Controllers
+        '/api', '/auth-api',
         // Sowapps bundles
         '/admin', '/_socore',
     ];

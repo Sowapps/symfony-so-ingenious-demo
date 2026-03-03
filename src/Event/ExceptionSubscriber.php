@@ -20,6 +20,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Exception\ValidationFailedException;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment as TwigEnvironment;
 
 /**
  * API and classic http exceptions formatting
@@ -29,28 +30,28 @@ readonly class ExceptionSubscriber implements EventSubscriberInterface {
     public function __construct(
         protected UrlGeneratorInterface $router,
         protected SecurityService       $securityService,
-        protected TranslatorInterface $translator,
+        private TwigEnvironment         $twig,
+        protected TranslatorInterface   $translator,
         #[Autowire('%so_core.routing%')]
-        protected array               $configRouting,
+        protected array                 $configRouting,
     ) {
     }
 
     public function onKernelException(ExceptionEvent $event): void {
         $exception = $event->getThrowable();
         $isApi = $this->isApiRequest($event);
-        $stopPropagation = true;
         $response = null;
         if( $exception instanceof AccessDeniedException ) {
             if( !$this->securityService->isAuthenticated() ) {
                 // Not authenticated while checking if the current user is granted the role
-                $this->onAuthenticationException($event);
+                 $response = $this->onAuthenticationException($event);
             } else {
                 // Authenticated, but the current user is not granted the role
-                $this->onAccessDeniedException($event);
+                $response = $this->onAccessDeniedException($event);
             }
         } else if( $exception instanceof AuthenticationException ) {
             // For now, never happens but it could be
-            $this->onAuthenticationException($event);
+            $response = $this->onAuthenticationException($event);
         } else if( $exception instanceof UnprocessableEntityHttpException ) {
             // Unify any validation exception
             $previous = $exception->getPrevious();
@@ -61,10 +62,10 @@ readonly class ExceptionSubscriber implements EventSubscriberInterface {
         } else if( $exception instanceof ValidationFailedException ) {
             // Unify any validation exception
             $response = $this->onValidationException($exception, $isApi);
-        } else {
-            $stopPropagation = false;
         }
+        $stopPropagation = false;
         if( $response ) {
+            $stopPropagation = true;
             $event->setResponse($response);
         }
 
@@ -74,34 +75,35 @@ readonly class ExceptionSubscriber implements EventSubscriberInterface {
         }
     }
 
-    protected function onAccessDeniedException(ExceptionEvent $event): void {
-        // Api route
+    protected function onAccessDeniedException(ExceptionEvent $event): ?Response {
+        // Api route: Return an error
         if( $this->isApiRequest($event) ) {
-            $response = new JsonResponse(['error' => 'Forbidden'], Response::HTTP_FORBIDDEN);
-            $event->setResponse($response);
-            return;
+            return new JsonResponse(['error' => 'Forbidden'], Response::HTTP_FORBIDDEN);
         }
 
-        // Web Route
-        // Redirect to user's home if logged in
+        // Web Route: Redirect to user's home if logged in
         $user = $this->securityService->getCurrentUser();
         if( $user ) {
             $route = $this->securityService->isAdmin($user) ? $this->configRouting['route']['admin_default'] : $this->configRouting['route']['public_default'];
-            $response = new RedirectResponse($this->router->generate($route), 302);
-            $event->setResponse($response);
+            return new RedirectResponse($this->router->generate($route), 302);
         }
+
+        return null;
     }
 
-    protected function onAuthenticationException(ExceptionEvent $event): void {
-        // Api route
+    protected function onAuthenticationException(ExceptionEvent $event): ?Response {
+        // Api route: Return an error
         if( $this->isApiRequest($event) ) {
-            $response = new JsonResponse(['error' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
-            $event->setResponse($response);
-            return;
+            return new JsonResponse(['error' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
         }
 
-        // Web Route
-        // Nothing
+        // Web Route: Show auth token page that checks token authentication to create a session to the current
+        dump($event->getRequest()->getSession()->all());
+//        $html = $this->twig->render('@SoCore/system/security/auth_token.html.twig');
+////        $request = $event->getRequest();
+////        $request->getSession()->set('bootstrap', 1);
+//        return new Response($html, 401);
+        return null;
     }
 
     protected function onValidationException(ValidationFailedException $exception, bool $isApi): ?JsonResponse {
