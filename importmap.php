@@ -34,6 +34,9 @@ return [
         'version' => '7.3.0',
     ],
     // App custom libs
+    '@sowapps/so-core' => [
+        'path' => './vendor/sowapps/so-core/assets/loader.js',
+    ],
     '@popperjs/core'                                        => [
         'version' => '2.11.8',
     ],

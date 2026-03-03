@@ -11,6 +11,10 @@
             }
         },
         "@sowapps/so-core": {
+            "system-auth-token": {
+                "enabled": true,
+                "fetch": "eager"
+            },
             "admin-auth-main": {
                 "enabled": true,
                 "fetch": "eager"

@@ -968,6 +968,10 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         recover?: array{
  *             expire?: scalar|null|Param, // Default: "24 hours"
  *         },
+ *         apiToken?: array{
+ *             expire?: scalar|null|Param, // Default: "24 hours"
+ *             limit?: scalar|null|Param, // Default: 3
+ *         },
  *     },
  *     admin?: array{
  *         auth?: array{

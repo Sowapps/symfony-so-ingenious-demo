@@ -16,13 +16,24 @@ security:
             # Ensure dev tools and static assets are always allowed
             pattern: ^/(_profiler|_wdt|assets|build)/
             security: false
-        main:
-            lazy: false # We want to authenticate user on all routes
+        api:
+            # Authentication for API routes using a bearer token
+            pattern: ^/api
+            stateless: true
             provider: app_user_provider
             user_checker: Sowapps\SoCore\Security\UserAuthenticationChecker
             json_login:
                 check_path: api_security_authenticate
-            # JSON Logout is handled programmatically by api_security_disconnect
+            access_token:
+                token_handler: Sowapps\SoCore\Security\ApiTokenHandler
+        main:
+            lazy: false # We want to authenticate user on all routes
+            provider: app_user_provider
+            user_checker: Sowapps\SoCore\Security\UserAuthenticationChecker
+            entry_point: Sowapps\SoCore\Security\AuthenticateTokenEntryPoint
+            access_token:
+                token_handler: Sowapps\SoCore\Security\ApiTokenHandler
+            # API Logout is handled programmatically by api_security_disconnect
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -42,6 +53,7 @@ security:
         - { path: ^/admin/, roles: ROLE_ADMIN }
         - { path: ^/api/me(/|$), roles: ROLE_USER }
         - { path: ^/user(/|$), roles: ROLE_USER }
+        - { path: ^/auth\-api/connect$, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
     security:
