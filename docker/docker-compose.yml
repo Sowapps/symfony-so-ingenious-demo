@@ -1,5 +1,34 @@
 name: so-ingenious-demo
 services:
+    web:
+        container_name: web
+        build:
+            context: ..
+            dockerfile: docker/php/Dockerfile
+            args:
+                PHP_VERSION: "8.2"
+        ports:
+            - "8080:80"
+            - "8443:443"
+        volumes:
+            # Mount the local project into the container
+            - ../:/var/www/html:rw,cached
+            # Folder var/ is separated from the project to avoid FS errors
+            - so_ingenious_var:/var/www/html/var:rw
+            # Folder vendor/ is separated from the project to avoid FS errors
+#            - so_ingenious_vendor:/var/www/html/vendor:rw
+            # Mount the local certificates to use HTTPS
+            - ./certs:/etc/apache2/certs:ro
+            # Mount the local sowapps bundles expected by composer.json
+            - ../../symfony-so-core-bundle:/var/www/symfony-so-core-bundle:rw,cached
+            - ../../symfony-so-log-bundle:/var/www/symfony-so-log-bundle:rw,cached
+            - ../../symfony-so-ingenious-bundle:/var/www/symfony-so-ingenious-bundle:rw,cached
+        environment:
+            APP_ENV: dev
+        depends_on:
+            - database
+            - mailer
+
     database:
         container_name: database
         image: mariadb:11.4
@@ -27,10 +56,12 @@ services:
         image: adminer
         restart: always
         ports:
-            - "8080:8080"
+            - "8081:8080"
         depends_on:
             - database
 
 volumes:
     so-ingenious-demo_db:
+    so_ingenious_var:
+    so_ingenious_vendor:
 

@@ -24,13 +24,10 @@ fi
 # Start Docker Compose services
 docker-compose -f docker/docker-compose.yml up -d || print_error "Unable to start docker containers, ensure Docker Desktop is running."
 
-php bin/console sass:build --watch &
+# Build SASS
+docker compose -f docker/docker-compose.yml exec -T web php bin/console sass:build --watch &
 
 # Save logs once a day
-./scripts/save_log_first_time_of_day.php
-
-# Run Symfony server and store PID
-# With no concurrency (one request in process)
-symfony server:start
+docker compose -f docker/docker-compose.yml exec -T web ./scripts/save_log_first_time_of_day.php
 
 
