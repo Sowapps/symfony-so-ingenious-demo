@@ -15,29 +15,29 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then
 fi
 
 # Stop Symfony server
-echo "Stopping Symfony server..."
-symfony server:stop
-sleep 1
+#echo "Stopping Symfony server..."
+#symfony server:stop
+#sleep 1
 
 # Check if Symfony server has stopped
-if symfony server:status | grep -q "Not Running"; then
-    echo "Symfony server has stopped successfully."
-else
-    echo "Symfony server did not stop properly. Attempting to kill the process..."
-    if [ -f symfony_server.pid ]; then
-        TASK_PID=$(cat symfony_server.pid)
-        kill $TASK_PID
-        sleep 1
-        rm symfony_server.pid
-        if symfony server:status | grep -q "Not Running"; then
-            echo "Symfony server was killed successfully."
-        else
-            echo "Failed to stop Symfony server."
-        fi
-    else
-        echo "Symfony server PID file not found. Unable to kill the process."
-    fi
-fi
+#if symfony server:status | grep -q "Not Running"; then
+#    echo "Symfony server has stopped successfully."
+#else
+#    echo "Symfony server did not stop properly. Attempting to kill the process..."
+#    if [ -f symfony_server.pid ]; then
+#        TASK_PID=$(cat symfony_server.pid)
+#        kill $TASK_PID
+#        sleep 1
+#        rm symfony_server.pid
+#        if symfony server:status | grep -q "Not Running"; then
+#            echo "Symfony server was killed successfully."
+#        else
+#            echo "Failed to stop Symfony server."
+#        fi
+#    else
+#        echo "Symfony server PID file not found. Unable to kill the process."
+#    fi
+#fi
 
 # Stop Docker services
 echo "Stopping Docker services..."
